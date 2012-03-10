@@ -1,0 +1,300 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
+		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
+		BFEE4DF1150BBA1B005D68CA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DF0150BBA1B005D68CA /* CoreGraphics.framework */; };
+		BFEE4DF7150BBA1B005D68CA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4DF5150BBA1B005D68CA /* InfoPlist.strings */; };
+		BFEE4DF9150BBA1B005D68CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4DF8150BBA1B005D68CA /* main.m */; };
+		BFEE4DFD150BBA1B005D68CA /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4DFC150BBA1B005D68CA /* VMAppDelegate.m */; };
+		BFEE4E00150BBA1B005D68CA /* VMMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4DFF150BBA1B005D68CA /* VMMasterViewController.m */; };
+		BFEE4E03150BBA1B005D68CA /* VMDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E02150BBA1B005D68CA /* VMDetailViewController.m */; };
+		BFEE4E06150BBA1B005D68CA /* VMMasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E04150BBA1B005D68CA /* VMMasterViewController.xib */; };
+		BFEE4E09150BBA1C005D68CA /* VMDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E07150BBA1C005D68CA /* VMDetailViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFEE4DEC150BBA1B005D68CA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		BFEE4DEE150BBA1B005D68CA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		BFEE4DF0150BBA1B005D68CA /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		BFEE4DF4150BBA1B005D68CA /* v2exmobile-Info.plist */ = {isa = PBXFileReference; path = "v2exmobile-Info.plist"; sourceTree = "<group>"; };
+		BFEE4DF6150BBA1B005D68CA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		BFEE4DF8150BBA1B005D68CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		BFEE4DFA150BBA1B005D68CA /* v2exmobile-Prefix.pch */ = {isa = PBXFileReference; path = "v2exmobile-Prefix.pch"; sourceTree = "<group>"; };
+		BFEE4DFB150BBA1B005D68CA /* VMAppDelegate.h */ = {isa = PBXFileReference; path = VMAppDelegate.h; sourceTree = "<group>"; };
+		BFEE4DFC150BBA1B005D68CA /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
+		BFEE4DFE150BBA1B005D68CA /* VMMasterViewController.h */ = {isa = PBXFileReference; path = VMMasterViewController.h; sourceTree = "<group>"; };
+		BFEE4DFF150BBA1B005D68CA /* VMMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMMasterViewController.m; sourceTree = "<group>"; };
+		BFEE4E01150BBA1B005D68CA /* VMDetailViewController.h */ = {isa = PBXFileReference; path = VMDetailViewController.h; sourceTree = "<group>"; };
+		BFEE4E02150BBA1B005D68CA /* VMDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMDetailViewController.m; sourceTree = "<group>"; };
+		BFEE4E05150BBA1B005D68CA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VMMasterViewController.xib; sourceTree = "<group>"; };
+		BFEE4E08150BBA1C005D68CA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/VMDetailViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BFEE4DE5150BBA1B005D68CA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */,
+				BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */,
+				BFEE4DF1150BBA1B005D68CA /* CoreGraphics.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BFEE4DDD150BBA1B005D68CA = {
+			isa = PBXGroup;
+			children = (
+				BFEE4DF2150BBA1B005D68CA /* v2exmobile */,
+				BFEE4DEB150BBA1B005D68CA /* Frameworks */,
+				BFEE4DE9150BBA1B005D68CA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BFEE4DE9150BBA1B005D68CA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BFEE4DEB150BBA1B005D68CA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BFEE4DEC150BBA1B005D68CA /* UIKit.framework */,
+				BFEE4DEE150BBA1B005D68CA /* Foundation.framework */,
+				BFEE4DF0150BBA1B005D68CA /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BFEE4DF2150BBA1B005D68CA /* v2exmobile */ = {
+			isa = PBXGroup;
+			children = (
+				BFEE4DFB150BBA1B005D68CA /* VMAppDelegate.h */,
+				BFEE4DFC150BBA1B005D68CA /* VMAppDelegate.m */,
+				BFEE4DFE150BBA1B005D68CA /* VMMasterViewController.h */,
+				BFEE4DFF150BBA1B005D68CA /* VMMasterViewController.m */,
+				BFEE4E01150BBA1B005D68CA /* VMDetailViewController.h */,
+				BFEE4E02150BBA1B005D68CA /* VMDetailViewController.m */,
+				BFEE4E04150BBA1B005D68CA /* VMMasterViewController.xib */,
+				BFEE4E07150BBA1C005D68CA /* VMDetailViewController.xib */,
+				BFEE4DF3150BBA1B005D68CA /* Supporting Files */,
+			);
+			path = v2exmobile;
+			sourceTree = "<group>";
+		};
+		BFEE4DF3150BBA1B005D68CA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				BFEE4DF4150BBA1B005D68CA /* v2exmobile-Info.plist */,
+				BFEE4DF5150BBA1B005D68CA /* InfoPlist.strings */,
+				BFEE4DF8150BBA1B005D68CA /* main.m */,
+				BFEE4DFA150BBA1B005D68CA /* v2exmobile-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BFEE4DE7150BBA1B005D68CA /* v2exmobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BFEE4E0C150BBA1C005D68CA /* Build configuration list for PBXNativeTarget "v2exmobile" */;
+			buildPhases = (
+				BFEE4DE4150BBA1B005D68CA /* Sources */,
+				BFEE4DE5150BBA1B005D68CA /* Frameworks */,
+				BFEE4DE6150BBA1B005D68CA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = v2exmobile;
+			productName = v2exmobile;
+			productReference = BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BFEE4DDF150BBA1B005D68CA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+				ORGANIZATIONNAME = TVie;
+			};
+			buildConfigurationList = BFEE4DE2150BBA1B005D68CA /* Build configuration list for PBXProject "v2exmobile" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BFEE4DDD150BBA1B005D68CA;
+			productRefGroup = BFEE4DE9150BBA1B005D68CA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BFEE4DE7150BBA1B005D68CA /* v2exmobile */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		BFEE4DE6150BBA1B005D68CA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFEE4DF7150BBA1B005D68CA /* InfoPlist.strings in Resources */,
+				BFEE4E06150BBA1B005D68CA /* VMMasterViewController.xib in Resources */,
+				BFEE4E09150BBA1C005D68CA /* VMDetailViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BFEE4DE4150BBA1B005D68CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BFEE4DF9150BBA1B005D68CA /* main.m in Sources */,
+				BFEE4DFD150BBA1B005D68CA /* VMAppDelegate.m in Sources */,
+				BFEE4E00150BBA1B005D68CA /* VMMasterViewController.m in Sources */,
+				BFEE4E03150BBA1B005D68CA /* VMDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		BFEE4DF5150BBA1B005D68CA /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFEE4DF6150BBA1B005D68CA /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		BFEE4E04150BBA1B005D68CA /* VMMasterViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFEE4E05150BBA1B005D68CA /* en */,
+			);
+			name = VMMasterViewController.xib;
+			sourceTree = "<group>";
+		};
+		BFEE4E07150BBA1C005D68CA /* VMDetailViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				BFEE4E08150BBA1C005D68CA /* en */,
+			);
+			name = VMDetailViewController.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		BFEE4E0A150BBA1C005D68CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		BFEE4E0B150BBA1C005D68CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BFEE4E0D150BBA1C005D68CA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
+				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		BFEE4E0E150BBA1C005D68CA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
+				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BFEE4DE2150BBA1B005D68CA /* Build configuration list for PBXProject "v2exmobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BFEE4E0A150BBA1C005D68CA /* Debug */,
+				BFEE4E0B150BBA1C005D68CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BFEE4E0C150BBA1C005D68CA /* Build configuration list for PBXNativeTarget "v2exmobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BFEE4E0D150BBA1C005D68CA /* Debug */,
+				BFEE4E0E150BBA1C005D68CA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BFEE4DDF150BBA1B005D68CA /* Project object */;
+}
