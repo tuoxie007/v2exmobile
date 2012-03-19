@@ -1,5 +1,5 @@
 //
-//  VMAppDelegate.h
+//  VMAccountVC.h
 //  v2exmobile
 //
 //  Created by 徐 可 on 3/11/12.
@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMAppDelegate : UIResponder <UIApplicationDelegate>
+@class VMAccount;
+@interface VMAccountVC : UIViewController
 
-@property (strong, nonatomic) UIWindow *window;
+- (id)initWithAccount: (VMAccount *)account;
 
 @end

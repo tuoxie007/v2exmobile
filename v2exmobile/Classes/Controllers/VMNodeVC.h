@@ -1,5 +1,5 @@
 //
-//  VMAppDelegate.h
+//  VMNodeVC.h
 //  v2exmobile
 //
 //  Created by 徐 可 on 3/11/12.
@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMAppDelegate : UIResponder <UIApplicationDelegate>
-
-@property (strong, nonatomic) UIWindow *window;
-
+@interface VMNodeVC : UITableViewController
+{
+    NSDictionary *nodes;
+}
 @end

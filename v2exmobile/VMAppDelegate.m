@@ -7,22 +7,19 @@
 //
 
 #import "VMAppDelegate.h"
-
-#import "VMMasterViewController.h"
+#import "VMMainVC.h"
 
 @implementation VMAppDelegate
 
 @synthesize window = _window;
-@synthesize navigationController = _navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-
-    VMMasterViewController *masterViewController = [[VMMasterViewController alloc] initWithNibName:@"VMMasterViewController" bundle:nil];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-    self.window.rootViewController = self.navigationController;
+    
+    VMMainVC *mainVC = [[VMMainVC alloc] init];
+    self.window.rootViewController = mainVC;
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -41,6 +38,26 @@
      Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
      If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
      */
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray *files = [fileManager subpathsAtPath:documentsDirectory];
+    NSInteger totalSize = 0;
+    for (NSString *filename in files) {
+        if ([filename hasSuffix:@".png"]) {
+            NSDictionary *attributes = [fileManager attributesOfItemAtPath:[NSString stringWithFormat:@"%@/%@", documentsDirectory, filename] error:nil];
+            id filesize = [attributes valueForKey:NSFileSize];
+            totalSize += [filesize intValue];
+            if (totalSize > 100*1024*1024) {
+                //remove all files
+                for (int i=0; i<[files count]; i++) {
+                    NSString *filename = [files objectAtIndex:i];
+                    [fileManager removeItemAtPath:[NSString stringWithFormat:@"%@/%@", documentsDirectory, filename] error:nil];
+                }
+                break;
+            }
+        }
+    }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
