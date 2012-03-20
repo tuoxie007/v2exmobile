@@ -12,7 +12,7 @@
 {
     UITextField *titleInput;
     UITextView *contentInput;
-    NSURL *topicURL;
+    NSURL *postURL;
 }
 
 - (id)initWithURL:(NSURL *)url;

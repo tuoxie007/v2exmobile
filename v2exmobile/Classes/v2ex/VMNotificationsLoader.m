@@ -14,7 +14,7 @@
 
 - (void)loadNotifications
 {
-    NSURL *url = [NSString stringWithFormat:@"%@/notifications", V2EX_URL];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/notifications", V2EX_URL]];
     [self loadDataWithURL:url];
 }
 
@@ -37,12 +37,15 @@
         NSArray *notificationDivs = [boxDiv findChildrenOfClass:@"inner"];
         for (HTMLNode *notificationDiv in notificationDivs) {
             NSString *imgURL = [[notificationDiv findChildTag:@"img"] getAttributeNamed:@"src"];
+            imgURL = [imgURL stringByReplacingOccurrencesOfString:@"mini" withString:@"normal"];
+            
             NSString *author = [[notificationDiv findChildTag:@"strong"] contents];
-            HTMLNode *titleNode = [[notificationDiv findChildTags:@"a"] objectAtIndex:1];
+            HTMLNode *titleNode = [[notificationDiv findChildTags:@"a"] objectAtIndex:2];
             NSString *title = [titleNode contents];
             NSString *url = [titleNode getAttributeNamed:@"href"];
+            url = [NSString stringWithFormat:@"%@%@", V2EX_URL, url];
             NSString *time = [[notificationDiv findChildOfClass:@"snow"] contents];
-            NSString *content = [[notificationDiv findChildOfClass:@"payload"] contents];
+            NSString *content = [[notificationDiv findChildOfClass:@"payload"] allContents];
             
             [notifications addObject:[[NSDictionary alloc] initWithObjectsAndKeys:author, @"author", title, @"title", url, @"url", imgURL, @"img_url", time, @"time", content, @"content", nil]];
         }

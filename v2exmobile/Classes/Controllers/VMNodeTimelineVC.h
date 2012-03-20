@@ -7,8 +7,9 @@
 //
 
 #import "VMTimelineVC.h"
+#import "VMLoginHandler.h"
 
-@interface VMNodeTimelineVC : VMTimelineVC <VMAccountDalegate>
+@interface VMNodeTimelineVC : VMTimelineVC <LoginHandlerDelegate>
 {
     NSString *_node;
 }

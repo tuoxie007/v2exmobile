@@ -11,6 +11,7 @@
 #import "VMPostVC.h"
 #import "VMInfoView.h"
 #import "VMWaitingView.h"
+#import "VMLoginHandler.h"
 
 #define WAITING_VIEW_TAG 1
 #define ASK_LOGIN_TAG 19
@@ -59,9 +60,8 @@
         [self.navigationController pushViewController:postVC animated:YES];
         return;
     }
-    UIAlertView *askWillLoginAlertView = [[UIAlertView alloc] initWithTitle:@"发帖需要登录" message:@"您尚未登录，现在就去登录吗？" delegate:self cancelButtonTitle:@"以后再说" otherButtonTitles:@"是的", nil];
-    askWillLoginAlertView.tag = ASK_LOGIN_TAG;
-    [askWillLoginAlertView show];
+    VMLoginHandler *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+    [loginHandler login];
 }
 
 - (void)postSuccess
@@ -86,39 +86,10 @@
     [[self.view viewWithTag:INFO_VIEW_TAG] removeFromSuperview];
 }
 
-#pragma mark - alert delegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag == ASK_LOGIN_TAG) {
-        if (buttonIndex) {
-            UIAlertView *loginPromptAlertView = [[UIAlertView alloc] initWithTitle:@"请输入用户名和密码" message:@"" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"提交", nil];
-            loginPromptAlertView.tag = LOGIN_PROMPT_TAG;
-            loginPromptAlertView.alertViewStyle = UIAlertViewStyleLoginAndPasswordInput;
-            [loginPromptAlertView textFieldAtIndex:0].keyboardType = UIKeyboardTypeEmailAddress;
-            [loginPromptAlertView show];
-        }
-    } else if (alertView.tag == LOGIN_PROMPT_TAG) {
-        if (buttonIndex) {
-            // do login
-            NSString *username = [alertView textFieldAtIndex:0].text;
-            NSString *password = [alertView textFieldAtIndex:1].text;
-            VMAccount *account = [VMAccount getInstance];
-            account.delegate = self;
-            [account login:username password:password];
-        }
-    }
-}
-
 #pragma mark - account delegate
-- (void)accountLoginSuccess
+- (void)loginSuccess
 {
     [self post];
-}
-
-- (void)accountLoginFailed
-{
-    UIAlertView *errAlertView = [[UIAlertView alloc] initWithTitle:@"登录错误" message:@"请稍后再试" delegate:self cancelButtonTitle:nil otherButtonTitles:@"好", nil];
-    [errAlertView show];
 }
 
 @end

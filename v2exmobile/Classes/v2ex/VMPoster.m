@@ -14,6 +14,7 @@
 -(id)initWithDelegate:(id<PosterDelegate>)delegate
 {
     self = [super init];
+    self.delegate = delegate;
     return self;
 }
 
@@ -26,7 +27,9 @@
     NSHTTPCookie *cookie = [VMAccount getInstance].cookie;
     [req addValue:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forHTTPHeaderField:@"Cookie"];
     [req addValue:[url description] forHTTPHeaderField:@"Referer"];
-    content = [content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (content) {
+        content = [content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    }
     if (title == nil) {
         [req setHTTPBody:[[NSString stringWithFormat:@"content=%@", content] dataUsingEncoding:NSUTF8StringEncoding]];
     } else {

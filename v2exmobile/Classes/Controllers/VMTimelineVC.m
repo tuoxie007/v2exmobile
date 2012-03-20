@@ -44,7 +44,6 @@
 {
     [super viewDidLoad];
     self.title = @"首页";
-    
     refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, WINDOW_HEIGHT, 0)];
     refreshTableHeaderView.delegate = self;
     [[self view] addSubview:refreshTableHeaderView];

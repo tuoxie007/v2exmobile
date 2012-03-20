@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "VMAccount.h"
 #import "VMRepliesLoader.h"
+#import "VMLoginHandler.h"
 
 @class VMTopicView;
-@interface VMTopicVC : UITableViewController <UIWebViewDelegate, UIAlertViewDelegate, VMAccountDalegate, LoaderDalegate>
+@interface VMTopicVC : UITableViewController <UIWebViewDelegate, UIAlertViewDelegate, LoginHandlerDelegate, LoaderDalegate>
 {
     NSDictionary *_topic;
     NSArray *replies;

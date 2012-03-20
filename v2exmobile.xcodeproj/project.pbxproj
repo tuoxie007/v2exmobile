@@ -28,6 +28,7 @@
 		BF5CA6F815178B200072CEE7 /* VMFavoriteTopicsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */; };
 		BF5CA6FB15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6FA15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m */; };
 		BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */; };
+		BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */; };
 		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
 		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
 		BFEE4DF1150BBA1B005D68CA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DF0150BBA1B005D68CA /* CoreGraphics.framework */; };
@@ -116,6 +117,8 @@
 		BF5CA6FA15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteFollowingLoader.m; path = Classes/v2ex/VMFavoriteFollowingLoader.m; sourceTree = "<group>"; };
 		BF5CA6FF1517974C0072CEE7 /* VMMemberLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberLoader.h; path = Classes/v2ex/VMMemberLoader.h; sourceTree = "<group>"; };
 		BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberLoader.m; path = Classes/v2ex/VMMemberLoader.m; sourceTree = "<group>"; };
+		BF5CA7021518D1A80072CEE7 /* VMLoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMLoginHandler.h; path = Classes/v2ex/VMLoginHandler.h; sourceTree = "<group>"; };
+		BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoginHandler.m; path = Classes/v2ex/VMLoginHandler.m; sourceTree = "<group>"; };
 		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEE4DEC150BBA1B005D68CA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BFEE4DEE150BBA1B005D68CA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -324,6 +327,8 @@
 			children = (
 				BFEE4E1D150BBE42005D68CA /* VMAccount.h */,
 				BFEE4E1E150BBE42005D68CA /* VMAccount.m */,
+				BF5CA7021518D1A80072CEE7 /* VMLoginHandler.h */,
+				BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */,
 				BFEE4E3A150C9EBE005D68CA /* VMTopicsLoader.h */,
 				BFEE4E3B150C9EBE005D68CA /* VMTopicsLoader.m */,
 				BFF9AA36150F6675009B238A /* VMRepliesLoader.h */,
@@ -544,6 +549,7 @@
 				BF5CA6F815178B200072CEE7 /* VMFavoriteTopicsLoader.m in Sources */,
 				BF5CA6FB15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m in Sources */,
 				BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */,
+				BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

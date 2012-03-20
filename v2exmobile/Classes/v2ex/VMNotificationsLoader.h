@@ -10,6 +10,9 @@
 #import "VMLoader.h"
 
 @interface VMNotificationsLoader : VMLoader
+{
+    
+}
 
 - (void)loadNotifications;
 

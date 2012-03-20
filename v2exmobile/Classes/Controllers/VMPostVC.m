@@ -18,7 +18,7 @@
 {
     self = [super init];
     self.title = @"发帖";
-    topicURL = url;
+    postURL = url;
     UIBarButtonItem *sendBnt = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(submit)];
     sendBnt.style = UIBarButtonItemStyleDone;
     self.navigationItem.rightBarButtonItem = sendBnt;
@@ -50,11 +50,15 @@
     waitingView.tag = WAITING_VIEW_TAG;
     [self.view addSubview:waitingView];
     
-    NSString *content = contentInput.text;
     NSString *title = titleInput.text;
-    VMPoster *replyPoster = [[VMPoster alloc] init];
-    replyPoster.delegate = self;
-    [replyPoster postToURL:topicURL withTitle:title content:content];
+    NSString *content = contentInput.text;
+    if (title) {
+        VMPoster *poster = [[VMPoster alloc] initWithDelegate:self];
+        [poster postToURL:postURL withTitle:title content:content];
+    } else {
+        UIAlertView *emptyErrorAlertView = [[UIAlertView alloc] initWithTitle:@"标题不能位空" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"我知道了", nil];
+        [emptyErrorAlertView show];
+    }
 }
 
 #pragma mark - reply poster delegate
