@@ -123,33 +123,8 @@
     
     UILabel *label;
     
-    //Username
-    rect = CGRectMake(TEXT_OFFSET_X, BORDER_WIDTH, 0, LABEL_HEIGHT); // not sure: W
-    label = [[UILabel alloc] initWithFrame:rect];
-    label.text = [topic objectForKey:@"author"];
-    label.font = [UIFont boldSystemFontOfSize:9];
-    label.opaque = NO;
-    [label sizeToFit];
-    CGRect labelFrame = label.frame;
-    labelFrame.origin.y += 2;
-    label.frame = labelFrame;
-    [cell addSubview:label];
-    
-    //static at
-    rect = CGRectMake(label.frame.origin.x+label.frame.size.width+BORDER_WIDTH, BORDER_WIDTH, 0, LABEL_HEIGHT); // not sure: W
-    label = [[UILabel alloc] initWithFrame:rect];
-    label.text = @"在";
-    label.font = [UIFont boldSystemFontOfSize:9];
-    label.textColor = [UIColor grayColor];
-    label.opaque = NO;
-    [label sizeToFit];
-    labelFrame = label.frame;
-    labelFrame.origin.y += 2;
-    label.frame = labelFrame;
-    [cell addSubview:label];
-    
     //Title
-    rect = CGRectMake(label.frame.origin.x+label.frame.size.width+BORDER_WIDTH, BORDER_WIDTH, TEXT_WIDTH-label.frame.origin.x-label.frame.size.width-BORDER_WIDTH*2, 0);
+    rect = CGRectMake(TEXT_OFFSET_X, BORDER_WIDTH, TEXT_WIDTH, 0);
     label = [[UILabel alloc] initWithFrame:rect];
     label.text = [topic objectForKey:@"title"];
     label.lineBreakMode = UILineBreakModeWordWrap;
@@ -158,27 +133,13 @@
     label.numberOfLines = 0;
     label.opaque = NO;
     [label sizeToFit];
-    labelFrame = label.frame;
+    CGRect labelFrame = label.frame;
     labelFrame.size.height += BORDER_WIDTH;
     label.frame = labelFrame;
     [cell addSubview:label];
     
-    //static replied you
-    rect = CGRectMake(label.frame.origin.x+label.frame.size.width+BORDER_WIDTH, BORDER_WIDTH, 0, 0); // not sure: W
-    label = [[UILabel alloc] initWithFrame:rect];
-    label.text = @"里回复了你";
-    label.font = [UIFont boldSystemFontOfSize:9];
-    label.textColor = [UIColor grayColor];
-    label.opaque = NO;
-    [label sizeToFit];
-    labelFrame = label.frame;
-    labelFrame.origin.y += 2;
-    labelFrame.size.width = WINDOW_WIDTH;
-    label.frame = labelFrame;
-    [cell addSubview:label];
-    
     //Content
-    rect = CGRectMake(TEXT_OFFSET_X, label.frame.origin.y+label.frame.size.height+BORDER_WIDTH, TEXT_WIDTH, 0); // not sure: W, H
+    rect = CGRectMake(TEXT_OFFSET_X, label.frame.origin.y+label.frame.size.height, TEXT_WIDTH, 0); // not sure: W, H
     label = [[UILabel alloc] initWithFrame:rect];
     label.text = [topic objectForKey:@"content"];
     label.lineBreakMode = UILineBreakModeWordWrap;
@@ -190,6 +151,8 @@
     labelFrame.size.width = WINDOW_WIDTH;
     label.frame = labelFrame;
     [cell addSubview:label];
+    
+    cell.frame = CGRectMake(0, 0, WINDOW_WIDTH, label.frame.origin.y + label.frame.size.height + BORDER_WIDTH);
     
     return cell;
 }

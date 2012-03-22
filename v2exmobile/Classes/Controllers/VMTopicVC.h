@@ -23,6 +23,9 @@
     UIActivityIndicatorView *popupLoadingView;
     NSString *content;
     NSString *time;
+    BOOL favorited;
+    NSString *favURL;
+    BOOL favoriting;
 }
 
 @property (strong) NSDictionary *topic;
@@ -36,4 +39,5 @@
 - (void)reply;
 - (void)replySuccess;
 - (void)removeInfoView;
+- (void)favoriteTopic;
 @end

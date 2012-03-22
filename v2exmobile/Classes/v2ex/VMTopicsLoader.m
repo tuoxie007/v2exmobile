@@ -102,7 +102,7 @@
             NSArray *parts = [createdText componentsSeparatedByString:@"•"];
             NSString *timeText = [[parts lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
             
-            NSDictionary *topic = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", topicURL, @"url", node, @"node", author, @"author", imgSrc, @"img_url", repliesStr, @"replies", timeText, @"last_reply_time", nil];
+            NSDictionary *topic = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", topicURL, @"url", node, @"node", author, @"author", imgSrc, @"img_url", repliesStr, @"replies", timeText, @"create", nil];
             [topics addObject:topic];
         }
         [_delegate didFinishedLoadingWithData:topics forPage:_page];

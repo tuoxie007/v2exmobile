@@ -32,7 +32,28 @@
         NSMutableArray *partedTopics = [[NSMutableArray alloc] init];
         
         HTMLNode *bodyNode = [parser body];
+        
         HTMLNode *contentDiv = [bodyNode findChildWithAttribute:@"id" matchingName:@"Content" allowPartial:NO];
+        
+        NSString *favURL = [[[[[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"cell"] findChildTag:@"table"] findChildOfClass:@"fr"] findChildTag:@"a"] contents];
+        NSString *name = [[contentDiv findChildTag:@"h2"] contents];
+        NSString *imgURL = [[contentDiv findChildTag:@"img"] getAttributeNamed:@"src"];
+        NSString *level = [[contentDiv findChildOfClass:@"fade bigger"] contents];
+        NSString *partin = [[contentDiv findChildOfClass:@"snow"] contents];
+        NSArray *tdNodes = [[[[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"cell"] findChildTag:@"table"] findChildTag:@"table"] findChildTags:@"td"];
+        NSMutableArray *associatedSites = [[NSMutableArray alloc] init];
+        for (HTMLNode *tdNode in tdNodes) {
+            HTMLNode *imgNode = [tdNode findChildTag:@"img"];
+            NSString *iconURL = [imgNode getAttributeNamed:@"src"];
+            HTMLNode *linkNode = [tdNode findChildTag:@"a"];
+            NSString *text = [linkNode contents];
+            NSString *url = [linkNode getAttributeNamed:@"href"];
+            if (imgNode && linkNode) {
+                [associatedSites addObject:[[NSDictionary alloc] initWithObjectsAndKeys:iconURL, @"icon_url", text, @"text", url, @"url", nil]];
+            }
+        }
+        NSString *desc = [[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"inner"] allContents];
+        
         NSArray *boxDivs = [contentDiv findChildrenOfClass:@"box"];
         
         HTMLNode *postedTable = [[boxDivs objectAtIndex:1] findChildTag:@"table"];
@@ -67,14 +88,14 @@
             NSString *url = [titleNode getAttributeNamed:@"href"];
             
             HTMLNode *replierNode = [[tds objectAtIndex:2] findChildTag:@"a"];
-            NSString *member = [replierNode contents];
-            NSString *memberURL = [replierNode getAttributeNamed:@"href"];
+            NSString *author = [replierNode contents];
+            NSString *authorURL = [replierNode getAttributeNamed:@"href"];
             
             NSString *lastReplyTime = [[[tds objectAtIndex:3] findChildTag:@"small"] contents];
             
-            [partedTopics addObject:[NSDictionary dictionaryWithObjectsAndKeys:replies, @"replies", title, @"title", url, @"url", member, @"member", memberURL, @"member_url", lastReplyTime, @"last_reply_time", nil]];
+            [partedTopics addObject:[NSDictionary dictionaryWithObjectsAndKeys:replies, @"replies", title, @"title", url, @"url", author, @"author", authorURL, @"author_url", lastReplyTime, @"last_reply_time", nil]];
         }
-        [_delegate didFinishedLoadingWithData:[NSDictionary dictionaryWithObjectsAndKeys:postedTopics, @"posted_topics", partedTopics, @"parted_topics", nil]];
+        [_delegate didFinishedLoadingWithData:[NSDictionary dictionaryWithObjectsAndKeys:postedTopics, @"posted_topics", partedTopics, @"parted_topics", favURL, @"fav_url", name, @"name", imgURL, @"img_url", level, @"level", partin, @"partin", associatedSites, @"associated_sites", desc, @"desc", nil]];
     }
     @catch (NSException *exception) {
         [_delegate cancel];

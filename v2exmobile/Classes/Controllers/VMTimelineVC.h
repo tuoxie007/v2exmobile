@@ -11,7 +11,6 @@
 #import "VMTopicsLoader.h"
 #import "VMAccount.h"
 
-@class VMTopicVC;
 @class VMTopicsLoader;
 @class VMImageLoader;
 @interface VMTimelineVC : UITableViewController <EGORefreshTableHeaderDelegate, TopicsLoaderDalegate>
@@ -20,7 +19,6 @@
     EGORefreshTableHeaderView *refreshTableHeaderView;
     VMTopicsLoader *loader;
     BOOL loading;
-    VMTopicVC *topicVC;
     NSInteger currentPage;
 }
 

@@ -14,9 +14,10 @@
 
 - (void)loadFavoritesNodes
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/nodes", V2EX_URL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/my/nodes", V2EX_URL]];
     [self loadDataWithURL:url];
 }
+
 #pragma NSURLConnectoin Prototol
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -31,15 +32,17 @@
         NSMutableArray *nodes = [[NSMutableArray alloc] init];
         HTMLNode *bodyNode = [parser body];
         HTMLNode *contentDiv = [bodyNode findChildWithAttribute:@"id" matchingName:@"Content" allowPartial:NO];
-        NSArray *nodeDivs = [contentDiv findChildrenOfClass:@"inner"];
+        NSArray *nodeDivs = [[[[[contentDiv findChildrenOfClass:@"inner"] objectAtIndex:0] findChildTags:@"table"] objectAtIndex:1] findChildTags:@"tr"];
         for (HTMLNode *nodeDiv in nodeDivs) {
             HTMLNode *titleNode = [nodeDiv findChildTag:@"a"];
             NSString *nodeName = [titleNode contents];
             NSString *nodeId = [[titleNode getAttributeNamed:@"href"] substringFromIndex:4];
-            [nodes addObject:[NSDictionary dictionaryWithObjectsAndKeys:nodeName, @"name", nodeId, @"id", nil]];
+            
+            NSString *topic_count = [[nodeDiv findChildOfClass:@"howmany"] contents];
+            [nodes addObject:[NSDictionary dictionaryWithObjectsAndKeys:nodeName, @"name", nodeId, @"id", topic_count, @"count", nil]];
         }
         
-        [_delegate didFinishedLoadingWithData:nodes];
+        [_delegate didFinishedLoadingWithNodes:nodes];
     }
     @catch (NSException *exception) {
         [_delegate cancel];

@@ -11,6 +11,7 @@
 
 @implementation VMLoader
 @synthesize delegate = _delegate;
+@synthesize referer;
 
 -(id)initWithDelegate:(id)delegate
 {
@@ -25,6 +26,9 @@
     NSHTTPCookie *cookie = [VMAccount getInstance].cookie;
     if (cookie) {
         [req addValue:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forHTTPHeaderField:@"Cookie"];
+    }
+    if (referer) {
+        [req addValue:referer forHTTPHeaderField:@"Referer"];
     }
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     webdata = [[NSMutableData alloc] init];

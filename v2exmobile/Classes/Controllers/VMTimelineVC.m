@@ -10,7 +10,6 @@
 #import "VMTopicVC.h"
 #import "VMTopicsLoader.h"
 #import "VMImageLoader.h"
-#import "VMAccount.h"
 #import "Config.h"
 #import "VMLoader.h"
 
@@ -100,7 +99,7 @@
         return [self loadTopics:currentPage+1];
     }
     NSDictionary *topic = [topics objectAtIndex:indexPath.row];
-    topicVC = [[VMTopicVC alloc] initWithTopic:topic];
+    VMTopicVC *topicVC = [[VMTopicVC alloc] initWithTopic:topic];
     [topicVC updateView];
     [self.navigationController pushViewController:topicVC animated:YES];
 }
@@ -121,10 +120,7 @@
 
 - (UITableViewCell *)tableviewCellWithReuseIdentifier:(NSString *)identifier 
 {
-    CGRect rect;
-    
-    rect = CGRectMake(0, 0, WINDOW_WIDTH, ROW_HEIGHT);
-    
+    CGRect rect = CGRectMake(0, 0, WINDOW_WIDTH, ROW_HEIGHT);
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     cell.frame = rect;
     
@@ -225,8 +221,8 @@
     CGRect timeFrame = [timeLabel frame];
     timeFrame.origin.y = cell.frame.size.height - BORDER_WIDTH - LABEL_HEIGHT;
     [timeLabel setFrame:timeFrame];
-    NSString *lastReplyTimeDisplayStr = [topic objectForKey:@"last_reply_time"];
-    timeLabel.text = lastReplyTimeDisplayStr;
+    NSString *create = [topic objectForKey:@"create"];
+    timeLabel.text = create;
     [timeLabel sizeToFit];
     
     //Set userpic

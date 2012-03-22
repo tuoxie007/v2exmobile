@@ -37,12 +37,15 @@
         NSArray *notificationDivs = [boxDiv findChildrenOfClass:@"inner"];
         for (HTMLNode *notificationDiv in notificationDivs) {
             NSString *imgURL = [[notificationDiv findChildTag:@"img"] getAttributeNamed:@"src"];
+            if (![imgURL hasPrefix:@"http://"]) {
+                imgURL = [NSString stringWithFormat:@"%@%@", V2EX_URL, imgURL];
+            }
             imgURL = [imgURL stringByReplacingOccurrencesOfString:@"mini" withString:@"normal"];
             
+            NSString *title = [[notificationDiv findChildOfClass:@"fade"] allContents];
+            
             NSString *author = [[notificationDiv findChildTag:@"strong"] contents];
-            HTMLNode *titleNode = [[notificationDiv findChildTags:@"a"] objectAtIndex:2];
-            NSString *title = [titleNode contents];
-            NSString *url = [titleNode getAttributeNamed:@"href"];
+            NSString *url = [[[notificationDiv findChildTags:@"a"] objectAtIndex:2] getAttributeNamed:@"href"];
             url = [NSString stringWithFormat:@"%@%@", V2EX_URL, url];
             NSString *time = [[notificationDiv findChildOfClass:@"snow"] contents];
             NSString *content = [[notificationDiv findChildOfClass:@"payload"] allContents];

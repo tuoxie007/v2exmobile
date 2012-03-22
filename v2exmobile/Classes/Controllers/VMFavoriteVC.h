@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VMLoginHandler.h"
+#import "VMFavoriteMembersLoader.h"
+#import "VMFavoriteNodesLoader.h"
+#import "VMFavoriteTopicsLoader.h"
 
-@interface VMFavoriteVC : UIViewController
+@interface VMFavoriteVC : UITableViewController <LoginHandlerDelegate, FavoriteNodesLoaderDelegate, FavoriteMembersLoaderDelegate, FavoriteTopicsLoaderDelegate>
+{
+    NSArray *_nodes;
+    NSArray *_topics;
+    NSArray *_members;
+}
+
+- (void)loadFavorites;
 
 @end

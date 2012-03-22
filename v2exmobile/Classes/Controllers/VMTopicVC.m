@@ -14,6 +14,7 @@
 #import "VMInfoView.h"
 #import "VMWaitingView.h"
 #import "VMLoginHandler.h"
+#import "Config.h"
 
 #define WAITING_VIEW_TAG 1
 
@@ -66,15 +67,37 @@
 #pragma mark - Managing the detail item
 - (void)updateView
 {
-    self.title = [self.topic objectForKey:@"node"];
+    if (!self.title) {
+        self.title = [self.topic objectForKey:@"node"];
+    }
     VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
     [repliesLoader loadRepliesWithURL:topicURL];
     
-    UIBarButtonItem *replyButton = [[UIBarButtonItem alloc] initWithTitle:@"回帖" style:UIBarButtonItemStyleDone target:self action:@selector(reply)];
-    self.navigationItem.rightBarButtonItem = replyButton;
+    if (!self.navigationItem.rightBarButtonItem) {
+        UIBarButtonItem *replyButton = [[UIBarButtonItem alloc] initWithTitle:@"回帖" style:UIBarButtonItemStyleDone target:self action:@selector(reply)];
+        self.navigationItem.rightBarButtonItem = replyButton;
+    }
 }
 
 #pragma mark - Actions
+- (void)favoriteTopic
+{
+    favoriting = YES;
+    
+    NSString *msg = @"正在收藏";
+    if (favorited) {
+        msg = @"正在取消收藏";
+    }
+    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:msg];
+    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
+    waitingView.tag = WAITING_VIEW_TAG;
+    [self.view addSubview:waitingView];
+    
+    VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
+    repliesLoader.referer = [topicURL description];
+    [repliesLoader loadRepliesWithURL:[NSURL URLWithString:favURL]];
+}
+
 - (void)reply
 {
     if ([VMAccount getInstance].cookie) {
@@ -126,7 +149,7 @@
     if (!replyNum || [replyNum isEqualToString:@""]) {
         replyNum = @"0";
     }
-    tipCell.textLabel.text = [NSString stringWithFormat:@"共收到%@个回复", replyNum];
+    tipCell.textLabel.text = [NSString stringWithFormat:@"共收到 %@ 个回复", replyNum];
     
     return tipCell;
 }
@@ -190,6 +213,17 @@
     [timeLabel sizeToFit];
     [topicCell addSubview:timeLabel];
     
+    // Fav button
+    if (favURL) {
+        UIButton *favBnt = [UIButton buttonWithType:UIButtonTypeContactAdd];
+        [favBnt addTarget:self action:@selector(favoriteTopic) forControlEvents:UIControlEventTouchUpInside];
+        CGRect favFrame = favBnt.frame;
+        favFrame.origin = CGPointMake(WINDOW_WIDTH-30, timeLabel.frame.origin.y-15);
+        favFrame.size = CGSizeMake(25, 25);
+        favBnt.frame = favFrame;
+        [topicCell addSubview:favBnt];
+    }
+    
 //    NSLog(@"%f", titleView.frame.origin.y+titleView.frame.size.height+PADDING);
     // Content
     UILabel *contentView = [[UILabel alloc] initWithFrame:CGRectMake(userImgView.frame.origin.x, userImgView.frame.origin.y+userImgView.frame.size.height+PADDING, WINDOW_WIDTH-PADDING, 0)];
@@ -217,7 +251,7 @@
     
     // Update cell height
     CGRect topicCellFrame = topicCell.frame;
-    topicCellFrame.size.height = contentView.frame.origin.y + contentView.frame.size.height + PADDING;
+    topicCellFrame.size.height = MAX(contentView.frame.origin.y + contentView.frame.size.height + PADDING, timeLabel.frame.origin.y + timeLabel.frame.size.height + PADDING);
 //    NSLog(@"%f", topicCellFrame.size.height);
     topicCell.frame = topicCellFrame;
     
@@ -358,7 +392,9 @@
     //Set userpic
     UIImageView *imageView = (UIImageView *)[cell viewWithTag:IMAGE_TAG];
     VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
-    [imgLoader loadImageWithURL:[NSURL URLWithString:[reply objectForKey:@"img_url"]] forImageView:imageView];
+    NSString *imgURL = [reply objectForKey:@"img_url"];
+    imgURL = [imgURL stringByReplacingOccurrencesOfString:@"normal" withString:@"mini"];
+    [imgLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageView:imageView];
     
     //Set user name
     UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
@@ -372,10 +408,20 @@
     content = [topic objectForKey:@"content"];
     replies = [topic objectForKey:@"replies"];
     time = [topic objectForKey:@"time"];
+    favURL = [topic objectForKey:@"fav_url"];
+    favorited = [favURL hasPrefix:[NSString stringWithFormat:@"%@%@", V2EX_URL, @"/unfavorite"]];
     [self.tableView reloadData];
     [loadingReplyIndicatorView stopAnimating];
     [loadingReplyIndicatorView removeFromSuperview];
     [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+    if (favoriting) {
+        if (favorited) {
+            NSLog(@"fav ok");
+        } else {
+            NSLog(@"unfav ok");
+        }
+    }
+    favoriting = NO;
 }
 
 - (void)cancel

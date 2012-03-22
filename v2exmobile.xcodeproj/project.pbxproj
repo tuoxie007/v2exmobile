@@ -21,14 +21,14 @@
 		BF558E62151492190011C8A9 /* VMNodeTimelineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E61151492190011C8A9 /* VMNodeTimelineVC.m */; };
 		BF558E66151494E10011C8A9 /* VMReplyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E65151494E10011C8A9 /* VMReplyVC.m */; };
 		BF558E691514CCD60011C8A9 /* VMPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E681514CCD60011C8A9 /* VMPoster.m */; };
-		BF558E6C1514D50A0011C8A9 /* VMWaitingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E6B1514D5090011C8A9 /* VMWaitingVC.m */; };
 		BF558E6F1514D70D0011C8A9 /* VMwaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E6E1514D70D0011C8A9 /* VMwaitingView.m */; };
 		BF558E721514DE7B0011C8A9 /* VMInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E711514DE7B0011C8A9 /* VMInfoView.m */; };
 		BF558E751515B2FD0011C8A9 /* Commen.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E741515B2FD0011C8A9 /* Commen.m */; };
 		BF5CA6F815178B200072CEE7 /* VMFavoriteTopicsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */; };
-		BF5CA6FB15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6FA15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m */; };
+		BF5CA6FB15178FFE0072CEE7 /* VMFavoriteMembersLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6FA15178FFE0072CEE7 /* VMFavoriteMembersLoader.m */; };
 		BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */; };
 		BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */; };
+		BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD04997151B3168008B3107 /* VMMemberVC.m */; };
 		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
 		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
 		BFEE4DF1150BBA1B005D68CA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DF0150BBA1B005D68CA /* CoreGraphics.framework */; };
@@ -102,8 +102,6 @@
 		BF558E65151494E10011C8A9 /* VMReplyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMReplyVC.m; path = Classes/Controllers/VMReplyVC.m; sourceTree = "<group>"; };
 		BF558E671514CCD60011C8A9 /* VMPoster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMPoster.h; path = Classes/v2ex/VMPoster.h; sourceTree = "<group>"; };
 		BF558E681514CCD60011C8A9 /* VMPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMPoster.m; path = Classes/v2ex/VMPoster.m; sourceTree = "<group>"; };
-		BF558E6A1514D5090011C8A9 /* VMWaitingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMWaitingVC.h; path = Classes/Controllers/VMWaitingVC.h; sourceTree = "<group>"; };
-		BF558E6B1514D5090011C8A9 /* VMWaitingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMWaitingVC.m; path = Classes/Controllers/VMWaitingVC.m; sourceTree = "<group>"; };
 		BF558E6D1514D70D0011C8A9 /* VMwaitingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMwaitingView.h; path = Classes/Views/VMwaitingView.h; sourceTree = "<group>"; };
 		BF558E6E1514D70D0011C8A9 /* VMwaitingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMwaitingView.m; path = Classes/Views/VMwaitingView.m; sourceTree = "<group>"; };
 		BF558E701514DE7B0011C8A9 /* VMInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMInfoView.h; path = Classes/Views/VMInfoView.h; sourceTree = "<group>"; };
@@ -113,12 +111,14 @@
 		BF558E761515B3180011C8A9 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Classes/Commen/Config.h; sourceTree = "<group>"; };
 		BF5CA6F615178B200072CEE7 /* VMFavoriteTopicsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteTopicsLoader.h; path = Classes/v2ex/VMFavoriteTopicsLoader.h; sourceTree = "<group>"; };
 		BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteTopicsLoader.m; path = Classes/v2ex/VMFavoriteTopicsLoader.m; sourceTree = "<group>"; };
-		BF5CA6F915178FFE0072CEE7 /* VMFavoriteFollowingLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteFollowingLoader.h; path = Classes/v2ex/VMFavoriteFollowingLoader.h; sourceTree = "<group>"; };
-		BF5CA6FA15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteFollowingLoader.m; path = Classes/v2ex/VMFavoriteFollowingLoader.m; sourceTree = "<group>"; };
+		BF5CA6F915178FFE0072CEE7 /* VMFavoriteMembersLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteMembersLoader.h; path = Classes/v2ex/VMFavoriteMembersLoader.h; sourceTree = "<group>"; };
+		BF5CA6FA15178FFE0072CEE7 /* VMFavoriteMembersLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteMembersLoader.m; path = Classes/v2ex/VMFavoriteMembersLoader.m; sourceTree = "<group>"; };
 		BF5CA6FF1517974C0072CEE7 /* VMMemberLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberLoader.h; path = Classes/v2ex/VMMemberLoader.h; sourceTree = "<group>"; };
 		BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberLoader.m; path = Classes/v2ex/VMMemberLoader.m; sourceTree = "<group>"; };
 		BF5CA7021518D1A80072CEE7 /* VMLoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMLoginHandler.h; path = Classes/v2ex/VMLoginHandler.h; sourceTree = "<group>"; };
 		BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoginHandler.m; path = Classes/v2ex/VMLoginHandler.m; sourceTree = "<group>"; };
+		BFD04996151B3168008B3107 /* VMMemberVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberVC.h; path = Classes/Controllers/VMMemberVC.h; sourceTree = "<group>"; };
+		BFD04997151B3168008B3107 /* VMMemberVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberVC.m; path = Classes/Controllers/VMMemberVC.m; sourceTree = "<group>"; };
 		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFEE4DEC150BBA1B005D68CA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		BFEE4DEE150BBA1B005D68CA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -304,6 +304,8 @@
 				BF3EFF911515B8F300BF535B /* VMNodeVC2.m */,
 				BFEE4E2C150BC4B0005D68CA /* VMFavoriteVC.h */,
 				BFEE4E2D150BC4B0005D68CA /* VMFavoriteVC.m */,
+				BFD04996151B3168008B3107 /* VMMemberVC.h */,
+				BFD04997151B3168008B3107 /* VMMemberVC.m */,
 				BFEE4E20150BBF64005D68CA /* VMAccountVC.h */,
 				BFEE4E21150BBF64005D68CA /* VMAccountVC.m */,
 				BFEE4E64150D1806005D68CA /* VMTimelineVC.h */,
@@ -314,8 +316,6 @@
 				BF558E61151492190011C8A9 /* VMNodeTimelineVC.m */,
 				BF558E64151494E10011C8A9 /* VMReplyVC.h */,
 				BF558E65151494E10011C8A9 /* VMReplyVC.m */,
-				BF558E6A1514D5090011C8A9 /* VMWaitingVC.h */,
-				BF558E6B1514D5090011C8A9 /* VMWaitingVC.m */,
 				BF3EFF941515CAA800BF535B /* VMPostVC.h */,
 				BF3EFF951515CAA800BF535B /* VMPostVC.m */,
 			);
@@ -339,12 +339,12 @@
 				BF558E681514CCD60011C8A9 /* VMPoster.m */,
 				BF13519F151768BD003275FB /* VMFavoriteNodesLoader.h */,
 				BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */,
-				BF1351A21517697C003275FB /* VMNotificationsLoader.h */,
-				BF1351A31517697C003275FB /* VMNotificationsLoader.m */,
 				BF5CA6F615178B200072CEE7 /* VMFavoriteTopicsLoader.h */,
 				BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */,
-				BF5CA6F915178FFE0072CEE7 /* VMFavoriteFollowingLoader.h */,
-				BF5CA6FA15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m */,
+				BF5CA6F915178FFE0072CEE7 /* VMFavoriteMembersLoader.h */,
+				BF5CA6FA15178FFE0072CEE7 /* VMFavoriteMembersLoader.m */,
+				BF1351A21517697C003275FB /* VMNotificationsLoader.h */,
+				BF1351A31517697C003275FB /* VMNotificationsLoader.m */,
 				BF5CA6FF1517974C0072CEE7 /* VMMemberLoader.h */,
 				BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */,
 				BF1351A515177F88003275FB /* VMLoader.h */,
@@ -537,7 +537,6 @@
 				BF558E62151492190011C8A9 /* VMNodeTimelineVC.m in Sources */,
 				BF558E66151494E10011C8A9 /* VMReplyVC.m in Sources */,
 				BF558E691514CCD60011C8A9 /* VMPoster.m in Sources */,
-				BF558E6C1514D50A0011C8A9 /* VMWaitingVC.m in Sources */,
 				BF558E6F1514D70D0011C8A9 /* VMwaitingView.m in Sources */,
 				BF558E721514DE7B0011C8A9 /* VMInfoView.m in Sources */,
 				BF558E751515B2FD0011C8A9 /* Commen.m in Sources */,
@@ -547,9 +546,10 @@
 				BF1351A41517697C003275FB /* VMNotificationsLoader.m in Sources */,
 				BF1351A715177F88003275FB /* VMLoader.m in Sources */,
 				BF5CA6F815178B200072CEE7 /* VMFavoriteTopicsLoader.m in Sources */,
-				BF5CA6FB15178FFE0072CEE7 /* VMFavoriteFollowingLoader.m in Sources */,
+				BF5CA6FB15178FFE0072CEE7 /* VMFavoriteMembersLoader.m in Sources */,
 				BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */,
 				BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */,
+				BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

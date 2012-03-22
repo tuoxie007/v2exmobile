@@ -14,8 +14,10 @@
     NSURLConnection *connection;
     NSMutableData *webdata;
     id _delegate;
+    NSString *referer;
 }
 
+@property (strong) NSString *referer;
 @property (strong) id delegate;
 - (id)initWithDelegate:(id)delegate;
 - (void)loadDataWithURL:(NSURL *)url;

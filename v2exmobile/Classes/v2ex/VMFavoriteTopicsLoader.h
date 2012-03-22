@@ -8,8 +8,15 @@
 
 #import "VMLoader.h"
 
+@protocol FavoriteTopicsLoaderDelegate;
 @interface VMFavoriteTopicsLoader : VMLoader
 
 - (void)loadFavoriteTopics;
+
+@end
+
+@protocol FavoriteTopicsLoaderDelegate <LoaderDalegate>
+
+- (void)didFinishedLoadingWithTopics:(id)topics;
 
 @end

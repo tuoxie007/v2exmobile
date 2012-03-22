@@ -3,15 +3,15 @@
 //  Demo
 //
 //修改人：禚来强 iphone开发qq群：79190809 邮箱：zhuolaiqiang@gmail.com
-//
+//Changed by Xu Ke
 
 
-#define  RefreshViewHight 0.0f
+#define  RefreshViewHight 0
 
 #import "EGORefreshTableHeaderView.h"
 
 
-#define TEXT_COLOR	 [UIColor colorWithRed:87.0/255.0 green:108.0/255.0 blue:137.0/255.0 alpha:1.0]
+#define TEXT_COLOR	 [UIColor colorWithRed:87/255 green:108/255 blue:137/255 alpha:1]
 #define FLIP_ANIMATION_DURATION 0.18f
 
 
@@ -27,32 +27,32 @@
     self = [super initWithFrame: frame];
     if (self) {
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		self.backgroundColor = [UIColor colorWithRed:226.0/255.0 green:231.0/255.0 blue:237.0/255.0 alpha:1.0];
+		self.backgroundColor = [UIColor colorWithRed:226/255 green:231/255 blue:237/255 alpha:1];
 
-		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, RefreshViewHight - 30.0f, self.frame.size.width, 20.0f)];
+		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(-25, RefreshViewHight - 30, self.frame.size.width, 20)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont systemFontOfSize:12.0f];
+		label.font = [UIFont systemFontOfSize:12];
 		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1];
+		label.shadowOffset = CGSizeMake(0, 1);
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_lastUpdatedLabel=label;
 		
-		label = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, RefreshViewHight - 48.0f, self.frame.size.width, 20.0f)];
+		label = [[UILabel alloc] initWithFrame:CGRectMake(-25, RefreshViewHight - 48, self.frame.size.width, 20)];
 		label.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-		label.font = [UIFont boldSystemFontOfSize:13.0f];
+		label.font = [UIFont boldSystemFontOfSize:13];
 		label.textColor = TEXT_COLOR;
-		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-		label.shadowOffset = CGSizeMake(0.0f, 1.0f);
+		label.shadowColor = [UIColor colorWithWhite:0.9f alpha:1];
+		label.shadowOffset = CGSizeMake(0, 1);
 		label.backgroundColor = [UIColor clearColor];
 		label.textAlignment = UITextAlignmentCenter;
 		[self addSubview:label];
 		_statusLabel=label;
 		
 		CALayer *layer = [CALayer layer];
-		layer.frame = CGRectMake(25.0f, -65.0f, 30.0f, 55.0f);
+		layer.frame = CGRectMake(25, -65, 30, 55);
 		layer.contentsGravity = kCAGravityResizeAspect;
 		layer.contents = (id)[UIImage imageNamed:@"blueArrow.png"].CGImage;
 		if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
@@ -62,7 +62,7 @@
 		_arrowImage=layer;
 		
 		UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-		view.frame = CGRectMake(25.0f, RefreshViewHight - 38.0f, 20.0f, 20.0f);
+		view.frame = CGRectMake(25, RefreshViewHight - 38, 20, 20);
 		[self addSubview:view];
 		_activityView = view;
 		
@@ -75,9 +75,7 @@
 }
 
 
-#pragma mark -
-#pragma mark Setters
-
+#pragma mark - Setters
 - (void)refreshLastUpdatedDate {
     NSDate *date = [NSDate date];//[_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
     
@@ -107,7 +105,7 @@
             }
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
-			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180.0) * 180.0f, 0.0f, 0.0f, 1.0f);
+			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180) * 180, 0, 0, 1);
 			[CATransaction commit];
 			
 			break;
@@ -161,17 +159,17 @@
 	
 	if (_state == EGOOPullRefreshLoading) {
 		
-		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
-		offset = MIN(offset, 60);
-//		scrollView.contentInset = UIEdgeInsetsMake(0.0, 0.0f, RefreshViewHight, 0.0f);
+//		CGFloat offset = MAX(scrollView.contentOffset.y * -1, 0);
+//		offset = MIN(offset, 60);
+//		scrollView.contentInset = UIEdgeInsetsMake(0, 0, RefreshViewHight, 0);
 		
 	} else if (scrollView.isDragging) {
 		
 		BOOL _loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 		
-		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65.0f && !_loading) {
+		if (_state == EGOOPullRefreshPulling && scrollView.contentOffset.y > -65 && !_loading) {
 			[self setState:EGOOPullRefreshNormal];
-		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65.0f  && !_loading) {
+		} else if (_state == EGOOPullRefreshNormal && scrollView.contentOffset.y < -65  && !_loading) {
 			[self setState:EGOOPullRefreshPulling];
 		}
 //		
@@ -192,13 +190,13 @@
 	
     BOOL _loading = [_delegate egoRefreshTableHeaderDataSourceIsLoading:self];
 	
-	if (scrollView.contentOffset.y < -65.0 && !_loading) {
+	if (scrollView.contentOffset.y < -65 && !_loading) {
         [_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
         
         [self setState:EGOOPullRefreshLoading];
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.2];
-//            scrollView.contentInset = UIEdgeInsetsMake(0.0f, 0.0f, 65.0f, 0.0f);
+//            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 65, 0);
         [UIView commitAnimations];
 	}
 	

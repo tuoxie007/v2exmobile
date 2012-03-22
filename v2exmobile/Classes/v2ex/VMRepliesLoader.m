@@ -12,12 +12,29 @@
 #import "VMAccount.h"
 
 @implementation VMRepliesLoader
+//@synthesize realTopicURL;
 
 - (void)loadRepliesWithURL:(NSURL *)url
 {
     [self loadDataWithURL:url];
 }
 
+//-(NSURLRequest *)connection:(NSURLConnection *)connection
+//            willSendRequest:(NSURLRequest *)request
+//           redirectResponse:(NSURLResponse *)redirectResponse
+//{
+//    if ([[[request URL] description] length] < [V2EX_URL length] + 2 && !redirectHandled) {
+//        NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:realTopicURL];
+//        NSHTTPCookie *cookie = [VMAccount getInstance].cookie;
+//        if (cookie) {
+//            [req addValue:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forHTTPHeaderField:@"Cookie"];
+//        }
+//        redirectHandled = YES;
+//        return req;
+//    }
+//    return request;
+//}
+//
 #pragma NSURLConnectoin Prototol
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
@@ -32,6 +49,11 @@
         NSMutableArray *replies = [[NSMutableArray alloc] init];
         
         HTMLNode *bodyNode = [parser body];
+        
+        NSString *favURL = [[bodyNode findChildOfClass:@"op"] getAttributeNamed:@"href"];
+        if (![favURL hasPrefix:@"http://"]) {
+            favURL = [NSString stringWithFormat:@"%@%@", V2EX_URL, favURL];
+        }
         
         HTMLNode *topicNode = [bodyNode findChildWithAttribute:@"id" matchingName:@"Content" allowPartial:NO];
         HTMLNode *authorNode = [topicNode findChildOfClass:@"dark"];
@@ -85,7 +107,8 @@
                 
             }
         }
-        NSDictionary *topic = [[NSDictionary alloc] initWithObjectsAndKeys:replies, @"replies", content, @"content", time, @"time", views, @"views", nil];
+        NSDictionary *topic = [NSDictionary dictionaryWithObjectsAndKeys:replies, @"replies", content, @"content", time, @"time", favURL, @"fav_url", nil];
+//        views, @"views", 
         [_delegate didFinishedLoadingWithData:topic];
     }
     @catch (NSException *exception) {

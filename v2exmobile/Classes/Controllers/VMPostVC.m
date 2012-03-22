@@ -31,6 +31,7 @@
     [titleInput becomeFirstResponder];
     
     contentInput = [[UITextView alloc] initWithFrame:CGRectMake(0, 40, WINDOW_WIDTH-5, 130)];
+    contentInput.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     contentInput.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:contentInput];
     return self;

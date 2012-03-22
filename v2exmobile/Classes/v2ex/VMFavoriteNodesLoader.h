@@ -9,8 +9,15 @@
 #import <Foundation/Foundation.h>
 #import "VMLoader.h"
 
+@protocol FavoriteNodesLoaderDelegate;
 @interface VMFavoriteNodesLoader : VMLoader
 
 - (void)loadFavoritesNodes;
+
+@end
+
+@protocol FavoriteNodesLoaderDelegate <LoaderDalegate>
+
+- (void)didFinishedLoadingWithNodes:(id)nodes;
 
 @end

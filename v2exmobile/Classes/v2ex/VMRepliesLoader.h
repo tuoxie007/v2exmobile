@@ -10,6 +10,12 @@
 #import "VMLoader.h"
 
 @interface VMRepliesLoader : VMLoader
+{
+    BOOL redirectHandled;
+//    NSURL *realTopicURL;
+}
+
+//@property (strong) NSURL *realTopicURL;
 
 - (void)loadRepliesWithURL:(NSURL *)url;
 

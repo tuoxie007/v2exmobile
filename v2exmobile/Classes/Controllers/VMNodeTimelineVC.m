@@ -56,7 +56,7 @@
 - (void)post
 {
     if ([VMAccount getInstance].cookie) {
-        VMPostVC *postVC = [[VMPostVC alloc] initWithURL:[NSString stringWithFormat:@"%@/new/%@", V2EX_URL, _node]];
+        VMPostVC *postVC = [[VMPostVC alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/new/%@", V2EX_URL, _node]]];
         [self.navigationController pushViewController:postVC animated:YES];
         return;
     }
