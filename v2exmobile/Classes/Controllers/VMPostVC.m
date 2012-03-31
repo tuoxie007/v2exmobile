@@ -2,15 +2,16 @@
 //  VMPostVC.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/18/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/18/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMPostVC.h"
 #import "Config.h"
 #import "VMwaitingView.h"
 
-#define WAITING_VIEW_TAG 1
+//#define WAITING_VIEW_TAG 1
 
 @implementation VMPostVC
 
@@ -46,10 +47,9 @@
 
 - (void)submit
 {
-    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:@"正在发送"];
-    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
-    waitingView.tag = WAITING_VIEW_TAG;
-    [self.view addSubview:waitingView];
+    waittingView = [[VMwaitingView alloc] initWithMessage:@"正在发送"];
+    [waittingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
+    [self.view addSubview:waittingView];
     
     NSString *title = titleInput.text;
     NSString *content = contentInput.text;

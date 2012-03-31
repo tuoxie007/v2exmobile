@@ -2,8 +2,9 @@
 //  VMLoginHandler.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/20/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/20/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMLoginHandler.h"
@@ -25,7 +26,7 @@
 
 - (void)login
 {
-    UIAlertView *askWillLoginAlertView = [[UIAlertView alloc] initWithTitle:@"回帖需要登录" message:@"您尚未登录，现在就去登录吗？" delegate:self cancelButtonTitle:@"以后再说" otherButtonTitles:@"是的", nil];
+    UIAlertView *askWillLoginAlertView = [[UIAlertView alloc] initWithTitle:@"需要登录" message:@"您尚未登录，现在就去登录吗？" delegate:self cancelButtonTitle:@"以后再说" otherButtonTitles:@"是的", nil];
     askWillLoginAlertView.tag = ASK_LOGIN_TAG;
     [askWillLoginAlertView show];
 }
@@ -61,7 +62,7 @@
 
 - (void)accountLoginFailed
 {
-    UIAlertView *errAlertView = [[UIAlertView alloc] initWithTitle:@"登录错误" message:@"请稍后再试" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好", nil];
+    UIAlertView *errAlertView = [[UIAlertView alloc] initWithTitle:@"登录错误" message:@"请再试" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"好", nil];
     [errAlertView show];
 }
 @end

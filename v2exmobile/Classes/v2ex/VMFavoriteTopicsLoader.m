@@ -2,8 +2,9 @@
 //  VMFavoriteTopicsLoader.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/19/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/19/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMFavoriteTopicsLoader.h"
@@ -50,8 +51,8 @@
             NSString *author = [[authorNodes objectAtIndex:0] allContents];
             NSString *nodeName = [[authorNodes objectAtIndex:1] allContents];
             
-            NSString *created = [[topicDiv findChildOfClass:@"created"] allContents];
-            NSString *replies = [[topicDiv findChildOfClass:@"fr"] allContents];
+            NSString *created = [[[topicDiv findChildOfClass:@"created"] allContents]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            NSString *replies = [[[topicDiv findChildOfClass:@"fr"] allContents]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
             [topics addObject:[[NSDictionary alloc] initWithObjectsAndKeys:author, @"author", title, @"title", url, @"url", imgURL, @"img_url", created, @"create", nodeName, @"node", replies, @"replies", nil]];
         }

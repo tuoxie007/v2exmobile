@@ -2,8 +2,9 @@
 //  ImagLoader.h
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/16/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/16/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import <Foundation/Foundation.h>
@@ -14,7 +15,9 @@
     NSMutableData *webdata;
     UIImageView *imageView;
     NSString *cacheFilePath;
+    UIButton *imageButton;
 }
 
 - (void)loadImageWithURL:(NSURL *)url forImageView:(UIImageView *)imgView;
+- (void)loadImageWithURL:(NSURL *)url forImageButton:(UIButton *)imgButton;
 @end

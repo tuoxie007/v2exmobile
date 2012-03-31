@@ -2,8 +2,9 @@
 //  VMFavoriteVC.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "Config.h"
@@ -19,6 +20,7 @@
 #import "VMTopicVC.h"
 #import "VMNodeTimelineVC.h"
 #import "VMMemberVC.h"
+#import "VMInfoView.h"
 
 #define NAME_TAG 11
 #define TIME_TAG 12
@@ -29,7 +31,7 @@
 #define REPLY_TAG 17
 #define LAST_REPLY_AUTHOR_TAG 18
 #define FOLLWERS_LEVEL_TAG 19
-#define WAITING_VIEW_TAG 1
+//#define WAITING_VIEW_TAG 1
 
 #define ROW_HEIGHT 70
 #define IMAGE_SIDE 48
@@ -49,6 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imgBnt2name = [[NSMutableDictionary alloc] init];
     self.title = @"收藏";
     UIBarButtonItem *refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadFavorites)];
     self.navigationItem.rightBarButtonItem = refreshBarButtonItem;
@@ -69,10 +72,9 @@
 - (void)loadFavorites
 {
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:@"正在加载"];
-    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
-    waitingView.tag = WAITING_VIEW_TAG;
-    [self.view addSubview:waitingView];
+    waittingView = [[VMwaitingView alloc] initWithMessage:@"正在加载"];
+    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
+    [self.view addSubview:waittingView];
     
     VMFavoriteNodesLoader *nloader = [[VMFavoriteNodesLoader alloc] initWithDelegate:self];
     VMFavoriteMembersLoader *floader = [[VMFavoriteMembersLoader alloc] initWithDelegate:self];
@@ -93,7 +95,7 @@
 {
     _nodes = nodes;
     if (_nodes && _members && _topics) {
-        [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+        [waittingView removeFromSuperview];
         [self.tableView reloadData];
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -103,7 +105,7 @@
 {
     _members = members;
     if (_nodes && _members && _topics) {
-        [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+        [waittingView removeFromSuperview];
         [self.tableView reloadData];
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -113,7 +115,7 @@
 {
     _topics = topics;
     if (_nodes && _members && _topics) {
-        [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+        [waittingView removeFromSuperview];
         [self.tableView reloadData];
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -121,7 +123,15 @@
 
 - (void)cancel
 {
-    NSLog(@"Fav Load Failed");
+    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"收藏失败"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
+    [self.view addSubview:infoView];
+    [self performSelector:@selector(removeInfoView:) withObject:infoView afterDelay:2];
+}
+
+- (void)removeInfoView:(id)infoView
+{
+    [infoView removeFromSuperview];
 }
 
 #pragma mark - login handler delegate
@@ -213,9 +223,11 @@
     
     //Userpic view
     rect = CGRectMake(BORDER_WIDTH, (ROW_HEIGHT - IMAGE_SIDE) / 2.0, IMAGE_SIDE, IMAGE_SIDE);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.tag = IMAGE_TAG;
-    [cell.contentView addSubview:imageView];
+    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    imgButton.frame = rect;
+    imgButton.tag = IMAGE_TAG;
+    [cell addSubview:imgButton];
     
     UILabel *label;
     
@@ -225,7 +237,7 @@
     label.tag = NAME_TAG;
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -236,7 +248,7 @@
     label.font = [UIFont systemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -246,7 +258,7 @@
     label.tag = NODE_TAG;
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -257,7 +269,7 @@
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -269,7 +281,7 @@
     label.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     label.highlightedTextColor = [UIColor whiteColor];
     label.numberOfLines = 0;
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -281,7 +293,7 @@
     label.textAlignment = UITextAlignmentRight;
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -313,9 +325,11 @@
     [timeLabel sizeToFit];
     
     //Set userpic
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:IMAGE_TAG];
+    UIButton *imageView = (UIButton *)[cell viewWithTag:IMAGE_TAG];
+    [imageView setImage:[UIImage imageNamed:@"loading.png"] forState:UIControlStateNormal];
+    [imgBnt2name setValue:[topic objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imageView]];
     VMImageLoader *imageLoader = [[VMImageLoader alloc] init];
-    [imageLoader loadImageWithURL:[NSURL URLWithString:[topic objectForKey:@"img_url"]] forImageView:imageView];
+    [imageLoader loadImageWithURL:[NSURL URLWithString:[topic objectForKey:@"img_url"]] forImageButton:imageView];
     
     //Set user name
     UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
@@ -358,20 +372,21 @@
     cell.frame = rect;
     
     //Userpic view
-    rect = CGRectMake(BORDER_WIDTH, (ROW_HEIGHT - IMAGE_SIDE) / 2.0, IMAGE_SIDE, IMAGE_SIDE);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.tag = IMAGE_TAG;
-    [cell.contentView addSubview:imageView];
+    rect = CGRectMake(BORDER_WIDTH, BORDER_WIDTH, IMAGE_SIDE, IMAGE_SIDE);
+    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    imgButton.frame = rect;
+    imgButton.tag = IMAGE_TAG;
+    [cell.contentView addSubview:imgButton];
     
     UILabel *label;
     
     //Username
-    rect = CGRectMake(TEXT_OFFSET_X, BORDER_WIDTH, 0, LABEL_HEIGHT); // not sure: W
+    rect = CGRectMake(TEXT_OFFSET_X, BORDER_WIDTH*2, 0, LABEL_HEIGHT); // not sure: W
     label = [[UILabel alloc] initWithFrame:rect];
     label.tag = NAME_TAG;
     label.font = [UIFont boldSystemFontOfSize:14];
     [cell.contentView addSubview:label];
-    
     //Followers and Level
     rect = CGRectMake(TEXT_OFFSET_X, BORDER_WIDTH, 0, LABEL_HEIGHT); // not sure: W,H
     label = [[UILabel alloc] initWithFrame:rect];
@@ -385,25 +400,30 @@
 
 - (void)configureMemberCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
 {
-    
     NSDictionary *member = [_members objectAtIndex:indexPath.row];
     
     // Configure the cell.
     
     //Set userpic
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:IMAGE_TAG];
+    UIButton *imageView = (UIButton *)[cell viewWithTag:IMAGE_TAG];
+    [imageView setImage:[UIImage imageNamed:@"loading.png"] forState:UIControlStateNormal];
+    [imgBnt2name setValue:[member objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imageView]];
     VMImageLoader *imageLoader = [[VMImageLoader alloc] init];
     NSString *imgURL = [member objectForKey:@"img_url"];
     imgURL = [imgURL stringByReplacingOccurrencesOfString:@"mini" withString:@"normal"];
-    [imageLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageView:imageView];
+    [imageLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageButton:imageView];
     
     //Set user name
     UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
+    userLabel.highlightedTextColor = [UIColor whiteColor];
+    userLabel.opaque = NO;
     userLabel.text = [member objectForKey:@"name"];
     [userLabel sizeToFit];
     
     //Set followers and level
     UILabel *flLabel = (UILabel *)[cell viewWithTag:FOLLWERS_LEVEL_TAG];
+    flLabel.highlightedTextColor = [UIColor whiteColor];
+    flLabel.opaque = NO;
     flLabel.text = [NSString stringWithFormat:@"%@ %@", [member objectForKey:@"followers"], [member objectForKey:@"level"]];
     [flLabel sizeToFit];
     
@@ -431,6 +451,12 @@
         VMMemberVC *memberVC = [[VMMemberVC alloc] initWithMember:[_members objectAtIndex:indexPath.row]];
         [self.navigationController pushViewController:memberVC animated:YES];
     }
+}
+
+- (void)showMember:(UIButton *)imgBnt
+{
+    VMMemberVC *memberVC = [[VMMemberVC alloc] initWithName:[imgBnt2name objectForKey:[NSString stringWithFormat:@"%d", imgBnt]]];
+    [self.navigationController pushViewController:memberVC animated:YES];
 }
 
 @end

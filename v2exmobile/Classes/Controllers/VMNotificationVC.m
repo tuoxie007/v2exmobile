@@ -2,8 +2,9 @@
 //  VMNotificationVC.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMNotificationVC.h"
@@ -11,6 +12,8 @@
 #import "VMImageLoader.h"
 #import "VMLoginHandler.h"
 #import "Config.h"
+#import "VMMemberVC.h"
+#import "VMInfoView.h"
 
 #define NAME_TAG 11
 #define TIME_TAG 12
@@ -20,7 +23,8 @@
 #define NODE_TAG 16
 #define REPLY_TAG 17
 #define LAST_REPLY_AUTHOR_TAG 18
-#define WAITING_VIEW_TAG 1
+//#define INFO_VIEW_TAG 19
+//#define WAITING_VIEW_TAG 1
 
 #define ROW_HEIGHT 70
 #define IMAGE_SIDE 48
@@ -39,6 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imgBnt2name = [[NSMutableDictionary alloc] init];
     self.title = @"提醒";
     
     refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, WINDOW_HEIGHT, 0)];
@@ -116,10 +121,13 @@
     
     //Userpic view
     rect = CGRectMake(BORDER_WIDTH, (ROW_HEIGHT - IMAGE_SIDE) / 2.0, IMAGE_SIDE, IMAGE_SIDE);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imgBnt2name setValue:[topic objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imgButton]];
+    [imgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    imgButton.frame = rect;
     VMImageLoader *imageLoader = [[VMImageLoader alloc] init];
-    [imageLoader loadImageWithURL:[NSURL URLWithString:[topic objectForKey:@"img_url"]] forImageView:imageView];
-    [cell.contentView addSubview:imageView];
+    [imageLoader loadImageWithURL:[NSURL URLWithString:[topic objectForKey:@"img_url"]] forImageButton:imgButton];
+    [cell addSubview:imgButton];
     
     UILabel *label;
     
@@ -130,10 +138,12 @@
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.font = [UIFont systemFontOfSize:12];
     label.textColor = [UIColor colorWithRed:0 green:0 blue:0.8f alpha:1];
+    label.highlightedTextColor = [UIColor whiteColor];
     label.numberOfLines = 0;
     label.opaque = NO;
     [label sizeToFit];
     CGRect labelFrame = label.frame;
+    labelFrame.size.width = TEXT_WIDTH;
     labelFrame.size.height += BORDER_WIDTH;
     label.frame = labelFrame;
     [cell addSubview:label];
@@ -144,11 +154,13 @@
     label.text = [topic objectForKey:@"content"];
     label.lineBreakMode = UILineBreakModeWordWrap;
     label.font = [UIFont systemFontOfSize:12];
-    label.numberOfLines = 0;
+    label.highlightedTextColor = [UIColor whiteColor];
     label.opaque = NO;
+    label.numberOfLines = 0;
     [label sizeToFit];
     labelFrame = label.frame;
-    labelFrame.size.width = WINDOW_WIDTH;
+    labelFrame.size.width = TEXT_WIDTH;
+    labelFrame.size.height += BORDER_WIDTH;
     label.frame = labelFrame;
     [cell addSubview:label];
     
@@ -177,12 +189,22 @@
     loading = NO;
     [refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
     [self.tableView reloadData];
-    [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+    [waitingView removeFromSuperview];
 }
 
 - (void)cancel
 {
-    NSLog(@"Load Failed");
+    [refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    loading = NO;
+    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"加载失败"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
+    [self.view addSubview:infoView];
+    [self performSelector:@selector(removeInfoView:) withObject:infoView afterDelay:2];
+}
+
+- (void)removeInfoView:(id)infoView
+{
+    [(UIView *)infoView removeFromSuperview];
 }
 
 #pragma mark -
@@ -209,4 +231,9 @@
 	[refreshTableHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
 }
 
+- (void)showMember:(UIButton *)imgBnt
+{
+    VMMemberVC *memberVC = [[VMMemberVC alloc] initWithName:[imgBnt2name objectForKey:[NSString stringWithFormat:@"%d", imgBnt]]];
+    [self.navigationController pushViewController:memberVC animated:YES];
+}
 @end

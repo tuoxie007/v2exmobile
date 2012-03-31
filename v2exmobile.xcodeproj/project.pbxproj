@@ -10,8 +10,14 @@
 		BF1351A1151768BD003275FB /* VMFavoriteNodesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */; };
 		BF1351A41517697C003275FB /* VMNotificationsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A31517697C003275FB /* VMNotificationsLoader.m */; };
 		BF1351A715177F88003275FB /* VMLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A615177F88003275FB /* VMLoader.m */; };
+		BF39112F151F39AF00CC49DF /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = BF39112D151F39AF00CC49DF /* loading.png */; };
+		BF391130151F39AF00CC49DF /* loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF39112E151F39AF00CC49DF /* loading@2x.png */; };
+		BF391137151F91C400CC49DF /* icon-notification.png in Resources */ = {isa = PBXBuildFile; fileRef = BF391135151F91C400CC49DF /* icon-notification.png */; };
+		BF391138151F91C400CC49DF /* icon-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF391136151F91C400CC49DF /* icon-notification@2x.png */; };
 		BF3EFF921515B8F300BF535B /* VMNodeVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EFF911515B8F300BF535B /* VMNodeVC2.m */; };
 		BF3EFF961515CAA900BF535B /* VMPostVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EFF951515CAA800BF535B /* VMPostVC.m */; };
+		BF4831B7151F155500051337 /* VMWebContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4831B6151F155500051337 /* VMWebContentVC.m */; };
+		BF4831BB151F221900051337 /* VMMiniBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4831BA151F221900051337 /* VMMiniBrowser.m */; };
 		BF4D6A9F1510FA1B007687B9 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4D6A9B1510FA1B007687B9 /* HTMLNode.m */; };
 		BF4D6AA01510FA1B007687B9 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4D6A9D1510FA1B007687B9 /* HTMLParser.m */; };
 		BF4D6AA11510FA1B007687B9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4D6A9E1510FA1B007687B9 /* README.md */; };
@@ -36,33 +42,17 @@
 		BFEE4DF9150BBA1B005D68CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4DF8150BBA1B005D68CA /* main.m */; };
 		BFEE4DFD150BBA1B005D68CA /* VMAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4DFC150BBA1B005D68CA /* VMAppDelegate.m */; };
 		BFEE4E1F150BBE42005D68CA /* VMAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E1E150BBE42005D68CA /* VMAccount.m */; };
-		BFEE4E22150BBF64005D68CA /* VMAccountVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E21150BBF64005D68CA /* VMAccountVC.m */; };
 		BFEE4E25150BBFE5005D68CA /* VMMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E24150BBFE5005D68CA /* VMMainVC.m */; };
 		BFEE4E28150BC47C005D68CA /* VMNotificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E27150BC47C005D68CA /* VMNotificationVC.m */; };
 		BFEE4E2B150BC497005D68CA /* VMNodeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E2A150BC497005D68CA /* VMNodeVC.m */; };
 		BFEE4E2E150BC4B0005D68CA /* VMFavoriteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E2D150BC4B0005D68CA /* VMFavoriteVC.m */; };
 		BFEE4E3C150C9EBE005D68CA /* VMTopicsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E3B150C9EBE005D68CA /* VMTopicsLoader.m */; };
-		BFEE4E58150D17BD005D68CA /* NSObject+SBJson.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E40150D17BD005D68CA /* NSObject+SBJson.m */; };
-		BFEE4E59150D17BD005D68CA /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E43150D17BD005D68CA /* SBJsonParser.m */; };
-		BFEE4E5A150D17BD005D68CA /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E45150D17BD005D68CA /* SBJsonStreamParser.m */; };
-		BFEE4E5B150D17BD005D68CA /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E47150D17BD005D68CA /* SBJsonStreamParserAccumulator.m */; };
-		BFEE4E5C150D17BD005D68CA /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E49150D17BD005D68CA /* SBJsonStreamParserAdapter.m */; };
-		BFEE4E5D150D17BD005D68CA /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E4B150D17BD005D68CA /* SBJsonStreamParserState.m */; };
-		BFEE4E5E150D17BD005D68CA /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E4D150D17BD005D68CA /* SBJsonStreamWriter.m */; };
-		BFEE4E5F150D17BD005D68CA /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E4F150D17BD005D68CA /* SBJsonStreamWriterAccumulator.m */; };
-		BFEE4E60150D17BD005D68CA /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E51150D17BD005D68CA /* SBJsonStreamWriterState.m */; };
-		BFEE4E61150D17BD005D68CA /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E53150D17BD005D68CA /* SBJsonTokeniser.m */; };
-		BFEE4E62150D17BD005D68CA /* SBJsonUTF8Stream.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E55150D17BD005D68CA /* SBJsonUTF8Stream.m */; };
-		BFEE4E63150D17BD005D68CA /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E57150D17BD005D68CA /* SBJsonWriter.m */; };
 		BFEE4E68150D1807005D68CA /* VMTimelineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E65150D1807005D68CA /* VMTimelineVC.m */; };
 		BFEE4E69150D1807005D68CA /* VMTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E67150D1807005D68CA /* VMTopicVC.m */; };
-		BFEE4E87150DE42E005D68CA /* hp-summic.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E7E150DE42E005D68CA /* hp-summic.png */; };
 		BFEE4E88150DE42E005D68CA /* icon-account.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E7F150DE42E005D68CA /* icon-account.png */; };
 		BFEE4E89150DE42E005D68CA /* icon-account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E80150DE42E005D68CA /* icon-account@2x.png */; };
 		BFEE4E8A150DE42E005D68CA /* icon-favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E81150DE42E005D68CA /* icon-favorite.png */; };
 		BFEE4E8B150DE42E005D68CA /* icon-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E82150DE42E005D68CA /* icon-favorite@2x.png */; };
-		BFEE4E8C150DE42E005D68CA /* icon-mention.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E83150DE42E005D68CA /* icon-mention.png */; };
-		BFEE4E8D150DE42E005D68CA /* icon-mention@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E84150DE42E005D68CA /* icon-mention@2x.png */; };
 		BFEE4E8E150DE42E005D68CA /* icon-timeline.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E85150DE42E005D68CA /* icon-timeline.png */; };
 		BFEE4E8F150DE42E005D68CA /* icon-timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E86150DE42E005D68CA /* icon-timeline@2x.png */; };
 		BFEE4E92150E3D0E005D68CA /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E90150E3D0E005D68CA /* blueArrow.png */; };
@@ -82,10 +72,18 @@
 		BF1351A31517697C003275FB /* VMNotificationsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMNotificationsLoader.m; path = Classes/v2ex/VMNotificationsLoader.m; sourceTree = "<group>"; };
 		BF1351A515177F88003275FB /* VMLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMLoader.h; path = Classes/v2ex/VMLoader.h; sourceTree = "<group>"; };
 		BF1351A615177F88003275FB /* VMLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoader.m; path = Classes/v2ex/VMLoader.m; sourceTree = "<group>"; };
+		BF39112D151F39AF00CC49DF /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loading.png; path = Resources/loading.png; sourceTree = "<group>"; };
+		BF39112E151F39AF00CC49DF /* loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading@2x.png"; path = "Resources/loading@2x.png"; sourceTree = "<group>"; };
+		BF391135151F91C400CC49DF /* icon-notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-notification.png"; path = "Resources/icon-notification.png"; sourceTree = "<group>"; };
+		BF391136151F91C400CC49DF /* icon-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-notification@2x.png"; path = "Resources/icon-notification@2x.png"; sourceTree = "<group>"; };
 		BF3EFF901515B8F300BF535B /* VMNodeVC2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMNodeVC2.h; path = Classes/Controllers/VMNodeVC2.h; sourceTree = "<group>"; };
 		BF3EFF911515B8F300BF535B /* VMNodeVC2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMNodeVC2.m; path = Classes/Controllers/VMNodeVC2.m; sourceTree = "<group>"; };
 		BF3EFF941515CAA800BF535B /* VMPostVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMPostVC.h; path = Classes/Controllers/VMPostVC.h; sourceTree = "<group>"; };
 		BF3EFF951515CAA800BF535B /* VMPostVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMPostVC.m; path = Classes/Controllers/VMPostVC.m; sourceTree = "<group>"; };
+		BF4831B5151F155500051337 /* VMWebContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMWebContentVC.h; path = Classes/Controllers/VMWebContentVC.h; sourceTree = "<group>"; };
+		BF4831B6151F155500051337 /* VMWebContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMWebContentVC.m; path = Classes/Controllers/VMWebContentVC.m; sourceTree = "<group>"; };
+		BF4831B9151F221900051337 /* VMMiniBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMiniBrowser.h; path = Classes/Controllers/VMMiniBrowser.h; sourceTree = "<group>"; };
+		BF4831BA151F221900051337 /* VMMiniBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMiniBrowser.m; path = Classes/Controllers/VMMiniBrowser.m; sourceTree = "<group>"; };
 		BF4D6A9A1510FA1B007687B9 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Classes/3th-party/HTML-Parser/HTMLNode.h"; sourceTree = "<group>"; };
 		BF4D6A9B1510FA1B007687B9 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Classes/3th-party/HTML-Parser/HTMLNode.m"; sourceTree = "<group>"; };
 		BF4D6A9C1510FA1B007687B9 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "Classes/3th-party/HTML-Parser/HTMLParser.h"; sourceTree = "<group>"; };
@@ -131,8 +129,6 @@
 		BFEE4DFC150BBA1B005D68CA /* VMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VMAppDelegate.m; sourceTree = "<group>"; };
 		BFEE4E1D150BBE42005D68CA /* VMAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMAccount.h; path = Classes/v2ex/VMAccount.h; sourceTree = "<group>"; };
 		BFEE4E1E150BBE42005D68CA /* VMAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMAccount.m; path = Classes/v2ex/VMAccount.m; sourceTree = "<group>"; };
-		BFEE4E20150BBF64005D68CA /* VMAccountVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMAccountVC.h; path = Classes/Controllers/VMAccountVC.h; sourceTree = "<group>"; };
-		BFEE4E21150BBF64005D68CA /* VMAccountVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMAccountVC.m; path = Classes/Controllers/VMAccountVC.m; sourceTree = "<group>"; };
 		BFEE4E23150BBFE5005D68CA /* VMMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMainVC.h; path = Classes/Controllers/VMMainVC.h; sourceTree = "<group>"; };
 		BFEE4E24150BBFE5005D68CA /* VMMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMainVC.m; path = Classes/Controllers/VMMainVC.m; sourceTree = "<group>"; };
 		BFEE4E26150BC47C005D68CA /* VMNotificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMNotificationVC.h; path = Classes/Controllers/VMNotificationVC.h; sourceTree = "<group>"; };
@@ -143,42 +139,14 @@
 		BFEE4E2D150BC4B0005D68CA /* VMFavoriteVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteVC.m; path = Classes/Controllers/VMFavoriteVC.m; sourceTree = "<group>"; };
 		BFEE4E3A150C9EBE005D68CA /* VMTopicsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicsLoader.h; path = Classes/v2ex/VMTopicsLoader.h; sourceTree = "<group>"; };
 		BFEE4E3B150C9EBE005D68CA /* VMTopicsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicsLoader.m; path = Classes/v2ex/VMTopicsLoader.m; sourceTree = "<group>"; };
-		BFEE4E3F150D17BD005D68CA /* NSObject+SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SBJson.h"; path = "Classes/3th-party/SBJSON/NSObject+SBJson.h"; sourceTree = "<group>"; };
-		BFEE4E40150D17BD005D68CA /* NSObject+SBJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SBJson.m"; path = "Classes/3th-party/SBJSON/NSObject+SBJson.m"; sourceTree = "<group>"; };
-		BFEE4E41150D17BD005D68CA /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJson.h; path = "Classes/3th-party/SBJSON/SBJson.h"; sourceTree = "<group>"; };
-		BFEE4E42150D17BD005D68CA /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonParser.h; path = "Classes/3th-party/SBJSON/SBJsonParser.h"; sourceTree = "<group>"; };
-		BFEE4E43150D17BD005D68CA /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = "Classes/3th-party/SBJSON/SBJsonParser.m"; sourceTree = "<group>"; };
-		BFEE4E44150D17BD005D68CA /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParser.h; path = "Classes/3th-party/SBJSON/SBJsonStreamParser.h"; sourceTree = "<group>"; };
-		BFEE4E45150D17BD005D68CA /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParser.m; path = "Classes/3th-party/SBJSON/SBJsonStreamParser.m"; sourceTree = "<group>"; };
-		BFEE4E46150D17BD005D68CA /* SBJsonStreamParserAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAccumulator.h; path = "Classes/3th-party/SBJSON/SBJsonStreamParserAccumulator.h"; sourceTree = "<group>"; };
-		BFEE4E47150D17BD005D68CA /* SBJsonStreamParserAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAccumulator.m; path = "Classes/3th-party/SBJSON/SBJsonStreamParserAccumulator.m"; sourceTree = "<group>"; };
-		BFEE4E48150D17BD005D68CA /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserAdapter.h; path = "Classes/3th-party/SBJSON/SBJsonStreamParserAdapter.h"; sourceTree = "<group>"; };
-		BFEE4E49150D17BD005D68CA /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserAdapter.m; path = "Classes/3th-party/SBJSON/SBJsonStreamParserAdapter.m"; sourceTree = "<group>"; };
-		BFEE4E4A150D17BD005D68CA /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamParserState.h; path = "Classes/3th-party/SBJSON/SBJsonStreamParserState.h"; sourceTree = "<group>"; };
-		BFEE4E4B150D17BD005D68CA /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamParserState.m; path = "Classes/3th-party/SBJSON/SBJsonStreamParserState.m"; sourceTree = "<group>"; };
-		BFEE4E4C150D17BD005D68CA /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriter.h; path = "Classes/3th-party/SBJSON/SBJsonStreamWriter.h"; sourceTree = "<group>"; };
-		BFEE4E4D150D17BD005D68CA /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriter.m; path = "Classes/3th-party/SBJSON/SBJsonStreamWriter.m"; sourceTree = "<group>"; };
-		BFEE4E4E150D17BD005D68CA /* SBJsonStreamWriterAccumulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterAccumulator.h; path = "Classes/3th-party/SBJSON/SBJsonStreamWriterAccumulator.h"; sourceTree = "<group>"; };
-		BFEE4E4F150D17BD005D68CA /* SBJsonStreamWriterAccumulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterAccumulator.m; path = "Classes/3th-party/SBJSON/SBJsonStreamWriterAccumulator.m"; sourceTree = "<group>"; };
-		BFEE4E50150D17BD005D68CA /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonStreamWriterState.h; path = "Classes/3th-party/SBJSON/SBJsonStreamWriterState.h"; sourceTree = "<group>"; };
-		BFEE4E51150D17BD005D68CA /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonStreamWriterState.m; path = "Classes/3th-party/SBJSON/SBJsonStreamWriterState.m"; sourceTree = "<group>"; };
-		BFEE4E52150D17BD005D68CA /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonTokeniser.h; path = "Classes/3th-party/SBJSON/SBJsonTokeniser.h"; sourceTree = "<group>"; };
-		BFEE4E53150D17BD005D68CA /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonTokeniser.m; path = "Classes/3th-party/SBJSON/SBJsonTokeniser.m"; sourceTree = "<group>"; };
-		BFEE4E54150D17BD005D68CA /* SBJsonUTF8Stream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonUTF8Stream.h; path = "Classes/3th-party/SBJSON/SBJsonUTF8Stream.h"; sourceTree = "<group>"; };
-		BFEE4E55150D17BD005D68CA /* SBJsonUTF8Stream.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonUTF8Stream.m; path = "Classes/3th-party/SBJSON/SBJsonUTF8Stream.m"; sourceTree = "<group>"; };
-		BFEE4E56150D17BD005D68CA /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = "Classes/3th-party/SBJSON/SBJsonWriter.h"; sourceTree = "<group>"; };
-		BFEE4E57150D17BD005D68CA /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = "Classes/3th-party/SBJSON/SBJsonWriter.m"; sourceTree = "<group>"; };
 		BFEE4E64150D1806005D68CA /* VMTimelineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTimelineVC.h; path = Classes/Controllers/VMTimelineVC.h; sourceTree = "<group>"; };
 		BFEE4E65150D1807005D68CA /* VMTimelineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTimelineVC.m; path = Classes/Controllers/VMTimelineVC.m; sourceTree = "<group>"; };
 		BFEE4E66150D1807005D68CA /* VMTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicVC.h; path = Classes/Controllers/VMTopicVC.h; sourceTree = "<group>"; };
 		BFEE4E67150D1807005D68CA /* VMTopicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicVC.m; path = Classes/Controllers/VMTopicVC.m; sourceTree = "<group>"; };
-		BFEE4E7E150DE42E005D68CA /* hp-summic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "hp-summic.png"; path = "Resources/hp-summic.png"; sourceTree = "<group>"; };
 		BFEE4E7F150DE42E005D68CA /* icon-account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-account.png"; path = "Resources/icon-account.png"; sourceTree = "<group>"; };
 		BFEE4E80150DE42E005D68CA /* icon-account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-account@2x.png"; path = "Resources/icon-account@2x.png"; sourceTree = "<group>"; };
 		BFEE4E81150DE42E005D68CA /* icon-favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-favorite.png"; path = "Resources/icon-favorite.png"; sourceTree = "<group>"; };
 		BFEE4E82150DE42E005D68CA /* icon-favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-favorite@2x.png"; path = "Resources/icon-favorite@2x.png"; sourceTree = "<group>"; };
-		BFEE4E83150DE42E005D68CA /* icon-mention.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-mention.png"; path = "Resources/icon-mention.png"; sourceTree = "<group>"; };
-		BFEE4E84150DE42E005D68CA /* icon-mention@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-mention@2x.png"; path = "Resources/icon-mention@2x.png"; sourceTree = "<group>"; };
 		BFEE4E85150DE42E005D68CA /* icon-timeline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-timeline.png"; path = "Resources/icon-timeline.png"; sourceTree = "<group>"; };
 		BFEE4E86150DE42E005D68CA /* icon-timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-timeline@2x.png"; path = "Resources/icon-timeline@2x.png"; sourceTree = "<group>"; };
 		BFEE4E90150E3D0E005D68CA /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueArrow.png; path = Resources/blueArrow.png; sourceTree = "<group>"; };
@@ -306,8 +274,6 @@
 				BFEE4E2D150BC4B0005D68CA /* VMFavoriteVC.m */,
 				BFD04996151B3168008B3107 /* VMMemberVC.h */,
 				BFD04997151B3168008B3107 /* VMMemberVC.m */,
-				BFEE4E20150BBF64005D68CA /* VMAccountVC.h */,
-				BFEE4E21150BBF64005D68CA /* VMAccountVC.m */,
 				BFEE4E64150D1806005D68CA /* VMTimelineVC.h */,
 				BFEE4E65150D1807005D68CA /* VMTimelineVC.m */,
 				BFEE4E66150D1807005D68CA /* VMTopicVC.h */,
@@ -318,6 +284,10 @@
 				BF558E65151494E10011C8A9 /* VMReplyVC.m */,
 				BF3EFF941515CAA800BF535B /* VMPostVC.h */,
 				BF3EFF951515CAA800BF535B /* VMPostVC.m */,
+				BF4831B5151F155500051337 /* VMWebContentVC.h */,
+				BF4831B6151F155500051337 /* VMWebContentVC.m */,
+				BF4831B9151F221900051337 /* VMMiniBrowser.h */,
+				BF4831BA151F221900051337 /* VMMiniBrowser.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -356,15 +326,16 @@
 		BFEE4E2F150BCD9A005D68CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF39112D151F39AF00CC49DF /* loading.png */,
+				BF39112E151F39AF00CC49DF /* loading@2x.png */,
 				BFEE4E90150E3D0E005D68CA /* blueArrow.png */,
 				BFEE4E91150E3D0E005D68CA /* blueArrow@2x.png */,
-				BFEE4E7E150DE42E005D68CA /* hp-summic.png */,
+				BF391135151F91C400CC49DF /* icon-notification.png */,
+				BF391136151F91C400CC49DF /* icon-notification@2x.png */,
 				BFEE4E7F150DE42E005D68CA /* icon-account.png */,
 				BFEE4E80150DE42E005D68CA /* icon-account@2x.png */,
 				BFEE4E81150DE42E005D68CA /* icon-favorite.png */,
 				BFEE4E82150DE42E005D68CA /* icon-favorite@2x.png */,
-				BFEE4E83150DE42E005D68CA /* icon-mention.png */,
-				BFEE4E84150DE42E005D68CA /* icon-mention@2x.png */,
 				BFEE4E85150DE42E005D68CA /* icon-timeline.png */,
 				BFEE4E86150DE42E005D68CA /* icon-timeline@2x.png */,
 			);
@@ -375,41 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				BF4D6A981510FA0E007687B9 /* HTML-Parser */,
-				BFEE4E3E150D1791005D68CA /* SBJSON */,
 			);
 			name = "3th-party";
-			sourceTree = "<group>";
-		};
-		BFEE4E3E150D1791005D68CA /* SBJSON */ = {
-			isa = PBXGroup;
-			children = (
-				BFEE4E3F150D17BD005D68CA /* NSObject+SBJson.h */,
-				BFEE4E40150D17BD005D68CA /* NSObject+SBJson.m */,
-				BFEE4E41150D17BD005D68CA /* SBJson.h */,
-				BFEE4E42150D17BD005D68CA /* SBJsonParser.h */,
-				BFEE4E43150D17BD005D68CA /* SBJsonParser.m */,
-				BFEE4E44150D17BD005D68CA /* SBJsonStreamParser.h */,
-				BFEE4E45150D17BD005D68CA /* SBJsonStreamParser.m */,
-				BFEE4E46150D17BD005D68CA /* SBJsonStreamParserAccumulator.h */,
-				BFEE4E47150D17BD005D68CA /* SBJsonStreamParserAccumulator.m */,
-				BFEE4E48150D17BD005D68CA /* SBJsonStreamParserAdapter.h */,
-				BFEE4E49150D17BD005D68CA /* SBJsonStreamParserAdapter.m */,
-				BFEE4E4A150D17BD005D68CA /* SBJsonStreamParserState.h */,
-				BFEE4E4B150D17BD005D68CA /* SBJsonStreamParserState.m */,
-				BFEE4E4C150D17BD005D68CA /* SBJsonStreamWriter.h */,
-				BFEE4E4D150D17BD005D68CA /* SBJsonStreamWriter.m */,
-				BFEE4E4E150D17BD005D68CA /* SBJsonStreamWriterAccumulator.h */,
-				BFEE4E4F150D17BD005D68CA /* SBJsonStreamWriterAccumulator.m */,
-				BFEE4E50150D17BD005D68CA /* SBJsonStreamWriterState.h */,
-				BFEE4E51150D17BD005D68CA /* SBJsonStreamWriterState.m */,
-				BFEE4E52150D17BD005D68CA /* SBJsonTokeniser.h */,
-				BFEE4E53150D17BD005D68CA /* SBJsonTokeniser.m */,
-				BFEE4E54150D17BD005D68CA /* SBJsonUTF8Stream.h */,
-				BFEE4E55150D17BD005D68CA /* SBJsonUTF8Stream.m */,
-				BFEE4E56150D17BD005D68CA /* SBJsonWriter.h */,
-				BFEE4E57150D17BD005D68CA /* SBJsonWriter.m */,
-			);
-			name = SBJSON;
 			sourceTree = "<group>";
 		};
 		BFEE4E94150E3D1F005D68CA /* Views */ = {
@@ -480,13 +418,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFEE4DF7150BBA1B005D68CA /* InfoPlist.strings in Resources */,
-				BFEE4E87150DE42E005D68CA /* hp-summic.png in Resources */,
 				BFEE4E88150DE42E005D68CA /* icon-account.png in Resources */,
 				BFEE4E89150DE42E005D68CA /* icon-account@2x.png in Resources */,
 				BFEE4E8A150DE42E005D68CA /* icon-favorite.png in Resources */,
 				BFEE4E8B150DE42E005D68CA /* icon-favorite@2x.png in Resources */,
-				BFEE4E8C150DE42E005D68CA /* icon-mention.png in Resources */,
-				BFEE4E8D150DE42E005D68CA /* icon-mention@2x.png in Resources */,
 				BFEE4E8E150DE42E005D68CA /* icon-timeline.png in Resources */,
 				BFEE4E8F150DE42E005D68CA /* icon-timeline@2x.png in Resources */,
 				BFEE4E92150E3D0E005D68CA /* blueArrow.png in Resources */,
@@ -494,6 +429,10 @@
 				BFF9AA35150F0AEB009B238A /* TODO.txt in Resources */,
 				BFF9AA3A150FA68A009B238A /* TestView.xib in Resources */,
 				BF4D6AA11510FA1B007687B9 /* README.md in Resources */,
+				BF39112F151F39AF00CC49DF /* loading.png in Resources */,
+				BF391130151F39AF00CC49DF /* loading@2x.png in Resources */,
+				BF391137151F91C400CC49DF /* icon-notification.png in Resources */,
+				BF391138151F91C400CC49DF /* icon-notification@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,24 +446,11 @@
 				BFEE4DF9150BBA1B005D68CA /* main.m in Sources */,
 				BFEE4DFD150BBA1B005D68CA /* VMAppDelegate.m in Sources */,
 				BFEE4E1F150BBE42005D68CA /* VMAccount.m in Sources */,
-				BFEE4E22150BBF64005D68CA /* VMAccountVC.m in Sources */,
 				BFEE4E25150BBFE5005D68CA /* VMMainVC.m in Sources */,
 				BFEE4E28150BC47C005D68CA /* VMNotificationVC.m in Sources */,
 				BFEE4E2B150BC497005D68CA /* VMNodeVC.m in Sources */,
 				BFEE4E2E150BC4B0005D68CA /* VMFavoriteVC.m in Sources */,
 				BFEE4E3C150C9EBE005D68CA /* VMTopicsLoader.m in Sources */,
-				BFEE4E58150D17BD005D68CA /* NSObject+SBJson.m in Sources */,
-				BFEE4E59150D17BD005D68CA /* SBJsonParser.m in Sources */,
-				BFEE4E5A150D17BD005D68CA /* SBJsonStreamParser.m in Sources */,
-				BFEE4E5B150D17BD005D68CA /* SBJsonStreamParserAccumulator.m in Sources */,
-				BFEE4E5C150D17BD005D68CA /* SBJsonStreamParserAdapter.m in Sources */,
-				BFEE4E5D150D17BD005D68CA /* SBJsonStreamParserState.m in Sources */,
-				BFEE4E5E150D17BD005D68CA /* SBJsonStreamWriter.m in Sources */,
-				BFEE4E5F150D17BD005D68CA /* SBJsonStreamWriterAccumulator.m in Sources */,
-				BFEE4E60150D17BD005D68CA /* SBJsonStreamWriterState.m in Sources */,
-				BFEE4E61150D17BD005D68CA /* SBJsonTokeniser.m in Sources */,
-				BFEE4E62150D17BD005D68CA /* SBJsonUTF8Stream.m in Sources */,
-				BFEE4E63150D17BD005D68CA /* SBJsonWriter.m in Sources */,
 				BFEE4E68150D1807005D68CA /* VMTimelineVC.m in Sources */,
 				BFEE4E69150D1807005D68CA /* VMTopicVC.m in Sources */,
 				BFEE4E97150E3D2D005D68CA /* EGORefreshTableHeaderView.m in Sources */,
@@ -550,6 +476,8 @@
 				BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */,
 				BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */,
 				BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */,
+				BF4831B7151F155500051337 /* VMWebContentVC.m in Sources */,
+				BF4831BB151F221900051337 /* VMMiniBrowser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,8 +2,9 @@
 //  VMMasterViewController.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMTimelineVC.h"
@@ -12,6 +13,8 @@
 #import "VMImageLoader.h"
 #import "Config.h"
 #import "VMLoader.h"
+#import "VMMemberVC.h"
+#import "VMInfoView.h"
 
 #define NAME_TAG 11
 #define TIME_TAG 12
@@ -21,7 +24,7 @@
 #define NODE_TAG 16
 #define REPLY_TAG 17
 #define LAST_REPLY_AUTHOR_TAG 18
-#define WAITING_VIEW_TAG 1
+//#define WAITING_VIEW_TAG 1
 
 #define ROW_HEIGHT 70
 #define IMAGE_SIDE 48
@@ -42,7 +45,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"首页";
+    imgBnt2name = [[NSMutableDictionary alloc] init];
+    self.title = @"V2EX";
     refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, WINDOW_HEIGHT, 0)];
     refreshTableHeaderView.delegate = self;
     [[self view] addSubview:refreshTableHeaderView];
@@ -89,13 +93,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row >= [topics count]) {
-        UIActivityIndicatorView *loadingIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        UIView *loadingWrapperView = [[UIView alloc] initWithFrame:cell.frame];
-        [loadingWrapperView addSubview:loadingIndicatorView];
-        loadingIndicatorView.center = CGPointMake(cell.frame.size.width/2, cell.frame.size.height/2);
-        [cell addSubview:loadingWrapperView];
-        [loadingIndicatorView startAnimating];
+        cell.textLabel.text = @"正在加载...";
         return [self loadTopics:currentPage+1];
     }
     NSDictionary *topic = [topics objectAtIndex:indexPath.row];
@@ -117,6 +116,14 @@
     return 0;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if ([topics count] && currentPage > 1) {
+        return [NSString stringWithFormat:@"                         第%d页", currentPage];
+    }
+    return nil;
+}
+
 
 - (UITableViewCell *)tableviewCellWithReuseIdentifier:(NSString *)identifier 
 {
@@ -126,9 +133,11 @@
     
     //Userpic view
     rect = CGRectMake(BORDER_WIDTH, (ROW_HEIGHT - IMAGE_SIDE) / 2.0, IMAGE_SIDE, IMAGE_SIDE);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.tag = IMAGE_TAG;
-    [cell.contentView addSubview:imageView];
+    UIButton *imgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [imgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    imgButton.frame = rect;
+    imgButton.tag = IMAGE_TAG;
+    [cell addSubview:imgButton];
     
     UILabel *label;
     
@@ -138,7 +147,7 @@
     label.tag = NAME_TAG;
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -149,7 +158,7 @@
     label.font = [UIFont systemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -159,7 +168,7 @@
     label.tag = NODE_TAG;
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -170,7 +179,7 @@
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -182,7 +191,7 @@
     label.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
     label.highlightedTextColor = [UIColor whiteColor];
     label.numberOfLines = 0;
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -194,7 +203,7 @@
     label.textAlignment = UITextAlignmentRight;
     label.highlightedTextColor = [UIColor whiteColor];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -226,9 +235,11 @@
     [timeLabel sizeToFit];
     
     //Set userpic
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:IMAGE_TAG];
+    UIButton *imageView = (UIButton *)[cell viewWithTag:IMAGE_TAG];
+    [imageView setImage:[UIImage imageNamed:@"loading.png"] forState:UIControlStateNormal];
+    [imgBnt2name setValue:[topic objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imageView]];
     VMImageLoader *imageLoader = [[VMImageLoader alloc] init];
-    [imageLoader loadImageWithURL:[NSURL URLWithString:[topic objectForKey:@"img_url"]] forImageView:imageView];
+    [imageLoader loadImageWithURL:[NSURL URLWithString:[[topic objectForKey:@"img_url"] stringByReplacingOccurrencesOfString:@"large" withString:@"normal"]] forImageButton:imageView];
     
     //Set user name
     UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
@@ -289,17 +300,23 @@
     loading = NO;
     [refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
     [self.tableView reloadData];
-    if (currentPage == 2) {
-        self.title = [NSString stringWithFormat:@"第%d页", currentPage];
-    } else {
-        self.title = @"首页";
-    }
-    [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    [waittingView removeFromSuperview];
 }
 
 - (void)cancel
 {
-    NSLog(@"Load Failed");
+    [refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
+    loading = NO;
+    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"加载失败"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
+    [self.view addSubview:infoView];
+    [self performSelector:@selector(removeInfoView:) withObject:infoView afterDelay:2];
+}
+
+- (void)removeInfoView:(id)infoView
+{
+    [infoView removeFromSuperview];
 }
 
 #pragma mark -
@@ -335,6 +352,12 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
 	[refreshTableHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
+
+- (void)showMember:(UIButton *)imgBnt
+{
+    VMMemberVC *memberVC = [[VMMemberVC alloc] initWithName:[imgBnt2name objectForKey:[NSString stringWithFormat:@"%d", imgBnt]]];
+    [self.navigationController pushViewController:memberVC animated:YES];
 }
 
 @end

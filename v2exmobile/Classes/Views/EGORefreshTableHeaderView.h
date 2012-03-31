@@ -3,7 +3,7 @@
 //  Demo
 //
 //  Created by Devin Doty on 10/14/09October14.
-//  Copyright 2009 enormego. All rights reserved.
+//  Copyright 2009 enormego.
 //
 //修改人：禚来强 iphone开发qq群：79190809 邮箱：zhuolaiqiang@gmail.com
 //

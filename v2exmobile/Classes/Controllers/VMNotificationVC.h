@@ -2,8 +2,9 @@
 //  VMNotificationVC.h
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import <UIKit/UIKit.h>
@@ -20,9 +21,12 @@
     BOOL loading;
     VMTopicVC *topicVC;
     VMLoginHandler *loginHandler;
+    NSDictionary *imgBnt2name;
+    VMwaitingView *waitingView;
 }
 
 - (void)loadNotifications;
 - (UITableViewCell *)tableviewCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath;
-
+- (void)showMember:(UIButton *)imgBnt;
+- (void)removeInfoView:(id)infoView;
 @end

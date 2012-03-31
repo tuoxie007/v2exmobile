@@ -2,8 +2,9 @@
 //  VMMainVC.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMMainVC.h"
@@ -11,8 +12,7 @@
 #import "VMNotificationVC.h"
 #import "VMNodeVC.h"
 #import "VMFavoriteVC.h"
-#import "VMAccountVC.h"
-#import "VMAccount.h"
+#import "VMMemberVC.h"
 #import "HTMLParser.h"
 
 @implementation VMMainVC
@@ -58,7 +58,7 @@
     UITabBarItem *favoriteTabBarItem = [[UITabBarItem alloc] initWithTitle:@"关注" image:[UIImage imageNamed:@"icon-favorite.png"] tag:3];
     [favoriteNavController setTabBarItem:favoriteTabBarItem];
     
-    VMAccountVC *accountVC = [[VMAccountVC alloc] init];
+    VMMemberVC *accountVC = [[VMMemberVC alloc] init];
     UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:accountVC];
     UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"账户" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];

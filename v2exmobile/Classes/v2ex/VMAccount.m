@@ -2,8 +2,9 @@
 //  VMAccount.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/10/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/10/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMAccount.h"
@@ -13,18 +14,22 @@
 @implementation VMAccount
 
 @synthesize cookie;
+@synthesize username = _username;
 @synthesize delegate = _delegate;
 
-- (id) init
+- (id)init
 {
     self = [super init];
     cookieFilePath = [Commen getFilePathWithFilename:@"cookie.txt"];
     cookie = [NSHTTPCookie cookieWithProperties:[[NSDictionary alloc] initWithContentsOfFile:cookieFilePath]];
+    usernameFilePath = [Commen getFilePathWithFilename:@"username.txt"];
+    _username = [NSString stringWithContentsOfFile:usernameFilePath encoding:NSUTF8StringEncoding error:nil];
     return self;
 }
 
-- (BOOL) login:(NSString *)username password:(NSString *)password
+- (BOOL)login:(NSString *)username password:(NSString *)password
 {
+    _username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/signin", V2EX_URL]];
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
     [req setHTTPMethod:@"POST"];
@@ -33,12 +38,15 @@
     return YES;
 }
 
-- (void) logout
+- (void)logout
 {
-    [self setCookie:nil];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:cookieFilePath error:nil];
+    [fileManager removeItemAtPath:usernameFilePath error:nil];
+    self.cookie = nil;
 }
 
-+ (VMAccount *) getInstance
++ (VMAccount *)getInstance
 {
     static VMAccount *singalInstance;
     if (!singalInstance) {
@@ -57,6 +65,7 @@
     if (returnedCookies) {
         cookie = [returnedCookies objectAtIndex:0];
         [[cookie properties] writeToFile:cookieFilePath atomically:NO];
+        [[_username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFilePath atomically:NO];
         [_delegate accountLoginSuccess];
     } else {
         [_delegate accountLoginFailed];

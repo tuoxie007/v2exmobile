@@ -2,8 +2,9 @@
 //  VMwaitingView.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/17/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/17/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMwaitingView.h"
@@ -36,6 +37,9 @@
     UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     messageLabel.tag = MESSAGE_VIEW_TAG;
     messageLabel.textColor = [UIColor whiteColor];
+    if (message == nil) {
+        message = @"正在加载";
+    }
     messageLabel.text = message;
     messageLabel.textAlignment = UITextAlignmentCenter;
     messageLabel.font = [UIFont systemFontOfSize:14];

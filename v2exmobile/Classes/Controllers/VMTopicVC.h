@@ -2,14 +2,16 @@
 //  VMDetailViewController.h
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import <UIKit/UIKit.h>
 #import "VMAccount.h"
 #import "VMRepliesLoader.h"
 #import "VMLoginHandler.h"
+#import "VMwaitingView.h"
 
 @class VMTopicView;
 @interface VMTopicVC : UITableViewController <UIWebViewDelegate, UIAlertViewDelegate, LoginHandlerDelegate, LoaderDalegate>
@@ -26,6 +28,9 @@
     BOOL favorited;
     NSString *favURL;
     BOOL favoriting;
+    NSDictionary *imgBnt2name;
+    NSString *html;
+    VMwaitingView *waittingView;
 }
 
 @property (strong) NSDictionary *topic;
@@ -40,4 +45,6 @@
 - (void)replySuccess;
 - (void)removeInfoView;
 - (void)favoriteTopic;
+- (void)showMember:(UIButton *)imgBnt;
+- (void)removeInfoView:(id)infoView;
 @end

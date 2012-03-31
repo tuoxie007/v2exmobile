@@ -2,8 +2,9 @@
 //  VMDetailViewController.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/11/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMTopicVC.h"
@@ -15,8 +16,10 @@
 #import "VMWaitingView.h"
 #import "VMLoginHandler.h"
 #import "Config.h"
+#import "VMMemberVC.h"
+#import "VMWebContentVC.h"
 
-#define WAITING_VIEW_TAG 1
+//#define WAITING_VIEW_TAG 1
 
 #define NAME_TAG 11
 #define TIME_TAG 12
@@ -57,9 +60,10 @@
 {
     self = [super init];
     if (self) {
+        imgBnt2name = [[NSMutableDictionary alloc] init];
         self.topic = topic;
-        topicURL = [NSURL URLWithString:[_topic objectForKey:@"url"]];
-        [[NSNotificationCenter defaultCenter] addObserver:self	selector:@selector(replySuccess) name:@"reply_success" object:nil];
+        topicURL = [NSURL URLWithString:[[[_topic objectForKey:@"url"] componentsSeparatedByString:@"#"] objectAtIndex:0]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replySuccess) name:@"reply_success" object:nil];
     }
     return self;
 }
@@ -72,11 +76,6 @@
     }
     VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
     [repliesLoader loadRepliesWithURL:topicURL];
-    
-    if (!self.navigationItem.rightBarButtonItem) {
-        UIBarButtonItem *replyButton = [[UIBarButtonItem alloc] initWithTitle:@"回帖" style:UIBarButtonItemStyleDone target:self action:@selector(reply)];
-        self.navigationItem.rightBarButtonItem = replyButton;
-    }
 }
 
 #pragma mark - Actions
@@ -88,10 +87,9 @@
     if (favorited) {
         msg = @"正在取消收藏";
     }
-    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:msg];
-    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
-    waitingView.tag = WAITING_VIEW_TAG;
-    [self.view addSubview:waitingView];
+    waittingView = [[VMwaitingView alloc] initWithMessage:msg];
+    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
+    [self.view addSubview:waittingView];
     
     VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
     repliesLoader.referer = [topicURL description];
@@ -112,16 +110,16 @@
 - (void)replySuccess
 {
     VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"发送成功"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
     infoView.tag = INFO_VIEW_TAG;
     [self.view addSubview:infoView];
     [self performSelector:@selector(removeInfoView) withObject:nil afterDelay:1];
     
     [self updateView];
     
-    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:@"正在刷新"];
-    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
-    waitingView.tag = WAITING_VIEW_TAG;
-    [self.view addSubview:waitingView];
+    waittingView = [[VMwaitingView alloc] initWithMessage:@"正在刷新"];
+    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
+    [self.view addSubview:waittingView];
 }
 
 - (void)removeInfoView
@@ -147,7 +145,10 @@
     tipCell.textLabel.font = [UIFont systemFontOfSize:10];
     NSString *replyNum = [_topic objectForKey:@"replies"];
     if (!replyNum || [replyNum isEqualToString:@""]) {
-        replyNum = @"0";
+        replyNum = [NSString stringWithFormat:@"%d", [replies count]];
+        if (!replyNum || [replyNum isEqualToString:@""]) {
+            replyNum = @"0";
+        }
     }
     tipCell.textLabel.text = [NSString stringWithFormat:@"共收到 %@ 个回复", replyNum];
     
@@ -161,14 +162,18 @@
     topicCell.frame = CGRectMake(0, 0, WINDOW_WIDTH, 0);
     
     // User Image
-    UIImageView *userImgView = [[UIImageView alloc] initWithFrame:CGRectMake(PADDING, PADDING, IMAGE_SIZE, IMAGE_SIZE)];
+    UIButton *userImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [userImgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    userImgButton.frame = CGRectMake(PADDING, PADDING, IMAGE_SIZE, IMAGE_SIZE);
     VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
-    [imgLoader loadImageWithURL:[NSURL URLWithString:[_topic objectForKey:@"img_url"]] forImageView:userImgView];
-    [topicCell addSubview:userImgView];
+    [imgLoader loadImageWithURL:[NSURL URLWithString:[_topic objectForKey:@"img_url"]] forImageButton:userImgButton];
+    [topicCell addSubview:userImgButton];
     
     // Title
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(userImgView.frame.origin.x + userImgView.frame.size.width + PADDING, PADDING, WINDOW_WIDTH-(userImgView.frame.origin.x + userImgView.frame.size.width + PADDING)-PADDING, 0)];
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(userImgButton.frame.origin.x + userImgButton.frame.size.width + PADDING, PADDING, WINDOW_WIDTH-(userImgButton.frame.origin.x + userImgButton.frame.size.width + PADDING)-PADDING, 0)];
     titleView.font = [UIFont boldSystemFontOfSize:14];
+    titleView.highlightedTextColor = [UIColor whiteColor];
+    titleView.opaque = NO;
     titleView.text = [_topic objectForKey:@"title"];
     titleView.lineBreakMode = UILineBreakModeCharacterWrap;
     titleView.numberOfLines = 0;
@@ -177,8 +182,10 @@
     
     //    NSLog(@"%f", PADDING+contentView.frame.origin.y+contentView.frame.size.height);
     // by
-    UILabel *staticLabel_by = [[UILabel alloc] initWithFrame:CGRectMake(PADDING*2+userImgView.frame.size.width, PADDING+titleView.frame.origin.y+titleView.frame.size.height, 0, 0)];
+    UILabel *staticLabel_by = [[UILabel alloc] initWithFrame:CGRectMake(PADDING*2+userImgButton.frame.size.width, PADDING+titleView.frame.origin.y+titleView.frame.size.height, 0, 0)];
     staticLabel_by.font = [UIFont systemFontOfSize:9];
+    staticLabel_by.highlightedTextColor = [UIColor whiteColor];
+    staticLabel_by.opaque = NO;
     staticLabel_by.textColor = [UIColor grayColor];
     staticLabel_by.text = @"by";
     [staticLabel_by sizeToFit];
@@ -188,6 +195,8 @@
     // author
     UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(staticLabel_by.frame.origin.x + staticLabel_by.frame.size.width + PADDING, staticLabel_by.frame.origin.y, 0, 0)];
     authorLabel.font = [UIFont systemFontOfSize:9];
+    authorLabel.highlightedTextColor = [UIColor whiteColor];
+    authorLabel.opaque = NO;
     authorLabel.text = [_topic objectForKey:@"author"];
     [authorLabel sizeToFit];
     [topicCell addSubview:authorLabel];
@@ -195,6 +204,8 @@
     // at
     UILabel *staticLabel_at = [[UILabel alloc] initWithFrame:CGRectMake(authorLabel.frame.origin.x + authorLabel.frame.size.width + PADDING, authorLabel.frame.origin.y, 0, 0)];
     staticLabel_at.font = [UIFont systemFontOfSize:9];
+    staticLabel_at.highlightedTextColor = [UIColor whiteColor];
+    staticLabel_at.opaque = NO;
     staticLabel_at.textColor = [UIColor grayColor];
     staticLabel_at.text = @"at";
     [staticLabel_at sizeToFit];
@@ -203,31 +214,34 @@
     // time
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(staticLabel_at.frame.origin.x + staticLabel_at.frame.size.width + PADDING, staticLabel_by.frame.origin.y, 0, 0)];
     timeLabel.font = [UIFont systemFontOfSize:9];
+    timeLabel.highlightedTextColor = [UIColor whiteColor];
+    timeLabel.opaque = NO;
     timeLabel.textColor = [UIColor grayColor];
-    if (time) {
-        timeLabel.text = time;
-    } else {
-        timeLabel.text = [_topic objectForKey:@"time"];
-    }
+    timeLabel.text = [_topic objectForKey:@"time"];
     
     [timeLabel sizeToFit];
     [topicCell addSubview:timeLabel];
     
     // Fav button
     if (favURL) {
-        UIButton *favBnt = [UIButton buttonWithType:UIButtonTypeContactAdd];
-        [favBnt addTarget:self action:@selector(favoriteTopic) forControlEvents:UIControlEventTouchUpInside];
-        CGRect favFrame = favBnt.frame;
-        favFrame.origin = CGPointMake(WINDOW_WIDTH-30, timeLabel.frame.origin.y-15);
-        favFrame.size = CGSizeMake(25, 25);
-        favBnt.frame = favFrame;
-        [topicCell addSubview:favBnt];
+        if (!self.navigationItem.rightBarButtonItem) {
+            NSString *title;
+            if (favorited) {
+                title = @"取消收藏";
+            } else {
+                title = @"收藏";
+            }
+            UIBarButtonItem *favButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone target:self action:@selector(favoriteTopic)];
+            self.navigationItem.rightBarButtonItem = favButton;
+        }
     }
     
 //    NSLog(@"%f", titleView.frame.origin.y+titleView.frame.size.height+PADDING);
     // Content
-    UILabel *contentView = [[UILabel alloc] initWithFrame:CGRectMake(userImgView.frame.origin.x, userImgView.frame.origin.y+userImgView.frame.size.height+PADDING, WINDOW_WIDTH-PADDING, 0)];
+    UILabel *contentView = [[UILabel alloc] initWithFrame:CGRectMake(userImgButton.frame.origin.x, userImgButton.frame.origin.y+userImgButton.frame.size.height+PADDING, WINDOW_WIDTH-PADDING, 0)];
     contentView.font = [UIFont systemFontOfSize:12];
+    contentView.highlightedTextColor = [UIColor whiteColor];
+    contentView.opaque = NO;
     contentView.text = content;
 //    NSLog(@"%@", content);
     contentView.lineBreakMode = UILineBreakModeWordWrap;
@@ -316,6 +330,25 @@
     return 2;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([VMAccount getInstance].cookie) {
+        if (indexPath.row == 0) {
+            NSString *author = [_topic objectForKey:@"author"];
+            VMWebContentVC *webContentVC = [[VMWebContentVC alloc] initWithHTML:html author:author forURL:topicURL];
+            [self.navigationController pushViewController:webContentVC animated:YES];
+        } else if (indexPath.row > 1) {
+            NSString *author = [[replies objectAtIndex:indexPath.row-2] objectForKey:@"author"];
+            NSString *htmlContent = [[replies objectAtIndex:indexPath.row-2] objectForKey:@"html"];
+            VMWebContentVC *webContentVC = [[VMWebContentVC alloc] initWithHTML:htmlContent author:author forURL:topicURL];
+            [self.navigationController pushViewController:webContentVC animated:YES];
+        }
+    } else {
+        VMLoginHandler *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+        [loginHandler login];
+    }
+}
+
 
 - (UITableViewCell *)replyCellWithReuseIdentifier:(NSString *)identifier
 {
@@ -325,9 +358,11 @@
     
     //Userpic view
     CGRect rect = CGRectMake(BORDER_WIDTH, BORDER_WIDTH, REPLY_IMAGE_SIDE, REPLY_IMAGE_SIDE);
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
-    imageView.tag = IMAGE_TAG;
-    [cell.contentView addSubview:imageView];
+    UIButton *userImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [userImgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
+    userImgButton.frame = rect;
+    userImgButton.tag = IMAGE_TAG;
+    [cell addSubview:userImgButton];
     
     UILabel *label;
     
@@ -337,7 +372,7 @@
     label.tag = NAME_TAG;
     label.font = [UIFont boldSystemFontOfSize:9];
     label.highlightedTextColor = [UIColor whiteColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -349,7 +384,7 @@
     label.tag = TIME_TAG;
     label.font = [UIFont systemFontOfSize:9];
     label.textColor = [UIColor grayColor];
-    [cell.contentView addSubview:label];
+    [cell addSubview:label];
     label.opaque = NO;
     label.backgroundColor = [UIColor clearColor];
     
@@ -366,6 +401,8 @@
     CGRect rect = CGRectMake(BORDER_WIDTH+REPLY_IMAGE_SIDE+BORDER_WIDTH, TEXT_OFFSET_Y, TEXT_WIDTH, 0); // not sure: H
     UILabel *contentView = [[UILabel alloc] initWithFrame:rect];
     contentView.font = [UIFont systemFontOfSize:12];
+    contentView.highlightedTextColor = [UIColor whiteColor];
+    contentView.opaque = NO;
     contentView.text = [reply objectForKey:@"content"];
     contentView.lineBreakMode = UILineBreakModeWordWrap;
     contentView.numberOfLines = 0;
@@ -383,21 +420,26 @@
     
     //Set date and time
     UILabel *timeLabel = (UILabel *)[cell viewWithTag:TIME_TAG];
-    timeLabel.text = [reply objectForKey:@"time"];
+    timeLabel.highlightedTextColor = [UIColor whiteColor];
+    timeLabel.opaque = NO;
+    timeLabel.text = [NSString stringWithFormat:@"#%d - %@", indexPath.row - 1, [reply objectForKey:@"time"]];
     [timeLabel sizeToFit];
     CGRect timeFrame = [timeLabel frame];
     timeFrame.origin.x = 320-BORDER_WIDTH-timeFrame.size.width;
     [timeLabel setFrame:timeFrame];
     
     //Set userpic
-    UIImageView *imageView = (UIImageView *)[cell viewWithTag:IMAGE_TAG];
+    UIButton *imageView = (UIButton *)[cell viewWithTag:IMAGE_TAG];
+    [imageView setImage:[UIImage imageNamed:@"loading.png"] forState:UIControlStateNormal];
+    [imgBnt2name setValue:[reply objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imageView]];
     VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
     NSString *imgURL = [reply objectForKey:@"img_url"];
-    imgURL = [imgURL stringByReplacingOccurrencesOfString:@"normal" withString:@"mini"];
-    [imgLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageView:imageView];
+    [imgLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageButton:imageView];
     
     //Set user name
     UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
+    userLabel.highlightedTextColor = [UIColor whiteColor];
+    userLabel.opaque = NO;
     userLabel.text = [reply objectForKey:@"author"];
     [userLabel sizeToFit];
 }
@@ -405,28 +447,51 @@
 #pragma mark - RepliesLoader delegate
 - (void)didFinishedLoadingWithData:(NSDictionary *)topic
 {
+    NSMutableDictionary *newTopic = [NSMutableDictionary dictionaryWithDictionary:_topic];
+    [newTopic setValue:[topic objectForKey:@"title"] forKey:@"title"];
+    [newTopic setValue:[topic objectForKey:@"img_url"] forKey:@"img_url"];
+    [newTopic setValue:[topic objectForKey:@"author"] forKey:@"author"];
+    [newTopic setValue:[topic objectForKey:@"time"] forKey:@"time"];
+    _topic = newTopic;
     content = [topic objectForKey:@"content"];
+    html = [topic objectForKey:@"html"];
+    if (replies) {
+        [[topic objectForKey:@"replies"] addObjectsFromArray:replies];
+    }
     replies = [topic objectForKey:@"replies"];
-    time = [topic objectForKey:@"time"];
     favURL = [topic objectForKey:@"fav_url"];
     favorited = [favURL hasPrefix:[NSString stringWithFormat:@"%@%@", V2EX_URL, @"/unfavorite"]];
-    [self.tableView reloadData];
     [loadingReplyIndicatorView stopAnimating];
     [loadingReplyIndicatorView removeFromSuperview];
-    [[self.view viewWithTag:WAITING_VIEW_TAG] removeFromSuperview];
+    [waittingView removeFromSuperview];
     if (favoriting) {
         if (favorited) {
-            NSLog(@"fav ok");
+            self.navigationItem.rightBarButtonItem.title = @"取消收藏";
         } else {
-            NSLog(@"unfav ok");
+            self.navigationItem.rightBarButtonItem.title = @"收藏";
         }
     }
     favoriting = NO;
+    
+    if ([topic objectForKey:@"next_page"] > @"0") {
+        VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
+        [repliesLoader loadRepliesWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?p=%@", [topicURL description], [topic objectForKey:@"next_page"]]]];
+    } else {
+        [self.tableView reloadData];
+    }
 }
 
 - (void)cancel
 {
-    
+    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"加载失败"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
+    [self.view addSubview:infoView];
+    [self performSelector:@selector(removeInfoView:) withObject:infoView afterDelay:2];
+}
+
+- (void)removeInfoView:(id)infoView
+{
+    [(UIView *)infoView removeFromSuperview];
 }
 
 #pragma mark - View lifecycle
@@ -468,6 +533,12 @@
     popupWindowVC.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
     [popupLoadingView stopAnimating];
     [popupLoadingView removeFromSuperview];
+}
+
+- (void)showMember:(UIButton *)imgBnt
+{
+    VMMemberVC *memberVC = [[VMMemberVC alloc] initWithName:[imgBnt2name objectForKey:[NSString stringWithFormat:@"%d", imgBnt]]];
+    [self.navigationController pushViewController:memberVC animated:YES];
 }
 
 @end

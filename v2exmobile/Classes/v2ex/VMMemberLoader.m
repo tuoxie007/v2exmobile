@@ -2,8 +2,9 @@
 //  VMMemberLoader.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/20/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/20/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMMemberLoader.h"
@@ -35,12 +36,26 @@
         
         HTMLNode *contentDiv = [bodyNode findChildWithAttribute:@"id" matchingName:@"Content" allowPartial:NO];
         
-        NSString *favURL = [[[[[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"cell"] findChildTag:@"table"] findChildOfClass:@"fr"] findChildTag:@"a"] contents];
+        NSArray *cellDivs = [[contentDiv findChildOfClass:@"box"] findChildrenOfClass:@"cell"];
+        HTMLNode *innerDiv = [contentDiv findChildOfClass:@"inner"];
+        cellDivs = [NSMutableArray arrayWithArray:cellDivs];
+        [((NSMutableArray *)cellDivs) addObject:innerDiv];
+        
+        NSString *followURL = [[[cellDivs objectAtIndex:0] findChildTag:@"a"] getAttributeNamed:@"href"];
+        if (followURL == nil) {
+            followURL = @"";
+        } else if (![followURL hasPrefix:@"http://"]) {
+            followURL = [NSString stringWithFormat:@"%@%@", V2EX_URL, followURL];
+        }
         NSString *name = [[contentDiv findChildTag:@"h2"] contents];
         NSString *imgURL = [[contentDiv findChildTag:@"img"] getAttributeNamed:@"src"];
-        NSString *level = [[contentDiv findChildOfClass:@"fade bigger"] contents];
+        NSString *level = @"";
+        HTMLNode *levelNode = [contentDiv findChildOfClass:@"fade bigger"];
+        if (levelNode) {
+            level = [[contentDiv findChildOfClass:@"fade bigger"] contents];
+        }
         NSString *partin = [[contentDiv findChildOfClass:@"snow"] contents];
-        NSArray *tdNodes = [[[[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"cell"] findChildTag:@"table"] findChildTag:@"table"] findChildTags:@"td"];
+        NSArray *tdNodes = [[[[cellDivs objectAtIndex:0] findChildTag:@"table"] findChildTag:@"table"] findChildTags:@"td"];
         NSMutableArray *associatedSites = [[NSMutableArray alloc] init];
         for (HTMLNode *tdNode in tdNodes) {
             HTMLNode *imgNode = [tdNode findChildTag:@"img"];
@@ -52,7 +67,10 @@
                 [associatedSites addObject:[[NSDictionary alloc] initWithObjectsAndKeys:iconURL, @"icon_url", text, @"text", url, @"url", nil]];
             }
         }
-        NSString *desc = [[[contentDiv findChildOfClass:@"box"] findChildOfClass:@"inner"] allContents];
+        NSString *desc = @"";
+        if ([cellDivs count] > 1) {
+            desc = [[[cellDivs lastObject] allContents]stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        }
         
         NSArray *boxDivs = [contentDiv findChildrenOfClass:@"box"];
         
@@ -61,18 +79,21 @@
         postedTrs = [postedTrs subarrayWithRange:NSMakeRange(1, [postedTrs count]-1)];
         for (HTMLNode *tr in postedTrs) {
             NSArray *tds = [tr findChildTags:@"td"];
+            
+            NSString *replies = [[[tds objectAtIndex:0] findChildTag:@"span"] contents];
+            
             HTMLNode *titleNode = [[tds objectAtIndex:1] findChildTag:@"a"];
             NSString *title = [titleNode contents];
             NSString *url = [titleNode getAttributeNamed:@"href"];
+            url = [NSString stringWithFormat:@"%@%@", V2EX_URL, url];
             
             HTMLNode *replierNode = [[tds objectAtIndex:2] findChildTag:@"a"];
-            NSString *member = [replierNode contents];
-            NSString *memberURL = [replierNode getAttributeNamed:@"href"];
+            NSString *author = [replierNode contents];
+            NSString *authorURL = [replierNode getAttributeNamed:@"href"];
             
-            HTMLNode *lastReplyTimeNode = [[tds objectAtIndex:3] findChildTag:@"small"];
-            NSString *lastReplyTime = [lastReplyTimeNode contents];
+            NSString *lastReplyTime = [[[tds objectAtIndex:3] findChildTag:@"small"] contents];
             
-            [postedTopics addObject:[NSDictionary dictionaryWithObjectsAndKeys:title, @"title", url, @"url", member, @"member", memberURL, @"member_url", lastReplyTime, @"last_reply_time", nil]];
+            [postedTopics addObject:[NSDictionary dictionaryWithObjectsAndKeys:replies, @"replies", title, @"title", url, @"url", author, @"author", authorURL, @"author_url", lastReplyTime, @"last_reply_time", nil]];
         }
         
         HTMLNode *partedTable = [[boxDivs objectAtIndex:2] findChildTag:@"table"];
@@ -86,6 +107,7 @@
             HTMLNode *titleNode = [[tds objectAtIndex:1] findChildTag:@"a"];
             NSString *title = [titleNode contents];
             NSString *url = [titleNode getAttributeNamed:@"href"];
+            url = [NSString stringWithFormat:@"%@%@", V2EX_URL, url];
             
             HTMLNode *replierNode = [[tds objectAtIndex:2] findChildTag:@"a"];
             NSString *author = [replierNode contents];
@@ -95,7 +117,7 @@
             
             [partedTopics addObject:[NSDictionary dictionaryWithObjectsAndKeys:replies, @"replies", title, @"title", url, @"url", author, @"author", authorURL, @"author_url", lastReplyTime, @"last_reply_time", nil]];
         }
-        [_delegate didFinishedLoadingWithData:[NSDictionary dictionaryWithObjectsAndKeys:postedTopics, @"posted_topics", partedTopics, @"parted_topics", favURL, @"fav_url", name, @"name", imgURL, @"img_url", level, @"level", partin, @"partin", associatedSites, @"associated_sites", desc, @"desc", nil]];
+        [_delegate didFinishedLoadingWithData:[NSDictionary dictionaryWithObjectsAndKeys:postedTopics, @"posted_topics", partedTopics, @"parted_topics", followURL, @"follow_url", name, @"name", imgURL, @"img_url", level, @"level", partin, @"partin", associatedSites, @"associated_sites", desc, @"desc", nil]];
     }
     @catch (NSException *exception) {
         [_delegate cancel];

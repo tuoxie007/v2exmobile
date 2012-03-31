@@ -17,7 +17,7 @@
     } else if (page == 3) {
         url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/changes", V2EX_URL]];
     } else {
-        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/changes/%d", V2EX_URL, page - 2]];
+        url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"%@/changes?p=%d", V2EX_URL, page - 2]];
     }
     [self loadDataWithURL:url];
     reloading = YES;
@@ -67,15 +67,17 @@
                 imgSrc = [NSString stringWithFormat:@"%@%@", V2EX_URL, imgSrc];
             }
             
-            HTMLNode *repliesNode = [topicDiv findChildOfClass:@"count_livid"];
-            NSString *repliesStr = [[[repliesNode children] objectAtIndex:0] rawContents];
+            NSString *repliesStr = [[topicDiv findChildOfClass:@"count_livid"] contents];
             if (repliesStr == nil) {
-                repliesStr = @"";
+                repliesStr = [[topicDiv findChildOfClass:@"count_orange"] contents];
+                if (repliesStr == nil) {
+                    repliesStr = @"";
+                }
             }
             
             HTMLNode *titleNode = [topicDiv findChildOfClass:@"bigger"];
             HTMLNode *titleLinkNode = [titleNode findChildTag:@"a"];
-            NSString *title = [[[titleLinkNode children] objectAtIndex:0] rawContents];
+            NSString *title = [titleLinkNode contents];
             NSString *topicURL = [titleLinkNode getAttributeNamed:@"href"];
             topicURL = [NSString stringWithFormat:@"%@%@", V2EX_URL, topicURL];
             HTMLNode *createdNode = [topicDiv findChildOfClass:@"created"];
@@ -84,23 +86,19 @@
             NSString *author = @"";
             if (_node == nil) {
                 if ([createdLinkNodes count] > 1) {
-                    HTMLNode *nodeNode = [createdLinkNodes objectAtIndex:0];
-                    node = [[[nodeNode children] objectAtIndex:0] rawContents];
-                    HTMLNode *authorNode = [createdLinkNodes objectAtIndex:1];
-                    author = [[[authorNode children] objectAtIndex:0] rawContents];
+                    node = [[createdLinkNodes objectAtIndex:0] contents];
+                    author = [[createdLinkNodes objectAtIndex:1] contents];
                 } else {
-                    HTMLNode *authorNode = [createdLinkNodes objectAtIndex:0];
-                    author = [[[authorNode children] objectAtIndex:0] rawContents];
+                    author = [[createdLinkNodes objectAtIndex:0] contents];
                 }
             } else {
                 node = _node;
-                HTMLNode *authorNode = [createdLinkNodes objectAtIndex:0];
-                author = [[[authorNode children] objectAtIndex:0] rawContents];
+                author = [[createdLinkNodes objectAtIndex:0] contents];
             }
             
             NSString *createdText = [createdNode allContents];
             NSArray *parts = [createdText componentsSeparatedByString:@"•"];
-            NSString *timeText = [[parts lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@" "]];
+            NSString *timeText = [[parts lastObject] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
             
             NSDictionary *topic = [[NSDictionary alloc] initWithObjectsAndKeys:title, @"title", topicURL, @"url", node, @"node", author, @"author", imgSrc, @"img_url", repliesStr, @"replies", timeText, @"create", nil];
             [topics addObject:topic];

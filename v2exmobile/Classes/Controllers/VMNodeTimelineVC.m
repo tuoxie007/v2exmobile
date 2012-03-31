@@ -2,8 +2,9 @@
 //  VMNodeTimelineVC.m
 //  v2exmobile
 //
-//  Created by 徐 可 on 3/17/12.
-//  Copyright (c) 2012 TVie. All rights reserved.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 3/17/12.
+//  Copyright (c) 2012 Xu Ke.
+//  Released under the MIT Licenses.
 //
 
 #import "VMNodeTimelineVC.h"
@@ -13,7 +14,7 @@
 #import "VMWaitingView.h"
 #import "VMLoginHandler.h"
 
-#define WAITING_VIEW_TAG 1
+//#define WAITING_VIEW_TAG 1
 #define ASK_LOGIN_TAG 19
 #define LOGIN_PROMPT_TAG 20
 #define INFO_VIEW_TAG 21
@@ -67,6 +68,7 @@
 - (void)postSuccess
 {
     VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"发送成功"];
+    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
     infoView.tag = INFO_VIEW_TAG;
     [self.view addSubview:infoView];
     [self performSelector:@selector(removeInfoView) withObject:nil afterDelay:1];
@@ -75,10 +77,9 @@
     [loader loadTopics:currentPage inNode:_node];
     [refreshTableHeaderView showAsRefreshing];
     
-    VMwaitingView *waitingView = [[VMwaitingView alloc] initWithMessage:@"正在刷新"];
-    [waitingView setLoadingCenter:CGPointMake(self.view.center.x, 100)];
-    waitingView.tag = WAITING_VIEW_TAG;
-    [self.view addSubview:waitingView];
+    waittingView = [[VMwaitingView alloc] initWithMessage:@"正在刷新"];
+    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
+    [self.view addSubview:waittingView];
 }
 
 - (void)removeInfoView
