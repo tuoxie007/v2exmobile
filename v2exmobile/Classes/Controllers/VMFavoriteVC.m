@@ -56,7 +56,7 @@
     UIBarButtonItem *refreshBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(loadFavorites)];
     self.navigationItem.rightBarButtonItem = refreshBarButtonItem;
     if ([VMAccount getInstance].cookie == nil) {
-        VMLoginHandler  *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+        loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
         [loginHandler login];
     } else {
         [self loadFavorites];

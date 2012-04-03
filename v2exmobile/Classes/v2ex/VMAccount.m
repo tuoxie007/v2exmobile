@@ -30,10 +30,12 @@
 - (BOOL)login:(NSString *)username password:(NSString *)password
 {
     _username = [[username componentsSeparatedByString:@"@"] objectAtIndex:0];
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/signin", V2EX_URL]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/signin", V2EX_URL]];///
     NSMutableURLRequest *req = [[NSMutableURLRequest alloc] initWithURL:url];
     [req setHTTPMethod:@"POST"];
-    [req setHTTPBody:[[NSString stringWithFormat:@"u=%@&p=%@", username, password] dataUsingEncoding:NSASCIIStringEncoding]];
+    username = [Commen urlencode:username];
+    password = [Commen urlencode:password];
+    [req setHTTPBody:[[NSString stringWithFormat:@"u=%@&p=%@&next=", username, password] dataUsingEncoding:NSASCIIStringEncoding]];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     return YES;
 }
@@ -58,11 +60,14 @@
 #pragma NSURLConnectoin Protot
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
+    if (cookie) {
+        return;
+    }
     NSHTTPURLResponse *resp = (NSHTTPURLResponse *)response;
     NSArray* returnedCookies = [NSHTTPCookie 
                                 cookiesWithResponseHeaderFields:[resp allHeaderFields] 
                                 forURL:[NSURL URLWithString:V2EX_URL]];
-    if (returnedCookies) {
+    if ([returnedCookies count]) {
         cookie = [returnedCookies objectAtIndex:0];
         [[cookie properties] writeToFile:cookieFilePath atomically:NO];
         [[_username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFilePath atomically:NO];
@@ -71,10 +76,32 @@
         [_delegate accountLoginFailed];
     }
 }
+- (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response
+{
+    if (cookie) {
+        return request;
+    }
+    if (response) {
+        NSHTTPURLResponse *resp = (NSHTTPURLResponse *)response;
+        NSArray* returnedCookies = [NSHTTPCookie 
+                                    cookiesWithResponseHeaderFields:[resp allHeaderFields] 
+                                    forURL:[NSURL URLWithString:V2EX_URL]];
+        if ([returnedCookies count]) {
+            cookie = [returnedCookies objectAtIndex:0];
+            [[cookie properties] writeToFile:cookieFilePath atomically:NO];
+            [[_username dataUsingEncoding:NSUTF8StringEncoding] writeToFile:usernameFilePath atomically:NO];
+            [_delegate accountLoginSuccess];
+        } else {
+            [_delegate accountLoginFailed];
+        }
+        return nil;
+    } else {
+        return request;
+    }
+}
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
     [_delegate accountLoginFailed];
 }
-
 @end

@@ -19,6 +19,7 @@
     NSString *cookieFilePath;
     NSString *usernameFilePath;
     NSString *_username;
+//    NSMutableData *webData;
 }
 
 @property (strong) NSHTTPCookie *cookie;

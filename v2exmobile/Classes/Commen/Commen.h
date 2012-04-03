@@ -12,5 +12,5 @@
 @interface Commen : NSObject
 
 + (NSString *)getFilePathWithFilename:(NSString *)filename;
-
++ (NSString *)urlencode:(NSString *)text;
 @end

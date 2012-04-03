@@ -21,6 +21,7 @@
     NSArray *_members;
     NSMutableDictionary *imgBnt2name;
     VMwaitingView *waittingView;
+    VMLoginHandler  *loginHandler;
 }
 
 - (void)loadFavorites;

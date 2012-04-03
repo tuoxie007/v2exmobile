@@ -13,6 +13,7 @@
 @interface VMNodeTimelineVC : VMTimelineVC <LoginHandlerDelegate>
 {
     NSString *_node;
+    VMLoginHandler *loginHandler;
 }
 
 - (id)initWithNode:(NSString *)node;

@@ -38,10 +38,11 @@
     if ([imgData length]) {
         UIImage *img = [[UIImage alloc] initWithData:imgData];
         CGSize imgSize = [img size];
-        if (imgSize.width < imgSize.height) {
-            imgButton.frame = CGRectMake(imgButton.frame.origin.x, imgButton.frame.origin.y, imgButton.frame.size.width*imgSize.width/imgSize.height, imgButton.frame.size.height);
-        }
+        CGSize buttonSize = imageButton.frame.size;
         [imgButton setImage:img forState:UIControlStateNormal];
+        [imageButton sizeToFit];
+        imageButton.frame = CGRectMake(imageButton.frame.origin.x, imageButton.frame.origin.y, MAX(buttonSize.width, buttonSize.height)*MIN(1, imgSize.width/imgSize.height), MAX(buttonSize.width, buttonSize.height)*MIN(1, imgSize.height/imgSize.width));
+        
         return;
     }
     

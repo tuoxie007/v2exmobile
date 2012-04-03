@@ -61,7 +61,7 @@
         [self.navigationController pushViewController:postVC animated:YES];
         return;
     }
-    VMLoginHandler *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+    loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
     [loginHandler login];
 }
 

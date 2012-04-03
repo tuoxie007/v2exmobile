@@ -9,6 +9,7 @@
 
 #import "VMPoster.h"
 #import "VMAccount.h"
+#import "Commen.h"
 
 @implementation VMPoster
 @synthesize delegate = _delegate;
@@ -29,7 +30,8 @@
     [req addValue:[NSString stringWithFormat:@"%@=%@", cookie.name, cookie.value] forHTTPHeaderField:@"Cookie"];
     [req addValue:[url description] forHTTPHeaderField:@"Referer"];
     if (content) {
-        content = [content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        content = [content stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        content = [Commen urlencode:content];
     }
     if (title == nil) {
         [req setHTTPBody:[[NSString stringWithFormat:@"content=%@", content] dataUsingEncoding:NSUTF8StringEncoding]];

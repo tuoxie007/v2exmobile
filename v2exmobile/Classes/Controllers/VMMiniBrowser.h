@@ -10,7 +10,10 @@
 #import <UIKit/UIKit.h>
 
 @interface VMMiniBrowser : UIViewController <UIWebViewDelegate>
-
+{
+    NSURL *currentURL;
+}
 - (id)initWithURL:(NSURL *)url;
+- (void)openInSafari;
 
 @end

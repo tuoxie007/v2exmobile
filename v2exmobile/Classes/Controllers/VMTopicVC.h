@@ -31,6 +31,8 @@
     NSDictionary *imgBnt2name;
     NSString *html;
     VMwaitingView *waittingView;
+    BOOL needAppendRepilies;
+    VMLoginHandler *loginHandler;
 }
 
 @property (strong) NSDictionary *topic;

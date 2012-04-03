@@ -81,7 +81,13 @@
 #pragma mark - Actions
 - (void)favoriteTopic
 {
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     favoriting = YES;
+    if ([VMAccount getInstance].cookie == nil) {
+        loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+        [loginHandler login];
+        return;
+    }
     
     NSString *msg = @"正在收藏";
     if (favorited) {
@@ -103,7 +109,7 @@
         [self.navigationController pushViewController:replyVC animated:YES];
         return;
     }
-    VMLoginHandler *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+    loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
     [loginHandler login];
 }
 
@@ -130,7 +136,11 @@
 #pragma mark - account delegate
 - (void)loginSuccess
 {
-    [self reply];
+    if (favoriting) {
+        [self favoriteTopic];
+    } else {
+        [self reply];
+    }
 }
 
 #pragma mark - tableView delegate
@@ -344,7 +354,7 @@
             [self.navigationController pushViewController:webContentVC animated:YES];
         }
     } else {
-        VMLoginHandler *loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
+        loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
         [loginHandler login];
     }
 }
@@ -455,8 +465,9 @@
     _topic = newTopic;
     content = [topic objectForKey:@"content"];
     html = [topic objectForKey:@"html"];
-    if (replies) {
+    if (replies && needAppendRepilies) {
         [[topic objectForKey:@"replies"] addObjectsFromArray:replies];
+        needAppendRepilies = NO;
     }
     replies = [topic objectForKey:@"replies"];
     favURL = [topic objectForKey:@"fav_url"];
@@ -470,10 +481,12 @@
         } else {
             self.navigationItem.rightBarButtonItem.title = @"收藏";
         }
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
     favoriting = NO;
     
     if ([topic objectForKey:@"next_page"] > @"0") {
+        needAppendRepilies = YES;
         VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
         [repliesLoader loadRepliesWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?p=%@", [topicURL description], [topic objectForKey:@"next_page"]]]];
     } else {

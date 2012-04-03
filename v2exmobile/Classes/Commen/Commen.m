@@ -18,4 +18,33 @@
     return [documentsDirectory stringByAppendingPathComponent:filename];
 }
 
++ (NSString *)urlencode:(NSString *)text
+{
+    NSString *temp = @"";
+    
+    for(int i=0, max=[text length]; i<max; i++) {
+        char t = [text characterAtIndex:i];
+        int b = (int) t;
+        
+        if(
+           t == (char) '.' ||
+           t == (char) '_' ||
+           t == (char) '-' ||
+           t == (char) '~' ||
+           t == (char) '#' ||
+           (b>=0x30 && b<=0x39) ||
+           (b>=0x41 && b<=0x5A) ||
+           (b>=0x61 && b<=0x7A)
+           ) {
+            temp = [temp stringByAppendingFormat:@"%c", t];
+        } else {
+            temp = [temp stringByAppendingString:@"%"];
+            if (b <= 0xf) temp = [temp stringByAppendingString:@"0"];
+            temp = [NSString stringWithFormat:@"%@%X", temp, b];
+        }
+    }
+    
+    return temp;
+}
+
 @end
