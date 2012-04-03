@@ -12,6 +12,8 @@
 	<array>
 		<string>Icons-WebBrowser-icon.png</string>
 		<string>Icons-WebBrowser-icon@2x.png</string>
+		<string>v2exmobile-icon.png</string>
+		<string>v2exmobile-icon@2x.png</string>
 	</array>
 	<key>CFBundleIcons</key>
 	<dict>
@@ -21,6 +23,8 @@
 			<array>
 				<string>Icons-WebBrowser-icon.png</string>
 				<string>Icons-WebBrowser-icon@2x.png</string>
+				<string>v2exmobile-icon.png</string>
+				<string>v2exmobile-icon@2x.png</string>
 			</array>
 		</dict>
 	</dict>

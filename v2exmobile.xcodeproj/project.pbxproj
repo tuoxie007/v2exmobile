@@ -36,8 +36,8 @@
 		BF5CA6FB15178FFE0072CEE7 /* VMFavoriteMembersLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6FA15178FFE0072CEE7 /* VMFavoriteMembersLoader.m */; };
 		BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */; };
 		BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */; };
-		BF6F4A0C152B5B800080FA0D /* Icons-WebBrowser-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF6F4A0A152B5B800080FA0D /* Icons-WebBrowser-icon.png */; };
-		BF6F4A0D152B5B800080FA0D /* Icons-WebBrowser-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF6F4A0B152B5B800080FA0D /* Icons-WebBrowser-icon@2x.png */; };
+		BF685F0E152B74BD00097B3B /* v2exmobile-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */; };
+		BF685F10152B74C100097B3B /* v2exmobile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */; };
 		BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD04997151B3168008B3107 /* VMMemberVC.m */; };
 		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
 		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
@@ -121,8 +121,8 @@
 		BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberLoader.m; path = Classes/v2ex/VMMemberLoader.m; sourceTree = "<group>"; };
 		BF5CA7021518D1A80072CEE7 /* VMLoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMLoginHandler.h; path = Classes/v2ex/VMLoginHandler.h; sourceTree = "<group>"; };
 		BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoginHandler.m; path = Classes/v2ex/VMLoginHandler.m; sourceTree = "<group>"; };
-		BF6F4A0A152B5B800080FA0D /* Icons-WebBrowser-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icons-WebBrowser-icon.png"; path = "Resources/Icons-WebBrowser-icon.png"; sourceTree = "<group>"; };
-		BF6F4A0B152B5B800080FA0D /* Icons-WebBrowser-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icons-WebBrowser-icon@2x.png"; path = "Resources/Icons-WebBrowser-icon@2x.png"; sourceTree = "<group>"; };
+		BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v2exmobile-icon.png"; sourceTree = SOURCE_ROOT; };
+		BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v2exmobile-icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		BFD04996151B3168008B3107 /* VMMemberVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberVC.h; path = Classes/Controllers/VMMemberVC.h; sourceTree = "<group>"; };
 		BFD04997151B3168008B3107 /* VMMemberVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberVC.m; path = Classes/Controllers/VMMemberVC.m; sourceTree = "<group>"; };
 		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,8 +334,8 @@
 		BFEE4E2F150BCD9A005D68CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				BF6F4A0A152B5B800080FA0D /* Icons-WebBrowser-icon.png */,
-				BF6F4A0B152B5B800080FA0D /* Icons-WebBrowser-icon@2x.png */,
+				BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */,
+				BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */,
 				BF39112D151F39AF00CC49DF /* loading.png */,
 				BF39112E151F39AF00CC49DF /* loading@2x.png */,
 				BFEE4E90150E3D0E005D68CA /* blueArrow.png */,
@@ -447,8 +447,8 @@
 				BF391138151F91C400CC49DF /* icon-notification@2x.png in Resources */,
 				BF48BA351529FAC100404ACA /* icon-node.png in Resources */,
 				BF48BA361529FAC100404ACA /* icon-node@2x.png in Resources */,
-				BF6F4A0C152B5B800080FA0D /* Icons-WebBrowser-icon.png in Resources */,
-				BF6F4A0D152B5B800080FA0D /* Icons-WebBrowser-icon@2x.png in Resources */,
+				BF685F0E152B74BD00097B3B /* v2exmobile-icon.png in Resources */,
+				BF685F10152B74C100097B3B /* v2exmobile-icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
