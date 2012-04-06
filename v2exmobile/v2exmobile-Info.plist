@@ -8,21 +8,12 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Icons-WebBrowser-icon.png</string>
-		<string>Icons-WebBrowser-icon@2x.png</string>
-		<string>v2exmobile-icon.png</string>
-		<string>v2exmobile-icon@2x.png</string>
-	</array>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
-				<string>Icons-WebBrowser-icon.png</string>
-				<string>Icons-WebBrowser-icon@2x.png</string>
 				<string>v2exmobile-icon.png</string>
 				<string>v2exmobile-icon@2x.png</string>
 			</array>

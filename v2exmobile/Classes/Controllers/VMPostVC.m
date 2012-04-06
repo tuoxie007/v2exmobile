@@ -20,7 +20,10 @@
     self = [super init];
     self.title = @"发帖";
     postURL = url;
-    UIBarButtonItem *sendBnt = [[UIBarButtonItem alloc] initWithTitle:@"发送" style:UIBarButtonItemStylePlain target:self action:@selector(submit)];
+    UIBarButtonItem *sendBnt = [[UIBarButtonItem alloc] initWithTitle:@"发送" 
+                                                                style:UIBarButtonItemStylePlain 
+                                                               target:self 
+                                                               action:@selector(submit)];
     sendBnt.style = UIBarButtonItemStyleDone;
     self.navigationItem.rightBarButtonItem = sendBnt;
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
@@ -57,7 +60,11 @@
         VMPoster *poster = [[VMPoster alloc] initWithDelegate:self];
         [poster postToURL:postURL withTitle:title content:content];
     } else {
-        UIAlertView *emptyErrorAlertView = [[UIAlertView alloc] initWithTitle:@"标题不能位空" message:nil delegate:self cancelButtonTitle:nil otherButtonTitles:@"我知道了", nil];
+        UIAlertView *emptyErrorAlertView = [[UIAlertView alloc] initWithTitle:@"标题不能位空" 
+                                                                      message:nil 
+                                                                     delegate:self 
+                                                            cancelButtonTitle:nil 
+                                                            otherButtonTitles:@"我知道了", nil];
         [emptyErrorAlertView show];
     }
 }
@@ -66,13 +73,19 @@
 
 - (void)postSuccess
 {
+    [waittingView removeFromSuperview];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"post_success" object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)postFailed
 {
-    UIAlertView *errAlertView = [[UIAlertView alloc] initWithTitle:@"发送错误" message:@"请稍后再试" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"知道了", nil];
+    [waittingView removeFromSuperview];
+    UIAlertView *errAlertView = [[UIAlertView alloc] initWithTitle:@"发送错误" 
+                                                           message:@"请稍后再试" 
+                                                          delegate:nil 
+                                                 cancelButtonTitle:nil 
+                                                 otherButtonTitles:@"知道了", nil];
     [errAlertView show];
 }
 

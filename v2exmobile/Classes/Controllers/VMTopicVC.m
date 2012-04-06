@@ -472,9 +472,6 @@
     replies = [topic objectForKey:@"replies"];
     favURL = [topic objectForKey:@"fav_url"];
     favorited = [favURL hasPrefix:[NSString stringWithFormat:@"%@%@", V2EX_URL, @"/unfavorite"]];
-    [loadingReplyIndicatorView stopAnimating];
-    [loadingReplyIndicatorView removeFromSuperview];
-    [waittingView removeFromSuperview];
     if (favoriting) {
         if (favorited) {
             self.navigationItem.rightBarButtonItem.title = @"取消收藏";
@@ -491,6 +488,9 @@
         [repliesLoader loadRepliesWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?p=%@", [topicURL description], [topic objectForKey:@"next_page"]]]];
     } else {
         [self.tableView reloadData];
+        [loadingReplyIndicatorView stopAnimating];
+        [loadingReplyIndicatorView removeFromSuperview];
+        [waittingView removeFromSuperview];
     }
 }
 
