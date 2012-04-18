@@ -1,0 +1,3 @@
+[submodule "v2exmobile/Classes/3rd-party/Objective-C-HMTL-Parser-iOS5"]
+	path = v2exmobile/Classes/3rd-party/Objective-C-HMTL-Parser-iOS5
+	url = git@github.com:tuoxie007/Objective-C-HMTL-Parser-iOS5.git

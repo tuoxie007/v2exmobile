@@ -151,9 +151,9 @@
 {
     switch (section) {
         case 0:
-            return @"收藏节点";
-        case 1:
             return @"收藏主题";
+        case 1:
+            return @"收藏节点";
         case 2:
             return @"特别关注";
             

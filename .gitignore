@@ -1,2 +1,3 @@
 build/
-v2exmobile.xcodeproj/
+xcuserdata/
+.DS_Store

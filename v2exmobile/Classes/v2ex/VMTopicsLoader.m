@@ -21,6 +21,7 @@
     }
     [self loadDataWithURL:url];
     reloading = YES;
+    nodesFilePath = [Commen getFilePathWithFilename:@"nodes.txt"];
 }
 
 -(void)loadTopics:(NSInteger)page inNode:(NSString *)node

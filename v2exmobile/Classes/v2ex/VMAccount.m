@@ -46,6 +46,7 @@
     [fileManager removeItemAtPath:cookieFilePath error:nil];
     [fileManager removeItemAtPath:usernameFilePath error:nil];
     self.cookie = nil;
+    _username = nil;
 }
 
 + (VMAccount *)getInstance

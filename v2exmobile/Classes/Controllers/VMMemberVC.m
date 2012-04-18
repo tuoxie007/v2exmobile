@@ -45,9 +45,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     self.title = @"账户";
     if (myself) {
         if ([VMAccount getInstance].cookie == nil || [VMAccount getInstance].username == nil) {

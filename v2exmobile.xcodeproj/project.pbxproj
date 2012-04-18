@@ -21,9 +21,6 @@
 		BF48BA221529DD5300404ACA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF48BA211529DD5300404ACA /* libxml2.dylib */; };
 		BF48BA351529FAC100404ACA /* icon-node.png in Resources */ = {isa = PBXBuildFile; fileRef = BF48BA331529FAC100404ACA /* icon-node.png */; };
 		BF48BA361529FAC100404ACA /* icon-node@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF48BA341529FAC100404ACA /* icon-node@2x.png */; };
-		BF4D6A9F1510FA1B007687B9 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4D6A9B1510FA1B007687B9 /* HTMLNode.m */; };
-		BF4D6AA01510FA1B007687B9 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4D6A9D1510FA1B007687B9 /* HTMLParser.m */; };
-		BF4D6AA11510FA1B007687B9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF4D6A9E1510FA1B007687B9 /* README.md */; };
 		BF558E56151252EB0011C8A9 /* VMImagLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E55151252EB0011C8A9 /* VMImagLoader.m */; };
 		BF558E5B1513508D0011C8A9 /* MD5.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E5A1513508D0011C8A9 /* MD5.m */; };
 		BF558E62151492190011C8A9 /* VMNodeTimelineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E61151492190011C8A9 /* VMNodeTimelineVC.m */; };
@@ -32,6 +29,9 @@
 		BF558E6F1514D70D0011C8A9 /* VMwaitingView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E6E1514D70D0011C8A9 /* VMwaitingView.m */; };
 		BF558E721514DE7B0011C8A9 /* VMInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E711514DE7B0011C8A9 /* VMInfoView.m */; };
 		BF558E751515B2FD0011C8A9 /* Commen.m in Sources */ = {isa = PBXBuildFile; fileRef = BF558E741515B2FD0011C8A9 /* Commen.m */; };
+		BF57471E153EE9C200549EF0 /* HTMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57471A153EE9C200549EF0 /* HTMLNode.m */; };
+		BF57471F153EE9C200549EF0 /* HTMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BF57471C153EE9C200549EF0 /* HTMLParser.m */; };
+		BF574720153EE9C200549EF0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = BF57471D153EE9C200549EF0 /* README.md */; };
 		BF5CA6F815178B200072CEE7 /* VMFavoriteTopicsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */; };
 		BF5CA6FB15178FFE0072CEE7 /* VMFavoriteMembersLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA6FA15178FFE0072CEE7 /* VMFavoriteMembersLoader.m */; };
 		BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */; };
@@ -91,11 +91,6 @@
 		BF48BA211529DD5300404ACA /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		BF48BA331529FAC100404ACA /* icon-node.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-node.png"; path = "Resources/icon-node.png"; sourceTree = "<group>"; };
 		BF48BA341529FAC100404ACA /* icon-node@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-node@2x.png"; path = "Resources/icon-node@2x.png"; sourceTree = "<group>"; };
-		BF4D6A9A1510FA1B007687B9 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Classes/3th-party/HTML-Parser/HTMLNode.h"; sourceTree = "<group>"; };
-		BF4D6A9B1510FA1B007687B9 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Classes/3th-party/HTML-Parser/HTMLNode.m"; sourceTree = "<group>"; };
-		BF4D6A9C1510FA1B007687B9 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "Classes/3th-party/HTML-Parser/HTMLParser.h"; sourceTree = "<group>"; };
-		BF4D6A9D1510FA1B007687B9 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = "Classes/3th-party/HTML-Parser/HTMLParser.m"; sourceTree = "<group>"; };
-		BF4D6A9E1510FA1B007687B9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = "Classes/3th-party/HTML-Parser/README.md"; sourceTree = "<group>"; };
 		BF558E54151252EB0011C8A9 /* VMImageLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMImageLoader.h; path = Classes/v2ex/VMImageLoader.h; sourceTree = "<group>"; };
 		BF558E55151252EB0011C8A9 /* VMImagLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMImagLoader.m; path = Classes/v2ex/VMImagLoader.m; sourceTree = "<group>"; };
 		BF558E591513508D0011C8A9 /* MD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MD5.h; path = Classes/Commen/MD5.h; sourceTree = "<group>"; };
@@ -113,6 +108,11 @@
 		BF558E731515B2FD0011C8A9 /* Commen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Commen.h; path = Classes/Commen/Commen.h; sourceTree = "<group>"; };
 		BF558E741515B2FD0011C8A9 /* Commen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Commen.m; path = Classes/Commen/Commen.m; sourceTree = "<group>"; };
 		BF558E761515B3180011C8A9 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Config.h; path = Classes/Commen/Config.h; sourceTree = "<group>"; };
+		BF574719153EE9C200549EF0 /* HTMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLNode.h; path = "Classes/3rd-party/Objective-C-HMTL-Parser-iOS5/HTMLNode.h"; sourceTree = "<group>"; };
+		BF57471A153EE9C200549EF0 /* HTMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLNode.m; path = "Classes/3rd-party/Objective-C-HMTL-Parser-iOS5/HTMLNode.m"; sourceTree = "<group>"; };
+		BF57471B153EE9C200549EF0 /* HTMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTMLParser.h; path = "Classes/3rd-party/Objective-C-HMTL-Parser-iOS5/HTMLParser.h"; sourceTree = "<group>"; };
+		BF57471C153EE9C200549EF0 /* HTMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTMLParser.m; path = "Classes/3rd-party/Objective-C-HMTL-Parser-iOS5/HTMLParser.m"; sourceTree = "<group>"; };
+		BF57471D153EE9C200549EF0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = "Classes/3rd-party/Objective-C-HMTL-Parser-iOS5/README.md"; sourceTree = "<group>"; };
 		BF5CA6F615178B200072CEE7 /* VMFavoriteTopicsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteTopicsLoader.h; path = Classes/v2ex/VMFavoriteTopicsLoader.h; sourceTree = "<group>"; };
 		BF5CA6F715178B200072CEE7 /* VMFavoriteTopicsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteTopicsLoader.m; path = Classes/v2ex/VMFavoriteTopicsLoader.m; sourceTree = "<group>"; };
 		BF5CA6F915178FFE0072CEE7 /* VMFavoriteMembersLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteMembersLoader.h; path = Classes/v2ex/VMFavoriteMembersLoader.h; sourceTree = "<group>"; };
@@ -186,18 +186,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BF4D6A981510FA0E007687B9 /* HTML-Parser */ = {
-			isa = PBXGroup;
-			children = (
-				BF4D6A9A1510FA1B007687B9 /* HTMLNode.h */,
-				BF4D6A9B1510FA1B007687B9 /* HTMLNode.m */,
-				BF4D6A9C1510FA1B007687B9 /* HTMLParser.h */,
-				BF4D6A9D1510FA1B007687B9 /* HTMLParser.m */,
-				BF4D6A9E1510FA1B007687B9 /* README.md */,
-			);
-			name = "HTML-Parser";
-			sourceTree = "<group>";
-		};
 		BF558E58151350680011C8A9 /* Commen */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +196,26 @@
 				BF558E741515B2FD0011C8A9 /* Commen.m */,
 			);
 			name = Commen;
+			sourceTree = "<group>";
+		};
+		BF57470F153EE62D00549EF0 /* 3rd-party */ = {
+			isa = PBXGroup;
+			children = (
+				BF574710153EE64600549EF0 /* HMTL-Parser */,
+			);
+			name = "3rd-party";
+			sourceTree = "<group>";
+		};
+		BF574710153EE64600549EF0 /* HMTL-Parser */ = {
+			isa = PBXGroup;
+			children = (
+				BF574719153EE9C200549EF0 /* HTMLNode.h */,
+				BF57471A153EE9C200549EF0 /* HTMLNode.m */,
+				BF57471B153EE9C200549EF0 /* HTMLParser.h */,
+				BF57471C153EE9C200549EF0 /* HTMLParser.m */,
+				BF57471D153EE9C200549EF0 /* README.md */,
+			);
+			name = "HMTL-Parser";
 			sourceTree = "<group>";
 		};
 		BFEE4DDD150BBA1B005D68CA = {
@@ -242,9 +250,9 @@
 		BFEE4DF2150BBA1B005D68CA /* v2exmobile */ = {
 			isa = PBXGroup;
 			children = (
+				BF57470F153EE62D00549EF0 /* 3rd-party */,
 				BF558E58151350680011C8A9 /* Commen */,
 				BFEE4E94150E3D1F005D68CA /* Views */,
-				BFEE4E3D150D1782005D68CA /* 3th-party */,
 				BFEE4E1C150BBDFB005D68CA /* v2ex */,
 				BFEE4E0F150BBABB005D68CA /* Controllers */,
 				BFEE4DFB150BBA1B005D68CA /* VMAppDelegate.h */,
@@ -354,14 +362,6 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		BFEE4E3D150D1782005D68CA /* 3th-party */ = {
-			isa = PBXGroup;
-			children = (
-				BF4D6A981510FA0E007687B9 /* HTML-Parser */,
-			);
-			name = "3th-party";
-			sourceTree = "<group>";
-		};
 		BFEE4E94150E3D1F005D68CA /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +440,6 @@
 				BFEE4E93150E3D0E005D68CA /* blueArrow@2x.png in Resources */,
 				BFF9AA35150F0AEB009B238A /* TODO.txt in Resources */,
 				BFF9AA3A150FA68A009B238A /* TestView.xib in Resources */,
-				BF4D6AA11510FA1B007687B9 /* README.md in Resources */,
 				BF39112F151F39AF00CC49DF /* loading.png in Resources */,
 				BF391130151F39AF00CC49DF /* loading@2x.png in Resources */,
 				BF391137151F91C400CC49DF /* icon-notification.png in Resources */,
@@ -449,6 +448,7 @@
 				BF48BA361529FAC100404ACA /* icon-node@2x.png in Resources */,
 				BF685F0E152B74BD00097B3B /* v2exmobile-icon.png in Resources */,
 				BF685F10152B74C100097B3B /* v2exmobile-icon@2x.png in Resources */,
+				BF574720153EE9C200549EF0 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +472,6 @@
 				BFEE4E97150E3D2D005D68CA /* EGORefreshTableHeaderView.m in Sources */,
 				BFF9AA33150F098B009B238A /* VMTopicView.m in Sources */,
 				BFF9AA38150F6675009B238A /* VMRepliesLoader.m in Sources */,
-				BF4D6A9F1510FA1B007687B9 /* HTMLNode.m in Sources */,
-				BF4D6AA01510FA1B007687B9 /* HTMLParser.m in Sources */,
 				BF558E56151252EB0011C8A9 /* VMImagLoader.m in Sources */,
 				BF558E5B1513508D0011C8A9 /* MD5.m in Sources */,
 				BF558E62151492190011C8A9 /* VMNodeTimelineVC.m in Sources */,
@@ -494,6 +492,8 @@
 				BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */,
 				BF4831B7151F155500051337 /* VMWebContentVC.m in Sources */,
 				BF4831BB151F221900051337 /* VMMiniBrowser.m in Sources */,
+				BF57471E153EE9C200549EF0 /* HTMLNode.m in Sources */,
+				BF57471F153EE9C200549EF0 /* HTMLParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
