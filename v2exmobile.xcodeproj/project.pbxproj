@@ -16,6 +16,18 @@
 		BF391138151F91C400CC49DF /* icon-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF391136151F91C400CC49DF /* icon-notification@2x.png */; };
 		BF3EFF921515B8F300BF535B /* VMNodeVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EFF911515B8F300BF535B /* VMNodeVC2.m */; };
 		BF3EFF961515CAA900BF535B /* VMPostVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3EFF951515CAA800BF535B /* VMPostVC.m */; };
+		BF3FA22015542C38004E9AA1 /* VMTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3FA21F15542C38004E9AA1 /* VMTabBarController.m */; };
+		BF3FA22D15543E52004E9AA1 /* tabbar-item-favorite-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22315543E52004E9AA1 /* tabbar-item-favorite-selected@2x.png */; };
+		BF3FA22E15543E52004E9AA1 /* tabbar-item-favorite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22415543E52004E9AA1 /* tabbar-item-favorite@2x.png */; };
+		BF3FA22F15543E52004E9AA1 /* tabbar-item-node-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22515543E52004E9AA1 /* tabbar-item-node-selected@2x.png */; };
+		BF3FA23015543E52004E9AA1 /* tabbar-item-node@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22615543E52004E9AA1 /* tabbar-item-node@2x.png */; };
+		BF3FA23115543E52004E9AA1 /* tabbar-item-notification-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22715543E52004E9AA1 /* tabbar-item-notification-selected@2x.png */; };
+		BF3FA23215543E52004E9AA1 /* tabbar-item-notification@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22815543E52004E9AA1 /* tabbar-item-notification@2x.png */; };
+		BF3FA23315543E52004E9AA1 /* tabbar-item-setting-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22915543E52004E9AA1 /* tabbar-item-setting-selected@2x.png */; };
+		BF3FA23415543E52004E9AA1 /* tabbar-item-setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22A15543E52004E9AA1 /* tabbar-item-setting@2x.png */; };
+		BF3FA23515543E52004E9AA1 /* tabbar-item-timeline-selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22B15543E52004E9AA1 /* tabbar-item-timeline-selected@2x.png */; };
+		BF3FA23615543E52004E9AA1 /* tabbar-item-timeline@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA22C15543E52004E9AA1 /* tabbar-item-timeline@2x.png */; };
+		BF3FA23B15544DCC004E9AA1 /* nav-title-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA23A15544DCC004E9AA1 /* nav-title-bg@2x.png */; };
 		BF4831B7151F155500051337 /* VMWebContentVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4831B6151F155500051337 /* VMWebContentVC.m */; };
 		BF4831BB151F221900051337 /* VMMiniBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = BF4831BA151F221900051337 /* VMMiniBrowser.m */; };
 		BF48BA221529DD5300404ACA /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF48BA211529DD5300404ACA /* libxml2.dylib */; };
@@ -84,6 +96,19 @@
 		BF3EFF911515B8F300BF535B /* VMNodeVC2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMNodeVC2.m; path = Classes/Controllers/VMNodeVC2.m; sourceTree = "<group>"; };
 		BF3EFF941515CAA800BF535B /* VMPostVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMPostVC.h; path = Classes/Controllers/VMPostVC.h; sourceTree = "<group>"; };
 		BF3EFF951515CAA800BF535B /* VMPostVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMPostVC.m; path = Classes/Controllers/VMPostVC.m; sourceTree = "<group>"; };
+		BF3FA21E15542C38004E9AA1 /* VMTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTabBarController.h; path = Classes/Controllers/VMTabBarController.h; sourceTree = "<group>"; };
+		BF3FA21F15542C38004E9AA1 /* VMTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTabBarController.m; path = Classes/Controllers/VMTabBarController.m; sourceTree = "<group>"; };
+		BF3FA22315543E52004E9AA1 /* tabbar-item-favorite-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-favorite-selected@2x.png"; path = "Resources/tabbar-item-favorite-selected@2x.png"; sourceTree = "<group>"; };
+		BF3FA22415543E52004E9AA1 /* tabbar-item-favorite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-favorite@2x.png"; path = "Resources/tabbar-item-favorite@2x.png"; sourceTree = "<group>"; };
+		BF3FA22515543E52004E9AA1 /* tabbar-item-node-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-node-selected@2x.png"; path = "Resources/tabbar-item-node-selected@2x.png"; sourceTree = "<group>"; };
+		BF3FA22615543E52004E9AA1 /* tabbar-item-node@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-node@2x.png"; path = "Resources/tabbar-item-node@2x.png"; sourceTree = "<group>"; };
+		BF3FA22715543E52004E9AA1 /* tabbar-item-notification-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-notification-selected@2x.png"; path = "Resources/tabbar-item-notification-selected@2x.png"; sourceTree = "<group>"; };
+		BF3FA22815543E52004E9AA1 /* tabbar-item-notification@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-notification@2x.png"; path = "Resources/tabbar-item-notification@2x.png"; sourceTree = "<group>"; };
+		BF3FA22915543E52004E9AA1 /* tabbar-item-setting-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-setting-selected@2x.png"; path = "Resources/tabbar-item-setting-selected@2x.png"; sourceTree = "<group>"; };
+		BF3FA22A15543E52004E9AA1 /* tabbar-item-setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-setting@2x.png"; path = "Resources/tabbar-item-setting@2x.png"; sourceTree = "<group>"; };
+		BF3FA22B15543E52004E9AA1 /* tabbar-item-timeline-selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-timeline-selected@2x.png"; path = "Resources/tabbar-item-timeline-selected@2x.png"; sourceTree = "<group>"; };
+		BF3FA22C15543E52004E9AA1 /* tabbar-item-timeline@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "tabbar-item-timeline@2x.png"; path = "Resources/tabbar-item-timeline@2x.png"; sourceTree = "<group>"; };
+		BF3FA23A15544DCC004E9AA1 /* nav-title-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav-title-bg@2x.png"; path = "Resources/nav-title-bg@2x.png"; sourceTree = "<group>"; };
 		BF4831B5151F155500051337 /* VMWebContentVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMWebContentVC.h; path = Classes/Controllers/VMWebContentVC.h; sourceTree = "<group>"; };
 		BF4831B6151F155500051337 /* VMWebContentVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMWebContentVC.m; path = Classes/Controllers/VMWebContentVC.m; sourceTree = "<group>"; };
 		BF4831B9151F221900051337 /* VMMiniBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMiniBrowser.h; path = Classes/Controllers/VMMiniBrowser.h; sourceTree = "<group>"; };
@@ -186,6 +211,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BF3FA22215543E44004E9AA1 /* tabbar */ = {
+			isa = PBXGroup;
+			children = (
+				BF3FA22315543E52004E9AA1 /* tabbar-item-favorite-selected@2x.png */,
+				BF3FA22415543E52004E9AA1 /* tabbar-item-favorite@2x.png */,
+				BF3FA22515543E52004E9AA1 /* tabbar-item-node-selected@2x.png */,
+				BF3FA22615543E52004E9AA1 /* tabbar-item-node@2x.png */,
+				BF3FA22715543E52004E9AA1 /* tabbar-item-notification-selected@2x.png */,
+				BF3FA22815543E52004E9AA1 /* tabbar-item-notification@2x.png */,
+				BF3FA22915543E52004E9AA1 /* tabbar-item-setting-selected@2x.png */,
+				BF3FA22A15543E52004E9AA1 /* tabbar-item-setting@2x.png */,
+				BF3FA22B15543E52004E9AA1 /* tabbar-item-timeline-selected@2x.png */,
+				BF3FA22C15543E52004E9AA1 /* tabbar-item-timeline@2x.png */,
+			);
+			name = tabbar;
+			sourceTree = "<group>";
+		};
 		BF558E58151350680011C8A9 /* Commen */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,6 +346,8 @@
 				BF4831B6151F155500051337 /* VMWebContentVC.m */,
 				BF4831B9151F221900051337 /* VMMiniBrowser.h */,
 				BF4831BA151F221900051337 /* VMMiniBrowser.m */,
+				BF3FA21E15542C38004E9AA1 /* VMTabBarController.h */,
+				BF3FA21F15542C38004E9AA1 /* VMTabBarController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -342,6 +386,8 @@
 		BFEE4E2F150BCD9A005D68CA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				BF3FA23A15544DCC004E9AA1 /* nav-title-bg@2x.png */,
+				BF3FA22215543E44004E9AA1 /* tabbar */,
 				BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */,
 				BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */,
 				BF39112D151F39AF00CC49DF /* loading.png */,
@@ -449,6 +495,17 @@
 				BF685F0E152B74BD00097B3B /* v2exmobile-icon.png in Resources */,
 				BF685F10152B74C100097B3B /* v2exmobile-icon@2x.png in Resources */,
 				BF574720153EE9C200549EF0 /* README.md in Resources */,
+				BF3FA22D15543E52004E9AA1 /* tabbar-item-favorite-selected@2x.png in Resources */,
+				BF3FA22E15543E52004E9AA1 /* tabbar-item-favorite@2x.png in Resources */,
+				BF3FA22F15543E52004E9AA1 /* tabbar-item-node-selected@2x.png in Resources */,
+				BF3FA23015543E52004E9AA1 /* tabbar-item-node@2x.png in Resources */,
+				BF3FA23115543E52004E9AA1 /* tabbar-item-notification-selected@2x.png in Resources */,
+				BF3FA23215543E52004E9AA1 /* tabbar-item-notification@2x.png in Resources */,
+				BF3FA23315543E52004E9AA1 /* tabbar-item-setting-selected@2x.png in Resources */,
+				BF3FA23415543E52004E9AA1 /* tabbar-item-setting@2x.png in Resources */,
+				BF3FA23515543E52004E9AA1 /* tabbar-item-timeline-selected@2x.png in Resources */,
+				BF3FA23615543E52004E9AA1 /* tabbar-item-timeline@2x.png in Resources */,
+				BF3FA23B15544DCC004E9AA1 /* nav-title-bg@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -494,6 +551,7 @@
 				BF4831BB151F221900051337 /* VMMiniBrowser.m in Sources */,
 				BF57471E153EE9C200549EF0 /* HTMLNode.m in Sources */,
 				BF57471F153EE9C200549EF0 /* HTMLParser.m in Sources */,
+				BF3FA22015542C38004E9AA1 /* VMTabBarController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
