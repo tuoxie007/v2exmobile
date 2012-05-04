@@ -48,25 +48,38 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
 //    NSString *nodesFilePath = [Commen getFilePathWithFilename:@"nodes.txt"];
 //    nodes = [[NSDictionary alloc] initWithContentsOfFile:nodesFilePath];
     [[VMAPI sharedAPI] allNodesWithDelegate:self];
-    UISearchBar *searchBar;
-//    UISearchDisplayController *searchDC;
-    // Create a search bar - you can add this in the viewDidLoad
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
-    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    searchBar.keyboardType = UIKeyboardTypeAlphabet;
-    searchBar.showsCancelButton = YES;
-    searchBar.delegate = self;
-    self.tableView.tableHeaderView = searchBar;
-//    
-//    // Create the search display controller
-//    searchDC = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-//    searchDC.searchResultsDataSource = self;
-//    searchDC.searchResultsDelegate = self;
+    
+    UIView *searchBarBG = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 53)];
+    _searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
+    _searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    _searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    _searchBar.keyboardType = UIKeyboardTypeAlphabet;
+    _searchBar.placeholder = @"搜索";
+    _searchBar.tintColor = [UIColor colorWithWhite:0.86 alpha:1];
+    _searchBar.delegate = self;
+    [searchBarBG addSubview:_searchBar];
+    
+    UIImageView *searchBottomBorder = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"search-bar-bottom-border.png"]];
+    searchBottomBorder.frame = CGRectMake(0, 43, 320, 10);
+    [searchBarBG addSubview:searchBottomBorder];
+    
+//    self.tableView.tableHeaderView = _searchBar;
+//    [self.view addSubview:searchBarBG];
+    self.tableView.tableHeaderView = searchBarBG;
+//	[self.tableView setContentInset:UIEdgeInsetsMake(53, 0, 0, 0)];
+    
+    self.tableView.backgroundColor =  [UIColor colorWithWhite:0.78 alpha:1];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
+    isSearching = YES;
+    if (searchCancelButton == nil) {
+        searchCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 53, 320, 44*(nodesCount ? nodesCount : 546)+26*22)];
+        [searchCancelButton addTarget:self action:@selector(cancelSearch:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    [self.view addSubview:searchCancelButton];
     query = searchBar.text;
     [self.tableView reloadData];
 }
@@ -79,15 +92,17 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    isSearching = NO;
     query = searchBar.text;
     [searchBar resignFirstResponder];
     [self.tableView reloadData];
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+- (void)cancelSearch:(UIButton *)sender
 {
-    query = nil;
-    [searchBar resignFirstResponder];
+    isSearching = NO;
+    [sender removeFromSuperview];
+    [_searchBar resignFirstResponder];
     [self.tableView reloadData];
 }
 
@@ -99,6 +114,7 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
 
 - (void)didFinishedLoadingWithData:(NSArray *)data
 {
+    nodesCount = data.count;
     nodes = [[NSMutableDictionary alloc] initWithCapacity:26];
     for (char i=0; i<26; i++) {
         NSString *header = int2string('a', i);
@@ -112,6 +128,7 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
         [nodes setValue:subNodes forKey:header];
     }
     [self.tableView reloadData];
+    [self.tableView setContentOffset:CGPointMake(0, 44) animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -121,8 +138,7 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSString *header = int2string(section, 'A');
-    return header;
+    return nil;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -134,11 +150,24 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
 
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
+    if (isSearching) {
+        return nil;
+    }
     static NSArray *indexTitles;
     if (indexTitles == nil) {
-        indexTitles = [NSArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"S", @"R", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", nil];
+        indexTitles = [NSArray arrayWithObjects:UITableViewIndexSearch, @"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"S", @"R", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", nil];
     }
     return indexTitles;
+}
+
+- (NSInteger) tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
+{
+    if (index == 0)
+    {
+        [tableView setContentOffset:CGPointZero animated:NO];
+        return NSNotFound;
+    }
+    return index - 1; // due magnifying glass icon
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -147,9 +176,23 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
     UITableViewCell *nodeCell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (nodeCell == nil) {
         nodeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(8, 0, 304, 44)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [nodeCell addSubview:bgView];
+        UIImageView *separatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
+        separatorView.frame = CGRectMake(8, 43, 304, 1);
+        [nodeCell addSubview:separatorView];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 284, 43)];
+        label.backgroundColor = [UIColor whiteColor];
+        label.textColor = [UIColor colorWithRed:0.27 green:0.28 blue:0.29 alpha:1];
+        label.tag = 1;
+        [nodeCell addSubview:label];
     }
     NSString *header = int2string(indexPath.section, 'a');
-    nodeCell.textLabel.text = [[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"];
+//    nodeCell.textLabel.text = [[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"];
+    UILabel *label = (UILabel *)[nodeCell viewWithTag:1];
+    [label setText:[[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"]];
+    label.font = [UIFont boldSystemFontOfSize:16];
     return nodeCell;
 }
 

@@ -12,8 +12,15 @@
 
 @interface VMNodeVC : UITableViewController <APIDalegate, UISearchBarDelegate>
 {
+    UISearchBar *_searchBar;
     NSDictionary *nodes;
     NSString *query;
+    UIButton *searchCancelButton;
+    NSInteger nodesCount;
+    BOOL isSearching;
 //    NSArray *nodes;
 }
+
+- (void)cancelSearch:(UIButton *)sender;
+
 @end
