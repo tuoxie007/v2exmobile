@@ -20,12 +20,32 @@
     self = [super init];
     self.title = @"发帖";
     postURL = url;
-    UIBarButtonItem *sendBnt = [[UIBarButtonItem alloc] initWithTitle:@"发送" 
-                                                                style:UIBarButtonItemStylePlain 
-                                                               target:self 
-                                                               action:@selector(submit)];
-    sendBnt.style = UIBarButtonItemStyleDone;
-    self.navigationItem.rightBarButtonItem = sendBnt;
+    
+    UIButton *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 26)];
+    [buttonView setBackgroundImage:[UIImage imageNamed:@"nav-button-bg.png"] forState:UIControlStateNormal];
+    [buttonView addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *buttonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 44, 26)];
+    buttonTitleView.text = @"发送";
+    buttonTitleView.textColor = [UIColor whiteColor];
+    buttonTitleView.textAlignment = UITextAlignmentCenter;
+    buttonTitleView.font = [UIFont systemFontOfSize:12];
+    buttonTitleView.backgroundColor = [UIColor clearColor];
+    [buttonView addSubview:buttonTitleView];
+    UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
+    self.navigationItem.rightBarButtonItem = postButton;
+    
+    UIButton *backButtonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    [backButtonView setBackgroundImage:[UIImage imageNamed:@"nav-back-bg.png"] forState:UIControlStateNormal];
+    [backButtonView addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *backButtonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    backButtonTitleView.text = @"返回";
+    backButtonTitleView.textColor = [UIColor whiteColor];
+    backButtonTitleView.textAlignment = UITextAlignmentCenter;
+    backButtonTitleView.font = [UIFont systemFontOfSize:12];
+    backButtonTitleView.backgroundColor = [UIColor clearColor];
+    [backButtonView addSubview:backButtonTitleView];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+    self.navigationItem.leftBarButtonItem = backButton;
     self.view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
     self.view.backgroundColor = [UIColor whiteColor];
     

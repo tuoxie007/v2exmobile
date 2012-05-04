@@ -8,9 +8,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VMAPI.h"
 
-@interface VMNodeVC : UITableViewController
+@interface VMNodeVC : UITableViewController <APIDalegate, UISearchBarDelegate>
 {
     NSDictionary *nodes;
+    NSString *query;
+//    NSArray *nodes;
 }
 @end

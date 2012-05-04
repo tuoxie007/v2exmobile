@@ -10,6 +10,33 @@
 #import "VMNodeVC.h"
 #import "Commen.h"
 #import "VMNodeVC2.h"
+#import "VMAPI.h"
+#import "VMNodeTimelineVC.h"
+
+NSString *int2string(NSInteger section, char startChar);
+NSArray *filterNodes(NSArray *nodes, NSString *query);
+
+NSString *int2string(NSInteger section, char startChar)
+{
+    char head[2];
+    head[0] = startChar + section;
+    head[1] = '\0';
+    NSString *header = [NSString stringWithCString:head encoding:NSASCIIStringEncoding];
+    return header;
+}
+NSArray *filterNodes(NSArray *nodes, NSString *query)
+{
+    if (query && query.length) {
+        NSMutableArray *filteredNodes = [[NSMutableArray alloc] init];
+        for (NSDictionary *node in nodes) {
+            if ([((NSString *)[node objectForKey:@"name"]) hasPrefix:query]) {
+                [filteredNodes addObject:node];
+            }
+        }
+        return filteredNodes;
+    }
+    return nodes;
+}
 
 @implementation VMNodeVC
 
@@ -18,33 +45,100 @@
 {
     [super viewDidLoad];
     self.title = @"节点";
-    NSString *nodesFilePath = [Commen getFilePathWithFilename:@"nodes.txt"];
-    nodes = [[NSDictionary alloc] initWithContentsOfFile:nodesFilePath];
+//    NSString *nodesFilePath = [Commen getFilePathWithFilename:@"nodes.txt"];
+//    nodes = [[NSDictionary alloc] initWithContentsOfFile:nodesFilePath];
+    [[VMAPI sharedAPI] allNodesWithDelegate:self];
+    UISearchBar *searchBar;
+//    UISearchDisplayController *searchDC;
+    // Create a search bar - you can add this in the viewDidLoad
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
+    searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
+    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+    searchBar.keyboardType = UIKeyboardTypeAlphabet;
+    searchBar.showsCancelButton = YES;
+    searchBar.delegate = self;
+    self.tableView.tableHeaderView = searchBar;
+//    
+//    // Create the search display controller
+//    searchDC = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
+//    searchDC.searchResultsDataSource = self;
+//    searchDC.searchResultsDelegate = self;
+}
+
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    query = searchBar.text;
+    [self.tableView reloadData];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    query = searchBar.text;
+    [self.tableView reloadData];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    query = searchBar.text;
+    [searchBar resignFirstResponder];
+    [self.tableView reloadData];
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    query = nil;
+    [searchBar resignFirstResponder];
+    [self.tableView reloadData];
+}
+
+- (void)cancel
+{
+//    TODO
+    NSLog(@"load nodes failed");
+}
+
+- (void)didFinishedLoadingWithData:(NSArray *)data
+{
+    nodes = [[NSMutableDictionary alloc] initWithCapacity:26];
+    for (char i=0; i<26; i++) {
+        NSString *header = int2string('a', i);
+        NSMutableArray *subNodes = [[NSMutableArray alloc] init];
+        for (NSDictionary *node in data) {
+            NSString *name = [node objectForKey:@"name"];
+            if ([name hasPrefix:header]) {
+                [subNodes addObject:node];
+            }
+        }
+        [nodes setValue:subNodes forKey:header];
+    }
+    [self.tableView reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 26;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return @"常用节点";
-    } else {
-        return @"全部节点";
-    }
+    NSString *header = int2string(section, 'A');
+    return header;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSString *categoryLevel1;
-    if (section == 0) {
-        categoryLevel1 = @"commen";
-    } else {
-        categoryLevel1 = @"all";
+    NSString *header = int2string(section, 'a');
+    NSArray *filteredNodes = filterNodes([nodes objectForKey:header], query);
+    return filteredNodes.count;
+}
+
+-(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+{
+    static NSArray *indexTitles;
+    if (indexTitles == nil) {
+        indexTitles = [NSArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G", @"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", @"S", @"R", @"T", @"U", @"V", @"W", @"X", @"Y", @"Z", nil];
     }
-    return [[[nodes objectForKey:categoryLevel1] allKeys] count];
+    return indexTitles;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -54,28 +148,17 @@
     if (nodeCell == nil) {
         nodeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    NSString *categoryLevel1;
-    if (indexPath.section == 0) {
-        categoryLevel1 = @"commen";
-    } else {
-        categoryLevel1 = @"all";
-    }
-    nodeCell.textLabel.text = [[[nodes objectForKey:categoryLevel1] allKeys] objectAtIndex:indexPath.row];
+    NSString *header = int2string(indexPath.section, 'a');
+    nodeCell.textLabel.text = [[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"];
     return nodeCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *categoryLevel1;
-    if (indexPath.section == 0) {
-        categoryLevel1 = @"commen";
-    } else {
-        categoryLevel1 = @"all";
-    }
-    NSString *categoryLevel2 = [[[nodes objectForKey:categoryLevel1] allKeys] objectAtIndex:indexPath.row];
-    NSArray *nodesInCategory = [[nodes objectForKey:categoryLevel1] objectForKey:categoryLevel2];
-    VMNodeVC2 *nodeVC2 = [[VMNodeVC2 alloc] initWithNodes:nodesInCategory inCategory:categoryLevel2];
-    [self.navigationController pushViewController:nodeVC2 animated:YES];
+    NSString *header = int2string(indexPath.section, 'a');
+    NSDictionary *node = [filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row];
+    VMNodeTimelineVC *nodeTimelineVC = [[VMNodeTimelineVC alloc] initWithNode:[node objectForKey:@"name"] title:[node objectForKey:@"title"]];
+    [self.navigationController pushViewController:nodeTimelineVC animated:YES];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

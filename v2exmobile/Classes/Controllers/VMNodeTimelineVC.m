@@ -22,11 +22,12 @@
 @implementation VMNodeTimelineVC
 
 #pragma mark - lift cycle
-- (id)initWithNode:(NSString *)node
+- (id)initWithNode:(NSString *)node title:(NSString *)title
 {
     self = [super init];
     if (self) {
         _node = node;
+        nodeTitle = title;
         [[NSNotificationCenter defaultCenter] addObserver:self	selector:@selector(postSuccess) name:@"post_success" object:nil];
     }
     return self;
@@ -36,8 +37,33 @@
 {
     [super viewDidLoad];
     
-    UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithTitle:@"发帖" style:UIBarButtonItemStyleDone target:self action:@selector(post)];
+    self.title = nodeTitle;
+    
+    UIButton *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 26)];
+    [buttonView setBackgroundImage:[UIImage imageNamed:@"nav-button-bg.png"] forState:UIControlStateNormal];
+    [buttonView addTarget:self action:@selector(post) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *buttonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 44, 26)];
+    buttonTitleView.text = @"发帖";
+    buttonTitleView.textColor = [UIColor whiteColor];
+    buttonTitleView.textAlignment = UITextAlignmentCenter;
+    buttonTitleView.font = [UIFont systemFontOfSize:12];
+    buttonTitleView.backgroundColor = [UIColor clearColor];
+    [buttonView addSubview:buttonTitleView];
+    UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
     self.navigationItem.rightBarButtonItem = postButton;
+    
+    UIButton *backButtonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    [backButtonView setBackgroundImage:[UIImage imageNamed:@"nav-back-bg.png"] forState:UIControlStateNormal];
+    [backButtonView addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *backButtonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    backButtonTitleView.text = @"节点";
+    backButtonTitleView.textColor = [UIColor whiteColor];
+    backButtonTitleView.textAlignment = UITextAlignmentCenter;
+    backButtonTitleView.font = [UIFont systemFontOfSize:12];
+    backButtonTitleView.backgroundColor = [UIColor clearColor];
+    [backButtonView addSubview:backButtonTitleView];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+    self.navigationItem.leftBarButtonItem = backButton;
 }
 
 #pragma mark - load topics

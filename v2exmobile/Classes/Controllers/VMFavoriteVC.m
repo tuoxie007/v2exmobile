@@ -445,7 +445,7 @@
         [topicVC updateView];
         [self.navigationController pushViewController:topicVC animated:YES];
     } else if (indexPath.section == 1) {
-        VMNodeTimelineVC *nodeTimelineVC = [[VMNodeTimelineVC alloc] initWithNode:[[_nodes objectAtIndex:indexPath.row] objectForKey:@"id"]];
+        VMNodeTimelineVC *nodeTimelineVC = [[VMNodeTimelineVC alloc] initWithNode:[[_nodes objectAtIndex:indexPath.row] objectForKey:@"id"] title:nil];
         [self.navigationController pushViewController:nodeTimelineVC animated:YES];
     } else if (indexPath.section == 2) {
         VMMemberVC *memberVC = [[VMMemberVC alloc] initWithMember:[_members objectAtIndex:indexPath.row]];
