@@ -97,7 +97,7 @@
     //Setup the button
 	timelineButton = [UIButton buttonWithType:UIButtonTypeCustom];
     // Set the frame (size and position) of the button)
-    timelineButton.frame = CGRectMake(0, 430, 64, 48); 
+    timelineButton.frame = CGRectMake(0, 430, 64, 48);
     // Set the image for the normal state of the button
 	[timelineButton setBackgroundImage:btnImage forState:UIControlStateNormal];
     // Set the image for the selected state of the button

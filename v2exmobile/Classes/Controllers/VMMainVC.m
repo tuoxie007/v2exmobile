@@ -12,8 +12,9 @@
 #import "VMNotificationVC.h"
 #import "VMNodeVC.h"
 #import "VMFavoriteVC.h"
-#import "VMMemberVC.h"
+#import "VMSettingVC.h"
 #import "HTMLParser.h"
+#import "VMProfileVC.h"
 
 @implementation VMMainVC
 
@@ -27,6 +28,8 @@
 - (void)viewDidLoad
 {
 //    VMAccount *account = [VMAccount getInstance];
+    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-title-bg.png"] forBarMetrics:UIBarMetricsDefault];
     
     VMTimelineVC *timelineVC = [[VMTimelineVC alloc] init];
     UINavigationController *timelineNavController = [[UINavigationController alloc] initWithRootViewController:timelineVC];
@@ -48,15 +51,14 @@
     UITabBarItem *favoriteTabBarItem = [[UITabBarItem alloc] initWithTitle:@"关注" image:[UIImage imageNamed:@"icon-favorite.png"] tag:3];
     [favoriteNavController setTabBarItem:favoriteTabBarItem];
     
-    VMMemberVC *accountVC = [[VMMemberVC alloc] init];
-    UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:accountVC];
-    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"账户" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
+    VMProfileVC *settingVC = [[VMProfileVC alloc] init];
+    UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:settingVC];
+    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];
     
     [self setViewControllers:[[NSArray alloc] initWithObjects:timelineNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
     
-    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-title-bg.png"] forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.frame = CGRectMake(0, 0, 320, 39);
+    self.selectedIndex = 4;
     
     [super viewDidLoad];
 }

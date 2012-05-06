@@ -177,22 +177,34 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
     if (nodeCell == nil) {
         nodeCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         UIView *bgView = [[UIView alloc] initWithFrame:CGRectMake(8, 0, 304, 44)];
-        bgView.backgroundColor = [UIColor whiteColor];
+        bgView.backgroundColor = [UIColor colorWithWhite:0.9765f alpha:1];
         [nodeCell addSubview:bgView];
         UIImageView *separatorView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
         separatorView.frame = CGRectMake(8, 43, 304, 1);
         [nodeCell addSubview:separatorView];
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(18, 0, 284, 43)];
-        label.backgroundColor = [UIColor whiteColor];
+        label.backgroundColor = [UIColor clearColor];
         label.textColor = [UIColor colorWithRed:0.27 green:0.28 blue:0.29 alpha:1];
         label.tag = 1;
         [nodeCell addSubview:label];
     }
     NSString *header = int2string(indexPath.section, 'a');
-//    nodeCell.textLabel.text = [[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"];
     UILabel *label = (UILabel *)[nodeCell viewWithTag:1];
     [label setText:[[filterNodes([nodes objectForKey:header], query) objectAtIndex:indexPath.row] objectForKey:@"title"]];
     label.font = [UIFont boldSystemFontOfSize:16];
+    if (indexPath.row == 0) {
+        UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+        cornerLeftTop.frame = CGRectMake(8, 0, 5, 5);
+        cornerLeftTop.tag = 10;
+        [nodeCell addSubview:cornerLeftTop];
+        UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+        cornerRightTop.frame = CGRectMake(307, 0, 5, 5);
+        cornerLeftTop.tag = 20;
+        [nodeCell addSubview:cornerRightTop];
+    } else {
+        [[nodeCell viewWithTag:10] removeFromSuperview];
+        [[nodeCell viewWithTag:20] removeFromSuperview];
+    }
     return nodeCell;
 }
 
