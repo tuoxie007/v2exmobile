@@ -14,7 +14,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"V2EX";
     
 //    login view
     NSArray* nibViews = [[NSBundle mainBundle] loadNibNamed:@"LoginView" owner:self options:nil];
@@ -40,6 +39,8 @@
     [buttonView addSubview:buttonTitleView];
     UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
     self.navigationItem.rightBarButtonItem = postButton;
+    
+    self.title = @"设置";
 }
 
 - (void)showSettings

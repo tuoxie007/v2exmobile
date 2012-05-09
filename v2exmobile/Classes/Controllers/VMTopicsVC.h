@@ -11,7 +11,7 @@
 
 @interface VMTopicsVC : UITableViewController
 
-- (id)initWithTopics:(NSArray *)topics;
+- (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)withAvatar;
 
 + (CGFloat)cellPadding;
 

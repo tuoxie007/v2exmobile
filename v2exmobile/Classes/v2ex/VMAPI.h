@@ -15,11 +15,13 @@
     NSMutableData *jsonData;
     id _delegate;
     NSMutableArray *requestQueue;
+    BOOL loading;
 }
 
 @property (strong) id delegate;
 
 - (void)allNodesWithDelegate:(id)delegate;
+- (void)topicsWithDelegate:(id)delegate;
 - (void)processNextRequest;
 
 + (VMAPI *)sharedAPI;

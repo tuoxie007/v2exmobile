@@ -8,7 +8,7 @@
 //
 
 #import "VMMainVC.h"
-#import "VMTimelineVC.h"
+#import "VMHomeVC.h"
 #import "VMNotificationVC.h"
 #import "VMNodeVC.h"
 #import "VMFavoriteVC.h"
@@ -31,10 +31,10 @@
     
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-title-bg.png"] forBarMetrics:UIBarMetricsDefault];
     
-    VMTimelineVC *timelineVC = [[VMTimelineVC alloc] init];
-    UINavigationController *timelineNavController = [[UINavigationController alloc] initWithRootViewController:timelineVC];
-    UITabBarItem *timelineTabBarItem = [[UITabBarItem alloc] initWithTitle:@"时间线" image:[UIImage imageNamed:@"icon-timeline.png"] tag:0];
-    [timelineNavController setTabBarItem:timelineTabBarItem];
+    VMHomeVC *homeVC = [[VMHomeVC alloc] init];
+    UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"icon-timeline.png"] tag:0];
+    [homeNavController setTabBarItem:homeTabBarItem];
     
     VMNotificationVC *notificationVC = [[VMNotificationVC alloc] init];
     UINavigationController *notificationNavController = [[UINavigationController alloc] initWithRootViewController:notificationVC];
@@ -56,9 +56,9 @@
     UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];
     
-    [self setViewControllers:[[NSArray alloc] initWithObjects:timelineNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
+    [self setViewControllers:[[NSArray alloc] initWithObjects:homeNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
     
-    self.selectedIndex = 4;
+    self.selectedIndex = 0;
     
     [super viewDidLoad];
 }

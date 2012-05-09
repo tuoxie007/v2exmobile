@@ -20,4 +20,6 @@
 
 - (void)loadImageWithURL:(NSURL *)url forImageView:(UIImageView *)imgView;
 - (void)loadImageWithURL:(NSURL *)url forImageButton:(UIButton *)imgButton;
+- (void)setImageForButton:(UIButton *)imgButton withData:(NSData *)imageData;
+
 @end

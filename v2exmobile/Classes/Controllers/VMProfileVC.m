@@ -9,6 +9,7 @@
 
 #import "VMProfileVC.h"
 #import "VMTopicsVC.h"
+#import "VMAPI.h"
 
 @interface VMProfileVC ()
 {
@@ -107,21 +108,59 @@
     [rootView addSubview:menuItemPBBG];
     [rootView addSubview:menuItemPB];
     
-    NSString *text = @"2012 V2EX TEE 预购成功，还没有购买的，大家继续抢购啦～";
-    CGSize maximumLabelSize = CGSizeMake(226, 200);
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
-    CGFloat titleLabelHeight = size.height;
-    CGFloat cellPadding = [VMTopicsVC cellPadding];
-    CGFloat cellHeight = cellPadding + titleLabelHeight + 7 + 8 + cellPadding;
-    CGFloat topicsTableContentHeight = cellHeight * 10;
-    rootView.contentSize = CGSizeMake(320, topicsTableContentHeight + 215 + 10);
+    [[VMAPI sharedAPI] topicsWithDelegate:self];
     
-    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:nil];
-    topicsTableVC.view.frame = CGRectMake(8, 215, 304, topicsTableContentHeight);
+    self.title = @"设置";
+}
+
+- (void)didFinishedLoadingWithData:(id)data
+{
+    CGFloat topicsTableContentHeight = 0;
+    for (NSDictionary *topic in data) {
+        NSString *text = [topic objectForKey:@"title"];
+        CGSize maximumLabelSize = CGSizeMake(226, 200);
+        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
+        CGFloat titleLabelHeight = size.height;
+        CGFloat cellPadding = [VMTopicsVC cellPadding];
+        CGFloat cellHeight = cellPadding + titleLabelHeight + 7 + 8 + cellPadding;
+        topicsTableContentHeight += cellHeight;
+    }
+    
+    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:NO];
+    topicsTableVC.view.frame = CGRectMake(8, 220, 304, topicsTableContentHeight);
     topicsTableVC.tableView.scrollEnabled = NO;
     
+    rootView.contentSize = CGSizeMake(320, topicsTableContentHeight + 215 + 20);
     [rootView addSubview:topicsTableVC.view];
     
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
+    headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+    [rootView addSubview:headView];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
+    footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+    [rootView addSubview:footView];
+    
+    UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+    cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
+    [headView addSubview:cornerLeftTop];
+    
+    UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+    cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
+    [headView addSubview:cornerRightTop];
+    
+    UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
+    cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
+    [footView addSubview:cornerLeftBottom];
+    
+    UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
+    cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
+    [footView addSubview:cornerRightBottom];
+}
+
+- (void)cancel
+{
+    //    TODO
+    NSLog(@"Load Topics Failed");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
