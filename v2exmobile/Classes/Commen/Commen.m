@@ -47,4 +47,10 @@
     return temp;
 }
 
++ (NSString *)timeAsDisplay:(NSDate *)time
+{
+//    TODO not implemented
+    return @"1小时前";
+}
+
 @end

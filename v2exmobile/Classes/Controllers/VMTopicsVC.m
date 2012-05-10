@@ -13,25 +13,30 @@
 #import "Commen.h"
 #import "MD5.h"
 #import "VMTopicCell.h"
+#import "EGORefreshTableHeaderView.h"
 
 @interface VMTopicsVC ()
 {
     NSArray *topics;
     BOOL withAvatar;
     NSMutableDictionary *avatars;
+    EGORefreshTableHeaderView *refreshTableHeaderView;
+    id parentVC;
 }
 
 @end
 
 @implementation VMTopicsVC
 
-- (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)_withAvatar
+- (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)_withAvatar refreshTableHeaderView:(EGORefreshTableHeaderView *)_refreshTableHeaderView parentVC:(id)_parentVC
 {
     self = [super init];
     if (self) {
+        parentVC = _parentVC;
         topics = _topics;
         withAvatar = _withAvatar;
         avatars = [[NSMutableDictionary alloc] initWithCapacity:topics.count];
+        refreshTableHeaderView = _refreshTableHeaderView;
     }
     return self;
 }
@@ -83,16 +88,28 @@
     CellIdentifier = [NSString stringWithFormat:@"TopicCell-%d", indexPath.row];
     VMTopicCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[VMTopicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier withSeperator:indexPath.row < topics.count - 1 withAvatar:YES];
+        cell = [[VMTopicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier withSeperator:indexPath.row < topics.count - 1 withAvatar:withAvatar];
     }
     [cell setTopic:topic];
     return cell;
 }
 
-#pragma mark - Table view delegate
+#pragma mark -
+#pragma mark UIScrollViewDelegate Methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{	
+	[refreshTableHeaderView egoRefreshScrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+	[refreshTableHeaderView egoRefreshScrollViewDidEndDragging:scrollView];
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [parentVC didSelectRowAtIndexPath:indexPath];
 }
 
 @end

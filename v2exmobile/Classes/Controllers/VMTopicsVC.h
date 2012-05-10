@@ -9,10 +9,15 @@
 
 #import <UIKit/UIKit.h>
 
+@class EGORefreshTableHeaderView;
 @interface VMTopicsVC : UITableViewController
 
-- (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)withAvatar;
+- (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)_withAvatar refreshTableHeaderView:(EGORefreshTableHeaderView *)_refreshTableHeaderView parentVC:(id)parentVC;
 
 + (CGFloat)cellPadding;
 
+@end
+
+@protocol TopicsVCParentVC <NSObject>
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 @end

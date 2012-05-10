@@ -77,7 +77,7 @@
 
 #pragma mark - Setters
 - (void)refreshLastUpdatedDate {
-    NSDate *date = [NSDate date];//[_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
+    NSDate *date = [_delegate egoRefreshTableHeaderDataSourceLastUpdated:self];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"M月d日 h时m分"];
@@ -97,12 +97,6 @@
 	switch (aState) {
 		case EGOOPullRefreshPulling:
             _statusLabel.text = @"放手加载刷新...";
-            if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceCurrentPage:)]) {
-                NSInteger currentPage = [_delegate egoRefreshTableHeaderDataSourceCurrentPage:self];
-                if (currentPage > 1) {
-                    _statusLabel.text = [NSString stringWithFormat:@"放手加载第%d页...", currentPage-1];
-                }
-            }
 			[CATransaction begin];
 			[CATransaction setAnimationDuration:FLIP_ANIMATION_DURATION];
 			_arrowImage.transform = CATransform3DMakeRotation((M_PI / 180) * 180, 0, 0, 1);
@@ -118,12 +112,6 @@
 			}
 			
             _statusLabel.text = @"下拉加载刷新...";
-            if ([_delegate respondsToSelector:@selector(egoRefreshTableHeaderDataSourceCurrentPage:)]) {
-                NSInteger currentPage = [_delegate egoRefreshTableHeaderDataSourceCurrentPage:self];
-                if (currentPage > 1) {
-                    _statusLabel.text = [NSString stringWithFormat:@"下拉加载第%d页...", currentPage-1];
-                }
-            }
 			[_activityView stopAnimating];
 			[CATransaction begin];
 			[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions]; 
@@ -199,7 +187,6 @@
 //            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 65, 0);
         [UIView commitAnimations];
 	}
-	
 }
 
 //当开发者页面页面刷新完毕调用此方法，[delegate egoRefreshScrollViewDataSourceDidFinishedLoading: scrollView];

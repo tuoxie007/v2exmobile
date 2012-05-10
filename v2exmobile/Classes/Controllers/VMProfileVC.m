@@ -126,7 +126,7 @@
         topicsTableContentHeight += cellHeight;
     }
     
-    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:NO];
+    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:NO refreshTableHeaderView:nil parentVC:self];
     topicsTableVC.view.frame = CGRectMake(8, 220, 304, topicsTableContentHeight);
     topicsTableVC.tableView.scrollEnabled = NO;
     

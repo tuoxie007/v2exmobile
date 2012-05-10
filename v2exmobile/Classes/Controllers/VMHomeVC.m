@@ -10,10 +10,15 @@
 #import "VMHomeVC.h"
 #import "VMTopicsVC.h"
 #import "VMAPI.h"
+#import "VMTopicVC.h"
 
 @interface VMHomeVC ()
 {
     VMTopicsVC *topicsTableVC;
+    BOOL loading;
+    NSDate *lastRefresh;
+    EGORefreshTableHeaderView *refreshTableHeaderView;
+    NSArray *topics;
 }
 
 - (void)switchToLatest;
@@ -21,6 +26,9 @@
 - (void)switchToFriends;
 - (void)highlightButton:(UIButton *)btn;
 - (void)unHighlightButton:(UIButton *)btn;
+- (void)showHotNodesForPost;
+- (void)refresh;
+- (void)loadMore;
 
 @end
 
@@ -73,46 +81,26 @@
     [friendsTopicsButton addTarget:self action:@selector(switchToFriends) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:friendsTopicsButton];
     
+//    TODO
+//    dovis设计稿上显示的那几个节点，有些并不是节点，而是节点的分类，例如城市，我不知道该往哪里跳转了。
+//    如果是一个节点就可以直接跳去发帖的View，但是分类往哪里跳？功能定义不清，所以暂时不实现了。
+//    
+//    UIButton *buttonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+//    [buttonView setBackgroundImage:[UIImage imageNamed:@"nav-post-button.png"] forState:UIControlStateNormal];
+//    [buttonView addTarget:self action:@selector(showHotNodesForPost) forControlEvents:UIControlEventTouchUpInside];
+//    UILabel *buttonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 28, 28)];
+//    buttonTitleView.textColor = [UIColor whiteColor];
+//    buttonTitleView.textAlignment = UITextAlignmentCenter;
+//    buttonTitleView.font = [UIFont systemFontOfSize:12];
+//    buttonTitleView.backgroundColor = [UIColor clearColor];
+//    [buttonView addSubview:buttonTitleView];
+//    UIBarButtonItem *postButton = [[UIBarButtonItem alloc] initWithCustomView:buttonView];
+//    self.navigationItem.rightBarButtonItem = postButton;
+    
+    loading = YES;
     [[VMAPI sharedAPI] topicsWithDelegate:self];
     
     self.title = @"V2EX";
-}
-
-- (void)didFinishedLoadingWithData:(id)data
-{
-    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:YES];
-    topicsTableVC.view.frame = CGRectMake(8, 45, 304, 310);
-    
-    [self.view addSubview:topicsTableVC.view];
-    
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
-    headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [self.view addSubview:headView];
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
-    footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [self.view addSubview:footView];
-    
-    UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
-    cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
-    [headView addSubview:cornerLeftTop];
-    
-    UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
-    cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
-    [headView addSubview:cornerRightTop];
-    
-    UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
-    cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
-    [footView addSubview:cornerLeftBottom];
-    
-    UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
-    cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
-    [footView addSubview:cornerRightBottom];
-}
-
-- (void)cancel
-{
-//    TODO
-    NSLog(@"Load Topics Failed");
 }
 
 - (void)highlightButton:(UIButton *)btn {
@@ -145,9 +133,106 @@
     [self performSelector:@selector(highlightButton:) withObject:((UIButton *)[self.view viewWithTag:103]) afterDelay:0.0];
 }
 
+- (void)showHotNodesForPost
+{
+    
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+#pragma mark -
+#pragma mark API delegate
+
+- (void)didFinishedLoadingWithData:(id)data
+{
+    topics = data;
+    refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, 304, 0)];
+    refreshTableHeaderView.delegate = self;
+    
+    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:YES refreshTableHeaderView:refreshTableHeaderView parentVC:self];
+    topicsTableVC.view.frame = CGRectMake(8, 45, 304, 310);
+    
+    [topicsTableVC.view addSubview:refreshTableHeaderView];
+    
+    [self.view addSubview:topicsTableVC.view];
+    
+    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
+    headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+    [self.view addSubview:headView];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
+    footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+    [self.view addSubview:footView];
+    
+    UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+    cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
+    [headView addSubview:cornerLeftTop];
+    
+    UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+    cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
+    [headView addSubview:cornerRightTop];
+    
+    UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
+    cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
+    [footView addSubview:cornerLeftBottom];
+    
+    UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
+    cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
+    [footView addSubview:cornerRightBottom];
+    
+    loading = NO;
+    lastRefresh = [NSDate date];
+}
+
+- (void)cancel
+{
+//    TODO
+    loading = NO;
+    NSLog(@"Load Topics Failed");
+}
+
+#pragma mark -
+#pragma mark Load data
+- (void)refresh
+{
+    loading = YES;
+    [[VMAPI sharedAPI] topicsWithDelegate:self];
+}
+
+- (void)loadMore
+{
+    loading = YES;
+    [[VMAPI sharedAPI] topicsWithDelegate:self];
+}
+
+#pragma mark -
+#pragma mark EGORefreshTableHeaderDelegate Methods
+
+- (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
+{
+    [self refresh];
+}
+
+- (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view
+{
+	return loading;
+}
+
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
+{
+    if (lastRefresh) {
+        return lastRefresh;
+    }
+    return [NSDate date];
+}
+
+- (void)didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSDictionary *topic = [topics objectAtIndex:indexPath.row];
+    VMTopicVC *topicVC = [[VMTopicVC alloc] initWithTopic:topic];
+    [self.navigationController pushViewController:topicVC animated:YES];
 }
 
 @end

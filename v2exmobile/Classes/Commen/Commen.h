@@ -13,4 +13,5 @@
 
 + (NSString *)getFilePathWithFilename:(NSString *)filename;
 + (NSString *)urlencode:(NSString *)text;
++ (NSString *)timeAsDisplay:(NSDate *)time;
 @end

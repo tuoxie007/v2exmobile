@@ -44,5 +44,5 @@ typedef enum{
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view;
 @optional
 - (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view;
-- (NSInteger)egoRefreshTableHeaderDataSourceCurrentPage:(EGORefreshTableHeaderView*)view;
+//- (NSInteger)egoRefreshTableHeaderDataSourceCurrentPage:(EGORefreshTableHeaderView*)view;
 @end

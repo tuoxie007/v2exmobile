@@ -17,7 +17,7 @@
 #import "VMImageLoader.h"
 #import "VMLoader.h"
 #import "VMwaitingView.h"
-#import "VMTopicVC.h"
+#import "VMOldTopicVC.h"
 #import "VMNodeTimelineVC.h"
 #import "VMMemberVC.h"
 #import "VMInfoView.h"
@@ -441,7 +441,7 @@
 {
     if (indexPath.section == 0) {
         NSDictionary *topic = [_topics objectAtIndex:indexPath.row];
-        VMTopicVC *topicVC = [[VMTopicVC alloc] initWithTopic:topic];
+        VMOldTopicVC *topicVC = [[VMOldTopicVC alloc] initWithTopic:topic];
         [topicVC updateView];
         [self.navigationController pushViewController:topicVC animated:YES];
     } else if (indexPath.section == 1) {

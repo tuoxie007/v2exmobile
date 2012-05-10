@@ -8,7 +8,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EGORefreshTableHeaderView.h"
 
-@interface VMHomeVC : UIViewController
+@interface VMHomeVC : UIViewController<EGORefreshTableHeaderDelegate, UITableViewDelegate>
 
 @end

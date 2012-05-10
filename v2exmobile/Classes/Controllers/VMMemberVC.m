@@ -15,7 +15,7 @@
 #import "VMImageLoader.h"
 #import "VMwaitingView.h"
 #import "VMInfoView.h"
-#import "VMTopicVC.h"
+#import "VMOldTopicVC.h"
 
 //#define WAITING_VIEW_TAG 1
 
@@ -408,7 +408,7 @@
     } else {
         topic = [[_member objectForKey:@"parted_topics"] objectAtIndex:(indexPath.row-3-[[_member objectForKey:@"posted_topics"] count])];
     }
-    VMTopicVC *topicVC = [[VMTopicVC alloc] initWithTopic:topic];
+    VMOldTopicVC *topicVC = [[VMOldTopicVC alloc] initWithTopic:topic];
     [topicVC updateView];
     [self.navigationController pushViewController:topicVC animated:YES];
 }

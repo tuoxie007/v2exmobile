@@ -10,6 +10,7 @@
 		BF1351A1151768BD003275FB /* VMFavoriteNodesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */; };
 		BF1351A41517697C003275FB /* VMNotificationsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A31517697C003275FB /* VMNotificationsLoader.m */; };
 		BF1351A715177F88003275FB /* VMLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A615177F88003275FB /* VMLoader.m */; };
+		BF1858C1155C33FB00273B58 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF1858C0155C33FB00273B58 /* LoginView.xib */; };
 		BF39112F151F39AF00CC49DF /* loading.png in Resources */ = {isa = PBXBuildFile; fileRef = BF39112D151F39AF00CC49DF /* loading.png */; };
 		BF391130151F39AF00CC49DF /* loading@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF39112E151F39AF00CC49DF /* loading@2x.png */; };
 		BF391137151F91C400CC49DF /* icon-notification.png in Resources */ = {isa = PBXBuildFile; fileRef = BF391135151F91C400CC49DF /* icon-notification.png */; };
@@ -55,7 +56,6 @@
 		BF3FA28F1555E02E004E9AA1 /* login-subtitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA28D1555E02E004E9AA1 /* login-subtitle@2x.png */; };
 		BF3FA2921555FA56004E9AA1 /* login-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA2901555FA56004E9AA1 /* login-bg.png */; };
 		BF3FA2931555FA56004E9AA1 /* login-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA2911555FA56004E9AA1 /* login-bg@2x.png */; };
-		BF3FA2951555FE8D004E9AA1 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA2941555FE8D004E9AA1 /* LoginView.xib */; };
 		BF3FA29815560383004E9AA1 /* reg-button-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA29615560383004E9AA1 /* reg-button-bg.png */; };
 		BF3FA29915560383004E9AA1 /* reg-button-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA29715560383004E9AA1 /* reg-button-bg@2x.png */; };
 		BF3FA29C155612F5004E9AA1 /* table-corner-left-top@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF3FA29A155612F5004E9AA1 /* table-corner-left-top@2x.png */; };
@@ -103,6 +103,15 @@
 		BF5CA7011517974D0072CEE7 /* VMMemberLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7001517974D0072CEE7 /* VMMemberLoader.m */; };
 		BF5CA7041518D1AA0072CEE7 /* VMLoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */; };
 		BF6676B9155ACB190031DE3C /* VMTopicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6676B8155ACB190031DE3C /* VMTopicCell.m */; };
+		BF6676C1155BF1D10031DE3C /* nav-post-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BF6676BF155BF1D10031DE3C /* nav-post-button.png */; };
+		BF6676C2155BF1D10031DE3C /* nav-post-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF6676C0155BF1D10031DE3C /* nav-post-button@2x.png */; };
+		BF6676C5155C10DA0031DE3C /* VMTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF6676C4155C10DA0031DE3C /* VMTopicVC.m */; };
+		BF667CF1155C26110031DE3C /* box-border-top-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CEF155C26110031DE3C /* box-border-top-bg.png */; };
+		BF667CF2155C26110031DE3C /* box-border-top-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CF0155C26110031DE3C /* box-border-top-bg@2x.png */; };
+		BF667CF7155C29E80031DE3C /* box-shadow-bg1.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CF3155C29E80031DE3C /* box-shadow-bg1.png */; };
+		BF667CF8155C29E80031DE3C /* box-shadow-bg1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CF4155C29E80031DE3C /* box-shadow-bg1@2x.png */; };
+		BF667CF9155C29E80031DE3C /* box-shadow-bg2.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CF5155C29E80031DE3C /* box-shadow-bg2.png */; };
+		BF667CFA155C29E80031DE3C /* box-shadow-bg2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF667CF6155C29E80031DE3C /* box-shadow-bg2@2x.png */; };
 		BF685F0E152B74BD00097B3B /* v2exmobile-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */; };
 		BF685F10152B74C100097B3B /* v2exmobile-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */; };
 		BF7CABFD15563BA600A4D226 /* VMTopicsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF7CABFC15563BA600A4D226 /* VMTopicsVC.m */; };
@@ -145,7 +154,7 @@
 		BFEE4E2E150BC4B0005D68CA /* VMFavoriteVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E2D150BC4B0005D68CA /* VMFavoriteVC.m */; };
 		BFEE4E3C150C9EBE005D68CA /* VMTopicsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E3B150C9EBE005D68CA /* VMTopicsLoader.m */; };
 		BFEE4E68150D1807005D68CA /* VMTimelineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E65150D1807005D68CA /* VMTimelineVC.m */; };
-		BFEE4E69150D1807005D68CA /* VMTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E67150D1807005D68CA /* VMTopicVC.m */; };
+		BFEE4E69150D1807005D68CA /* VMOldTopicVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFEE4E67150D1807005D68CA /* VMOldTopicVC.m */; };
 		BFEE4E88150DE42E005D68CA /* icon-account.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E7F150DE42E005D68CA /* icon-account.png */; };
 		BFEE4E89150DE42E005D68CA /* icon-account@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E80150DE42E005D68CA /* icon-account@2x.png */; };
 		BFEE4E8A150DE42E005D68CA /* icon-favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = BFEE4E81150DE42E005D68CA /* icon-favorite.png */; };
@@ -159,7 +168,6 @@
 		BFF9AA33150F098B009B238A /* VMTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF9AA32150F098B009B238A /* VMTopicView.m */; };
 		BFF9AA35150F0AEB009B238A /* TODO.txt in Resources */ = {isa = PBXBuildFile; fileRef = BFF9AA34150F0AEB009B238A /* TODO.txt */; };
 		BFF9AA38150F6675009B238A /* VMRepliesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BFF9AA37150F6675009B238A /* VMRepliesLoader.m */; };
-		BFF9AA3A150FA68A009B238A /* TestView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BFF9AA39150FA68A009B238A /* TestView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -169,6 +177,7 @@
 		BF1351A31517697C003275FB /* VMNotificationsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMNotificationsLoader.m; path = Classes/v2ex/VMNotificationsLoader.m; sourceTree = "<group>"; };
 		BF1351A515177F88003275FB /* VMLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMLoader.h; path = Classes/v2ex/VMLoader.h; sourceTree = "<group>"; };
 		BF1351A615177F88003275FB /* VMLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoader.m; path = Classes/v2ex/VMLoader.m; sourceTree = "<group>"; };
+		BF1858C0155C33FB00273B58 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginView.xib; path = Classes/Views/LoginView.xib; sourceTree = "<group>"; };
 		BF39112D151F39AF00CC49DF /* loading.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loading.png; path = Resources/loading.png; sourceTree = "<group>"; };
 		BF39112E151F39AF00CC49DF /* loading@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "loading@2x.png"; path = "Resources/loading@2x.png"; sourceTree = "<group>"; };
 		BF391135151F91C400CC49DF /* icon-notification.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-notification.png"; path = "Resources/icon-notification.png"; sourceTree = "<group>"; };
@@ -232,7 +241,6 @@
 		BF3FA28D1555E02E004E9AA1 /* login-subtitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-subtitle@2x.png"; path = "Resources/login-subtitle@2x.png"; sourceTree = "<group>"; };
 		BF3FA2901555FA56004E9AA1 /* login-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-bg.png"; path = "Resources/login-bg.png"; sourceTree = "<group>"; };
 		BF3FA2911555FA56004E9AA1 /* login-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-bg@2x.png"; path = "Resources/login-bg@2x.png"; sourceTree = "<group>"; };
-		BF3FA2941555FE8D004E9AA1 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginView.xib; path = Classes/Views/LoginView.xib; sourceTree = "<group>"; };
 		BF3FA29615560383004E9AA1 /* reg-button-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reg-button-bg.png"; path = "Resources/reg-button-bg.png"; sourceTree = "<group>"; };
 		BF3FA29715560383004E9AA1 /* reg-button-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reg-button-bg@2x.png"; path = "Resources/reg-button-bg@2x.png"; sourceTree = "<group>"; };
 		BF3FA29A155612F5004E9AA1 /* table-corner-left-top@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "table-corner-left-top@2x.png"; path = "Resources/table-corner-left-top@2x.png"; sourceTree = "<group>"; };
@@ -299,6 +307,16 @@
 		BF5CA7031518D1A90072CEE7 /* VMLoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMLoginHandler.m; path = Classes/v2ex/VMLoginHandler.m; sourceTree = "<group>"; };
 		BF6676B7155ACB190031DE3C /* VMTopicCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicCell.h; path = Classes/Views/VMTopicCell.h; sourceTree = "<group>"; };
 		BF6676B8155ACB190031DE3C /* VMTopicCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicCell.m; path = Classes/Views/VMTopicCell.m; sourceTree = "<group>"; };
+		BF6676BF155BF1D10031DE3C /* nav-post-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav-post-button.png"; path = "Resources/nav-post-button.png"; sourceTree = "<group>"; };
+		BF6676C0155BF1D10031DE3C /* nav-post-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "nav-post-button@2x.png"; path = "Resources/nav-post-button@2x.png"; sourceTree = "<group>"; };
+		BF6676C3155C10DA0031DE3C /* VMTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicVC.h; path = Classes/Controllers/VMTopicVC.h; sourceTree = "<group>"; };
+		BF6676C4155C10DA0031DE3C /* VMTopicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicVC.m; path = Classes/Controllers/VMTopicVC.m; sourceTree = "<group>"; };
+		BF667CEF155C26110031DE3C /* box-border-top-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-border-top-bg.png"; path = "Resources/box-border-top-bg.png"; sourceTree = "<group>"; };
+		BF667CF0155C26110031DE3C /* box-border-top-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-border-top-bg@2x.png"; path = "Resources/box-border-top-bg@2x.png"; sourceTree = "<group>"; };
+		BF667CF3155C29E80031DE3C /* box-shadow-bg1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-shadow-bg1.png"; path = "Resources/box-shadow-bg1.png"; sourceTree = "<group>"; };
+		BF667CF4155C29E80031DE3C /* box-shadow-bg1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-shadow-bg1@2x.png"; path = "Resources/box-shadow-bg1@2x.png"; sourceTree = "<group>"; };
+		BF667CF5155C29E80031DE3C /* box-shadow-bg2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-shadow-bg2.png"; path = "Resources/box-shadow-bg2.png"; sourceTree = "<group>"; };
+		BF667CF6155C29E80031DE3C /* box-shadow-bg2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "box-shadow-bg2@2x.png"; path = "Resources/box-shadow-bg2@2x.png"; sourceTree = "<group>"; };
 		BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v2exmobile-icon.png"; sourceTree = SOURCE_ROOT; };
 		BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "v2exmobile-icon@2x.png"; sourceTree = SOURCE_ROOT; };
 		BF7CABFB15563BA600A4D226 /* VMTopicsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicsVC.h; path = Classes/Controllers/VMTopicsVC.h; sourceTree = "<group>"; };
@@ -355,8 +373,8 @@
 		BFEE4E3B150C9EBE005D68CA /* VMTopicsLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicsLoader.m; path = Classes/v2ex/VMTopicsLoader.m; sourceTree = "<group>"; };
 		BFEE4E64150D1806005D68CA /* VMTimelineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTimelineVC.h; path = Classes/Controllers/VMTimelineVC.h; sourceTree = "<group>"; };
 		BFEE4E65150D1807005D68CA /* VMTimelineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTimelineVC.m; path = Classes/Controllers/VMTimelineVC.m; sourceTree = "<group>"; };
-		BFEE4E66150D1807005D68CA /* VMTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMTopicVC.h; path = Classes/Controllers/VMTopicVC.h; sourceTree = "<group>"; };
-		BFEE4E67150D1807005D68CA /* VMTopicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMTopicVC.m; path = Classes/Controllers/VMTopicVC.m; sourceTree = "<group>"; };
+		BFEE4E66150D1807005D68CA /* VMOldTopicVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMOldTopicVC.h; path = Classes/Controllers/VMOldTopicVC.h; sourceTree = "<group>"; };
+		BFEE4E67150D1807005D68CA /* VMOldTopicVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMOldTopicVC.m; path = Classes/Controllers/VMOldTopicVC.m; sourceTree = "<group>"; };
 		BFEE4E7F150DE42E005D68CA /* icon-account.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-account.png"; path = "Resources/icon-account.png"; sourceTree = "<group>"; };
 		BFEE4E80150DE42E005D68CA /* icon-account@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-account@2x.png"; path = "Resources/icon-account@2x.png"; sourceTree = "<group>"; };
 		BFEE4E81150DE42E005D68CA /* icon-favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "icon-favorite.png"; path = "Resources/icon-favorite.png"; sourceTree = "<group>"; };
@@ -373,7 +391,6 @@
 		BFF9AA34150F0AEB009B238A /* TODO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
 		BFF9AA36150F6675009B238A /* VMRepliesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMRepliesLoader.h; path = Classes/v2ex/VMRepliesLoader.h; sourceTree = "<group>"; };
 		BFF9AA37150F6675009B238A /* VMRepliesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMRepliesLoader.m; path = Classes/v2ex/VMRepliesLoader.m; sourceTree = "<group>"; };
-		BFF9AA39150FA68A009B238A /* TestView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,8 +398,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF48BA221529DD5300404ACA /* libxml2.dylib in Frameworks */,
 				BFEE4E99150E47FD005D68CA /* QuartzCore.framework in Frameworks */,
+				BF48BA221529DD5300404ACA /* libxml2.dylib in Frameworks */,
 				BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */,
 				BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */,
 				BFEE4DF1150BBA1B005D68CA /* CoreGraphics.framework in Frameworks */,
@@ -548,8 +565,8 @@
 				BFD04997151B3168008B3107 /* VMMemberVC.m */,
 				BFEE4E64150D1806005D68CA /* VMTimelineVC.h */,
 				BFEE4E65150D1807005D68CA /* VMTimelineVC.m */,
-				BFEE4E66150D1807005D68CA /* VMTopicVC.h */,
-				BFEE4E67150D1807005D68CA /* VMTopicVC.m */,
+				BFEE4E66150D1807005D68CA /* VMOldTopicVC.h */,
+				BFEE4E67150D1807005D68CA /* VMOldTopicVC.m */,
 				BF558E60151492190011C8A9 /* VMNodeTimelineVC.h */,
 				BF558E61151492190011C8A9 /* VMNodeTimelineVC.m */,
 				BF558E64151494E10011C8A9 /* VMReplyVC.h */,
@@ -568,6 +585,8 @@
 				BF3FA2A115561EEB004E9AA1 /* VMProfileVC.m */,
 				BF7CABFB15563BA600A4D226 /* VMTopicsVC.h */,
 				BF7CABFC15563BA600A4D226 /* VMTopicsVC.m */,
+				BF6676C3155C10DA0031DE3C /* VMTopicVC.h */,
+				BF6676C4155C10DA0031DE3C /* VMTopicVC.m */,
 				BF7CAC1C155972A300A4D226 /* VMHomeVC.h */,
 				BF7CAC1D155972A300A4D226 /* VMHomeVC.m */,
 			);
@@ -673,6 +692,14 @@
 				BF7CAC28155988AE00A4D226 /* sub-menu-item-bg-right-selected@2x.png */,
 				BF7CAC29155988AE00A4D226 /* sub-menu-item-bg-right.png */,
 				BF7CAC2A155988AF00A4D226 /* sub-menu-item-bg-right@2x.png */,
+				BF6676BF155BF1D10031DE3C /* nav-post-button.png */,
+				BF6676C0155BF1D10031DE3C /* nav-post-button@2x.png */,
+				BF667CEF155C26110031DE3C /* box-border-top-bg.png */,
+				BF667CF0155C26110031DE3C /* box-border-top-bg@2x.png */,
+				BF667CF3155C29E80031DE3C /* box-shadow-bg1.png */,
+				BF667CF4155C29E80031DE3C /* box-shadow-bg1@2x.png */,
+				BF667CF5155C29E80031DE3C /* box-shadow-bg2.png */,
+				BF667CF6155C29E80031DE3C /* box-shadow-bg2@2x.png */,
 				BF3FA22215543E44004E9AA1 /* tabbar */,
 				BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */,
 				BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */,
@@ -705,10 +732,9 @@
 				BFF9AA32150F098B009B238A /* VMTopicView.m */,
 				BF558E6D1514D70D0011C8A9 /* VMwaitingView.h */,
 				BF558E6E1514D70D0011C8A9 /* VMwaitingView.m */,
-				BFF9AA39150FA68A009B238A /* TestView.xib */,
 				BF558E701514DE7B0011C8A9 /* VMInfoView.h */,
 				BF558E711514DE7B0011C8A9 /* VMInfoView.m */,
-				BF3FA2941555FE8D004E9AA1 /* LoginView.xib */,
+				BF1858C0155C33FB00273B58 /* LoginView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -774,7 +800,6 @@
 				BFEE4E92150E3D0E005D68CA /* blueArrow.png in Resources */,
 				BFEE4E93150E3D0E005D68CA /* blueArrow@2x.png in Resources */,
 				BFF9AA35150F0AEB009B238A /* TODO.txt in Resources */,
-				BFF9AA3A150FA68A009B238A /* TestView.xib in Resources */,
 				BF39112F151F39AF00CC49DF /* loading.png in Resources */,
 				BF391130151F39AF00CC49DF /* loading@2x.png in Resources */,
 				BF391137151F91C400CC49DF /* icon-notification.png in Resources */,
@@ -808,7 +833,6 @@
 				BF3FA28F1555E02E004E9AA1 /* login-subtitle@2x.png in Resources */,
 				BF3FA2921555FA56004E9AA1 /* login-bg.png in Resources */,
 				BF3FA2931555FA56004E9AA1 /* login-bg@2x.png in Resources */,
-				BF3FA2951555FE8D004E9AA1 /* LoginView.xib in Resources */,
 				BF3FA29815560383004E9AA1 /* reg-button-bg.png in Resources */,
 				BF3FA29915560383004E9AA1 /* reg-button-bg@2x.png in Resources */,
 				BF3FA29C155612F5004E9AA1 /* table-corner-left-top@2x.png in Resources */,
@@ -858,6 +882,15 @@
 				BF7CAC34155988AF00A4D226 /* sub-menu-item-bg-right-selected@2x.png in Resources */,
 				BF7CAC35155988AF00A4D226 /* sub-menu-item-bg-right.png in Resources */,
 				BF7CAC36155988AF00A4D226 /* sub-menu-item-bg-right@2x.png in Resources */,
+				BF6676C1155BF1D10031DE3C /* nav-post-button.png in Resources */,
+				BF6676C2155BF1D10031DE3C /* nav-post-button@2x.png in Resources */,
+				BF667CF1155C26110031DE3C /* box-border-top-bg.png in Resources */,
+				BF667CF2155C26110031DE3C /* box-border-top-bg@2x.png in Resources */,
+				BF667CF7155C29E80031DE3C /* box-shadow-bg1.png in Resources */,
+				BF667CF8155C29E80031DE3C /* box-shadow-bg1@2x.png in Resources */,
+				BF667CF9155C29E80031DE3C /* box-shadow-bg2.png in Resources */,
+				BF667CFA155C29E80031DE3C /* box-shadow-bg2@2x.png in Resources */,
+				BF1858C1155C33FB00273B58 /* LoginView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,7 +910,7 @@
 				BFEE4E2E150BC4B0005D68CA /* VMFavoriteVC.m in Sources */,
 				BFEE4E3C150C9EBE005D68CA /* VMTopicsLoader.m in Sources */,
 				BFEE4E68150D1807005D68CA /* VMTimelineVC.m in Sources */,
-				BFEE4E69150D1807005D68CA /* VMTopicVC.m in Sources */,
+				BFEE4E69150D1807005D68CA /* VMOldTopicVC.m in Sources */,
 				BFEE4E97150E3D2D005D68CA /* EGORefreshTableHeaderView.m in Sources */,
 				BFF9AA33150F098B009B238A /* VMTopicView.m in Sources */,
 				BFF9AA38150F6675009B238A /* VMRepliesLoader.m in Sources */,
@@ -922,6 +955,7 @@
 				BF7CABFD15563BA600A4D226 /* VMTopicsVC.m in Sources */,
 				BF7CAC1E155972A300A4D226 /* VMHomeVC.m in Sources */,
 				BF6676B9155ACB190031DE3C /* VMTopicCell.m in Sources */,
+				BF6676C5155C10DA0031DE3C /* VMTopicVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -991,9 +1025,18 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
+				IBC_PLUGIN_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphoneos\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv6\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv7\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1004,9 +1047,18 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
+				IBC_PLUGIN_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphoneos\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphonesimulator\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv6\"",
+					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv7\"",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"USER_HEADER_SEARCH_PATHS[arch=*]" = /usr/include/libxml2;
+				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
