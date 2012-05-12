@@ -7,23 +7,15 @@
 //  Released under the MIT Licenses.
 //
 
-#define PADDING_LEFT 8
-#define CONTENT_WIDTH 320-PADDING_LEFT*2
-#define CONTENT_PADDING_LEFT 7
-#define CONTENT_PADDING_TOP 10
-#define AVATAR_WIDTH 35
-
 #import "VMTopicVC.h"
-#import "VMImageLoader.h"
-#import "Commen.h"
-
-static UIColor *lightTextColor;
-static UIColor *textColor;
+#import "VMRepliesVC.h"
 
 @interface VMTopicVC ()
 {
     NSDictionary *topic;
-    UIScrollView *topicView;
+    UIView *topicView;
+    VMRepliesVC *repliesVC;
+    CGRect repliesFrame;
 }
 @end
 
@@ -57,25 +49,20 @@ static UIColor *textColor;
     
     self.view.backgroundColor = [UIColor colorWithWhite:0.79 alpha:1];
     
-//    TODO move to commen file
-    textColor = [UIColor colorWithRed:0.265625 green:0.27734375 blue:0.2890625 alpha:1];
-    lightTextColor = [UIColor colorWithWhite:0.796875 alpha:1];
-    
-    topicView = [[UIScrollView alloc] init];
+    topicView = [[UIView alloc] init];
     topicView.backgroundColor = [UIColor whiteColor];
     
     UIImageView *topicViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
     topicViewHead.frame = CGRectMake(0, 0, CONTENT_WIDTH, 5);
     [topicView addSubview:topicViewHead];
     
-    UIButton *avatar = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP-5, AVATAR_WIDTH, AVATAR_WIDTH)];
+    UIButton *avatar = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP, AVATAR_WIDTH, AVATAR_WIDTH)];
     [[[VMImageLoader alloc] init] loadImageWithURL:[NSURL URLWithString:[[topic objectForKey:@"member"] objectForKey:@"avatar_large"]] forImageButton:avatar];
     [topicView addSubview:avatar];
     
     UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT+AVATAR_WIDTH+CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP-5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*3-AVATAR_WIDTH, 0)];
     titleView.font = [UIFont boldSystemFontOfSize:14];
-    titleView.textColor = textColor;
-    titleView.opaque = NO;
+    titleView.textColor = [Commen defaultTextColor];
     titleView.text = [topic objectForKey:@"title"];
     titleView.lineBreakMode = UILineBreakModeCharacterWrap;
     titleView.numberOfLines = 0;
@@ -84,31 +71,32 @@ static UIColor *textColor;
     
     UILabel *timeAndClicksView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     timeAndClicksView.font = [UIFont boldSystemFontOfSize:9];
-    timeAndClicksView.textColor = lightTextColor;
+    timeAndClicksView.textColor = [Commen defaultLightTextColor];
     NSDate *time = [NSDate dateWithTimeIntervalSince1970:[[topic objectForKey:@"created"] intValue]];
     timeAndClicksView.text = [NSString stringWithFormat:@"%@, %d 次点击", [Commen timeAsDisplay:time], 168];
     [timeAndClicksView sizeToFit];
-    timeAndClicksView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width, CONTENT_PADDING_TOP-5+titleView.frame.size.height+CONTENT_PADDING_TOP, timeAndClicksView.frame.size.width, timeAndClicksView.frame.size.height);
+    CGFloat infoY = MAX(CONTENT_PADDING_TOP+titleView.frame.origin.y+titleView.frame.size.height, avatar.frame.origin.y+avatar.frame.size.height-timeAndClicksView.frame.size.height);
+    timeAndClicksView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width, infoY, timeAndClicksView.frame.size.width, timeAndClicksView.frame.size.height);
     [topicView addSubview:timeAndClicksView];
     
     UILabel *authorView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     authorView.font = [UIFont boldSystemFontOfSize:9];
-    authorView.textColor = textColor;
+    authorView.textColor = [Commen defaultTextColor];
     authorView.text = [[topic objectForKey:@"member"] objectForKey:@"username"];
     [authorView sizeToFit];
-    authorView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5, timeAndClicksView.frame.origin.y, authorView.frame.size.width, authorView.frame.size.height);
+    authorView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5, infoY, authorView.frame.size.width, authorView.frame.size.height);
     [topicView addSubview:authorView];
     
     UILabel *byView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     byView.font = [UIFont boldSystemFontOfSize:9];
-    byView.textColor = lightTextColor;
+    byView.textColor = [Commen defaultLightTextColor];
     byView.text = @"By";
     [byView sizeToFit];
-    byView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5-byView.frame.size.width-5, titleView.frame.origin.y+titleView.frame.size.height+CONTENT_PADDING_TOP, byView.frame.size.width, byView.frame.size.height);
+    byView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5-byView.frame.size.width-5, infoY, byView.frame.size.width, byView.frame.size.height);
     [topicView addSubview:byView];
     
     UIImageView *titleSep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
-    titleSep.frame = CGRectMake(0, byView.frame.origin.y+CONTENT_PADDING_TOP+CONTENT_PADDING_TOP, CONTENT_WIDTH, 1);
+    titleSep.frame = CGRectMake(0, infoY+timeAndClicksView.frame.size.height+CONTENT_PADDING_TOP, CONTENT_WIDTH, 1);
     [topicView addSubview:titleSep];
     
     UIWebView *contentView = [[UIWebView alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, titleSep.frame.origin.y+titleSep.frame.size.height+5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*2, 1)];
@@ -118,6 +106,27 @@ static UIColor *textColor;
     [topicView addSubview:contentView];
     
     [self.view addSubview:topicView];
+    
+    [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
+}
+
+- (void)didFinishedLoadingWithData:(id)data
+{
+    [topic setValue:data forKey:@"replies"];
+    repliesVC = [[VMRepliesVC alloc] initWithTopic:topic];
+    repliesVC.view.frame = CGRectMake(PADDING_LEFT, 0, CONTENT_WIDTH, 367);
+    UIView *repliesViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, topicView.frame.size.height)];
+    repliesViewHeader.backgroundColor = self.view.backgroundColor;
+    [repliesViewHeader addSubview:topicView];
+    topicView.frame = CGRectMake(0, topicView.frame.origin.y, topicView.frame.size.width, topicView.frame.size.height);
+    repliesVC.tableView.tableHeaderView = repliesViewHeader;
+    [self.view addSubview:repliesVC.view];
+}
+
+- (void)cancel
+{
+//    TODO
+    NSLog(@"Load replies failed");
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -143,7 +152,7 @@ static UIColor *textColor;
     
     UILabel *favView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
     favView.font = [UIFont boldSystemFontOfSize:9];
-    favView.textColor = lightTextColor;
+    favView.textColor = [Commen defaultLightTextColor];
     favView.backgroundColor = [UIColor clearColor];
     favView.text = [NSString stringWithFormat:@"已有 %d 人收藏此主题", 12];
     [favView sizeToFit];
@@ -154,9 +163,25 @@ static UIColor *textColor;
     topicViewFoot.frame = CGRectMake(0, infoView.frame.origin.y+infoView.frame.size.height, CONTENT_WIDTH, 4);
     [topicView addSubview:topicViewFoot];
     
-//    topicView.frame = CGRectMake(8, PADDING_LEFT, CONTENT_WIDTH, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height);
-    topicView.frame = CGRectMake(8, PADDING_LEFT, CONTENT_WIDTH, 367-PADDING_LEFT*2);
-    topicView.contentSize = CGSizeMake(CONTENT_WIDTH, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height);
+    if ([[topic objectForKey:@"replies"] intValue]) {
+        UIView *topicViewFootTraBg = [[UIView alloc] init];
+        topicViewFootTraBg.frame = CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 12);;
+        topicViewFootTraBg.backgroundColor = [Commen backgroundColor];
+        [topicView addSubview:topicViewFootTraBg];
+        
+        UIImageView *topicViewFootTra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"replies-table-top-tra.png"]];
+        topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height+6, 10, 6);
+        topicViewFootTra.backgroundColor = [Commen backgroundColor];
+        [topicView addSubview:topicViewFootTra];
+        
+        UIImageView *repliesViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+        repliesViewHead.frame = CGRectMake(0, topicViewFootTra.frame.origin.y+topicViewFootTra.frame.size.height, CONTENT_WIDTH, 5);
+        [topicView addSubview:repliesViewHead];
+        
+        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, repliesViewHead.frame.origin.y+repliesViewHead.frame.size.height+CONTENT_PADDING_TOP);
+    } else {
+        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoView.frame.origin.y+infoView.frame.size.height+CONTENT_PADDING_TOP);
+    }
 }
 
 @end

@@ -22,6 +22,7 @@
 
 - (void)allNodesWithDelegate:(id)delegate;
 - (void)topicsWithDelegate:(id)delegate;
+- (void)repliesWithDelegate:(id)delegate forTopicId:(NSInteger)topicId;
 - (void)processNextRequest;
 
 + (VMAPI *)sharedAPI;

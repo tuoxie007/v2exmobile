@@ -51,7 +51,7 @@
 
 + (CGFloat)cellPadding
 {
-    return PADDDING_TOP;
+    return PADDING_TOP;
 }
 
 #pragma mark - Table view data source
@@ -76,7 +76,7 @@
     }
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
     CGFloat titleLabelHeight = size.height;
-    CGFloat cellHeight = PADDDING_TOP + titleLabelHeight + 7 + 8 + PADDDING_TOP;
+    CGFloat cellHeight = PADDING_TOP + titleLabelHeight + 7 + 8 + PADDING_TOP;
     
     return cellHeight;
 }

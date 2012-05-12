@@ -12,6 +12,7 @@
 
 #define URL_NODES_ALL @"http://www.v2ex.com/api/nodes/all.json"
 #define URL_TOPICS_ALL @"http://www.v2ex.com/api/topics/latest.json"
+#define URL_REPLIES @"http://www.v2ex.com/api/replies/show.json?topic_id=%d"
 
 @implementation VMAPI
 
@@ -34,6 +35,20 @@
     }
     _delegate = delegate;
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URL_TOPICS_ALL]];
+    connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
+    jsonData = [[NSMutableData alloc] init];
+    loading = YES;
+}
+
+- (void)repliesWithDelegate:(id)delegate forTopicId:(NSInteger)topicId
+{
+    if (loading) {
+        [requestQueue addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"replies", @"name", delegate, @"delegate", nil]];
+        return;
+    }
+    NSString *url = [NSString stringWithFormat:URL_REPLIES, topicId];
+    _delegate = delegate;
+    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     jsonData = [[NSMutableData alloc] init];
     loading = YES;

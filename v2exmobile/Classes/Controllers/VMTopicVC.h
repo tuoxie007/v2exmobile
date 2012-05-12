@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMTopicVC : UIViewController <UIWebViewDelegate>
+@interface VMTopicVC : UIViewController <UIWebViewDelegate, APIDalegate>
 
 - (id)initWithTopic:(NSDictionary *)topic;
 @end

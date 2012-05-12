@@ -106,7 +106,7 @@
         NSInteger avatarTag = 109;
         UIButton *avatarButton = (UIButton *)[self viewWithTag:avatarTag];
         if (avatarButton == nil) {
-            avatarButton = [[UIButton alloc] initWithFrame:CGRectMake(8, PADDDING_TOP, AVATAR_WIDTH, AVATAR_WIDTH)];
+            avatarButton = [[UIButton alloc] initWithFrame:CGRectMake(8, PADDING_TOP, AVATAR_WIDTH, AVATAR_WIDTH)];
             avatarButton.tag = avatarTag;
             VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
             NSString *imgUrl = [[topic objectForKey:@"member"] objectForKey:@"avatar_large"];
@@ -117,7 +117,7 @@
         titleWidth -= AVATAR_WIDTH + PADDING_LEFT;
     }
     
-    titleLabel.frame = CGRectMake(paddingLeft, PADDDING_TOP, titleWidth, 0);
+    titleLabel.frame = CGRectMake(paddingLeft, PADDING_TOP, titleWidth, 0);
     titleLabel.text = [topic objectForKey:@"title"];
     [titleLabel sizeToFit];
     
@@ -148,7 +148,7 @@
     [replyCountLabel sizeToFit];
     replyCountLabel.center = CGPointMake(285, titleLabel.center.y);
     
-    cellSeparatorBG.frame = CGRectMake(0, PADDDING_TOP + titleLabel.frame.size.height + 7 + 8 + PADDDING_TOP - 1, self.frame.size.width, 1);
+    cellSeparatorBG.frame = CGRectMake(0, PADDING_TOP + titleLabel.frame.size.height + 7 + 8 + PADDING_TOP - 1, self.frame.size.width, 1);
     
     if ( ! withSeperator) {
         [[self viewWithTag:108] removeFromSuperview];

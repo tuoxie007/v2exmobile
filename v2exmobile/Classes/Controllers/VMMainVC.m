@@ -53,7 +53,7 @@
     
     VMProfileVC *settingVC = [[VMProfileVC alloc] init];
     UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:settingVC];
-    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"设置" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
+    UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"账户" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];
     
     [self setViewControllers:[[NSArray alloc] initWithObjects:homeNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];

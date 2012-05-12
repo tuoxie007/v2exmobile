@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF0BF92C155D6C8C00C1DAE5 /* VMRepliesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BF0BF92B155D6C8C00C1DAE5 /* VMRepliesVC.m */; };
+		BF0BF92F155D8D3F00C1DAE5 /* reply-action-button.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0BF92D155D8D3F00C1DAE5 /* reply-action-button.png */; };
+		BF0BF930155D8D3F00C1DAE5 /* reply-action-button@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0BF92E155D8D3F00C1DAE5 /* reply-action-button@2x.png */; };
+		BF0BF933155ECD2C00C1DAE5 /* replies-table-top-tra.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0BF931155ECD2C00C1DAE5 /* replies-table-top-tra.png */; };
+		BF0BF934155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BF0BF932155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png */; };
 		BF1351A1151768BD003275FB /* VMFavoriteNodesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */; };
 		BF1351A41517697C003275FB /* VMNotificationsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A31517697C003275FB /* VMNotificationsLoader.m */; };
 		BF1351A715177F88003275FB /* VMLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A615177F88003275FB /* VMLoader.m */; };
@@ -171,6 +176,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF0BF92A155D6C8C00C1DAE5 /* VMRepliesVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMRepliesVC.h; path = Classes/Controllers/VMRepliesVC.h; sourceTree = "<group>"; };
+		BF0BF92B155D6C8C00C1DAE5 /* VMRepliesVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMRepliesVC.m; path = Classes/Controllers/VMRepliesVC.m; sourceTree = "<group>"; };
+		BF0BF92D155D8D3F00C1DAE5 /* reply-action-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-button.png"; path = "Resources/reply-action-button.png"; sourceTree = "<group>"; };
+		BF0BF92E155D8D3F00C1DAE5 /* reply-action-button@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-button@2x.png"; path = "Resources/reply-action-button@2x.png"; sourceTree = "<group>"; };
+		BF0BF931155ECD2C00C1DAE5 /* replies-table-top-tra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "replies-table-top-tra.png"; path = "Resources/replies-table-top-tra.png"; sourceTree = "<group>"; };
+		BF0BF932155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "replies-table-top-tra@2x.png"; path = "Resources/replies-table-top-tra@2x.png"; sourceTree = "<group>"; };
 		BF13519F151768BD003275FB /* VMFavoriteNodesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteNodesLoader.h; path = Classes/v2ex/VMFavoriteNodesLoader.h; sourceTree = "<group>"; };
 		BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteNodesLoader.m; path = Classes/v2ex/VMFavoriteNodesLoader.m; sourceTree = "<group>"; };
 		BF1351A21517697C003275FB /* VMNotificationsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMNotificationsLoader.h; path = Classes/v2ex/VMNotificationsLoader.h; sourceTree = "<group>"; };
@@ -589,6 +600,8 @@
 				BF6676C4155C10DA0031DE3C /* VMTopicVC.m */,
 				BF7CAC1C155972A300A4D226 /* VMHomeVC.h */,
 				BF7CAC1D155972A300A4D226 /* VMHomeVC.m */,
+				BF0BF92A155D6C8C00C1DAE5 /* VMRepliesVC.h */,
+				BF0BF92B155D6C8C00C1DAE5 /* VMRepliesVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -700,6 +713,10 @@
 				BF667CF4155C29E80031DE3C /* box-shadow-bg1@2x.png */,
 				BF667CF5155C29E80031DE3C /* box-shadow-bg2.png */,
 				BF667CF6155C29E80031DE3C /* box-shadow-bg2@2x.png */,
+				BF0BF92D155D8D3F00C1DAE5 /* reply-action-button.png */,
+				BF0BF92E155D8D3F00C1DAE5 /* reply-action-button@2x.png */,
+				BF0BF931155ECD2C00C1DAE5 /* replies-table-top-tra.png */,
+				BF0BF932155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png */,
 				BF3FA22215543E44004E9AA1 /* tabbar */,
 				BF685F0D152B74BD00097B3B /* v2exmobile-icon.png */,
 				BF685F0F152B74C100097B3B /* v2exmobile-icon@2x.png */,
@@ -891,6 +908,10 @@
 				BF667CF9155C29E80031DE3C /* box-shadow-bg2.png in Resources */,
 				BF667CFA155C29E80031DE3C /* box-shadow-bg2@2x.png in Resources */,
 				BF1858C1155C33FB00273B58 /* LoginView.xib in Resources */,
+				BF0BF92F155D8D3F00C1DAE5 /* reply-action-button.png in Resources */,
+				BF0BF930155D8D3F00C1DAE5 /* reply-action-button@2x.png in Resources */,
+				BF0BF933155ECD2C00C1DAE5 /* replies-table-top-tra.png in Resources */,
+				BF0BF934155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -956,6 +977,7 @@
 				BF7CAC1E155972A300A4D226 /* VMHomeVC.m in Sources */,
 				BF6676B9155ACB190031DE3C /* VMTopicCell.m in Sources */,
 				BF6676C5155C10DA0031DE3C /* VMTopicVC.m in Sources */,
+				BF0BF92C155D6C8C00C1DAE5 /* VMRepliesVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1027,13 +1049,7 @@
 				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
 				IBC_PLUGIN_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphoneos\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv6\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv7\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;
@@ -1049,13 +1065,7 @@
 				GCC_PREFIX_HEADER = "v2exmobile/v2exmobile-Prefix.pch";
 				IBC_PLUGIN_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "v2exmobile/v2exmobile-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphoneos\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/Debug-iphonesimulator\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv6\"",
-					"\"$(SRCROOT)/v2exmobile/Classes/3rd-party/DTCoreText/build/DTCoreText.build/Debug-iphoneos/Static Library.build/Objects-normal/armv7\"",
-				);
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = /usr/include/libxml2;

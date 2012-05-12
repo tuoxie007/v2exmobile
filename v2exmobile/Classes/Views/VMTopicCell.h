@@ -7,10 +7,6 @@
 //  Released under the MIT Licenses.
 //
 
-#define PADDING_LEFT 11
-#define PADDDING_TOP 10
-#define AVATAR_WIDTH 35
-
 #import <UIKit/UIKit.h>
 
 @interface VMTopicCell : UITableViewCell

@@ -53,4 +53,19 @@
     return @"1小时前";
 }
 
++ (UIColor *)defaultTextColor
+{
+    return [UIColor colorWithRed:0.265625 green:0.27734375 blue:0.2890625 alpha:1];
+}
+
++ (UIColor *)defaultLightTextColor
+{
+    return [UIColor colorWithWhite:0.796875 alpha:1];
+}
+
++ (UIColor *)backgroundColor
+{
+    return [UIColor colorWithWhite:0.79 alpha:1];
+}
+
 @end
