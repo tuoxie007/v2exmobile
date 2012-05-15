@@ -14,7 +14,10 @@
 @interface VMProfileVC ()
 {
     VMTopicsVC *topicsTableVC;
+    VMTopicsVC *repliedTopicsTableVC;
     UIScrollView *rootView;
+    NSArray *topics;
+    NSArray *repliedTopics;
 }
 
 @end
@@ -62,99 +65,152 @@
     [onlineImage sizeToFit];
     [rootView addSubview:onlineImage];
     
-    NSInteger bgY = 175;
+    NSInteger bgY = 172;
     NSInteger intervalWidth = 46;
-    NSInteger bgWidth = 24;
     NSInteger paddingLeft = 12;
     NSInteger paddingTop = 13;
     
-    UIImageView *menuItemFollowBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-bg.png"]];
-    menuItemFollowBG.frame = CGRectMake(106, bgY, bgWidth, bgWidth);
-    UIImageView *menuItemFollow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-follow.png"]];
-    menuItemFollow.center = CGPointMake(106+paddingLeft, bgY+paddingTop);
+    UIButton *menuItemFollow = [[UIButton alloc] init];
+    [menuItemFollow setImage:[UIImage imageNamed:@"profile-menu-item-follow.png"] forState:UIControlStateNormal];
     [menuItemFollow sizeToFit];
-    [rootView addSubview:menuItemFollowBG];
+    menuItemFollow.center = CGPointMake(106+paddingLeft, bgY+paddingTop);
     [rootView addSubview:menuItemFollow];
     
-    UIImageView *menuItemForbidBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-bg.png"]];
-    menuItemForbidBG.frame = CGRectMake(106+intervalWidth*1, bgY, bgWidth, bgWidth);
-    UIImageView *menuItemForbid = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-forbid.png"]];
-    menuItemForbid.center = CGPointMake(106+paddingLeft+intervalWidth*1, bgY+paddingTop);
+    UIButton *menuItemForbid = [[UIButton alloc] init];
+    [menuItemForbid setImage:[UIImage imageNamed:@"profile-menu-item-forbid.png"] forState:UIControlStateNormal];
     [menuItemForbid sizeToFit];
-    [rootView addSubview:menuItemForbidBG];
+    menuItemForbid.center = CGPointMake(106+paddingLeft+intervalWidth, bgY+paddingTop);
     [rootView addSubview:menuItemForbid];
 
-    UIImageView *menuItemGithubBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-bg.png"]];
-    menuItemGithubBG.frame = CGRectMake(106+intervalWidth*2, bgY, bgWidth, bgWidth);
-    UIImageView *menuItemGithub = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-github.png"]];
-    menuItemGithub.center = CGPointMake(106+paddingLeft+intervalWidth*2, bgY+paddingTop);
+    UIButton *menuItemGithub = [[UIButton alloc] init];
+    [menuItemGithub setImage:[UIImage imageNamed:@"profile-menu-item-github.png"] forState:UIControlStateNormal];
     [menuItemGithub sizeToFit];
-    [rootView addSubview:menuItemGithubBG];
+    menuItemGithub.center = CGPointMake(106+paddingLeft+intervalWidth*2, bgY+paddingTop);
     [rootView addSubview:menuItemGithub];
 
-    UIImageView *menuItemTwitterBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-bg.png"]];
-    menuItemTwitterBG.frame = CGRectMake(106+intervalWidth*3, bgY, bgWidth, bgWidth);
-    UIImageView *menuItemTwitter = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-twitter.png"]];
-    menuItemTwitter.center = CGPointMake(106+paddingLeft+intervalWidth*3, bgY+paddingTop);
+    UIButton *menuItemTwitter = [[UIButton alloc] init];
+    [menuItemTwitter setImage:[UIImage imageNamed:@"profile-menu-item-twitter.png"] forState:UIControlStateNormal];
     [menuItemTwitter sizeToFit];
-    [rootView addSubview:menuItemTwitterBG];
+    menuItemTwitter.center = CGPointMake(106+paddingLeft+intervalWidth*3, bgY+paddingTop);
     [rootView addSubview:menuItemTwitter];
 
-    UIImageView *menuItemPBBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-bg.png"]];
-    menuItemPBBG.frame = CGRectMake(106+intervalWidth*4, bgY, bgWidth, bgWidth);
-    UIImageView *menuItemPB = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"profile-menu-item-pb.png"]];
-    menuItemPB.center = CGPointMake(106+paddingLeft+intervalWidth*4, bgY+paddingTop);
+    UIButton *menuItemPB = [[UIButton alloc] init];
+    [menuItemPB setImage:[UIImage imageNamed:@"profile-menu-item-pb.png"] forState:UIControlStateNormal];
     [menuItemPB sizeToFit];
-    [rootView addSubview:menuItemPBBG];
+    menuItemPB.center = CGPointMake(106+paddingLeft+intervalWidth*4, bgY+paddingTop);
     [rootView addSubview:menuItemPB];
     
+    [[VMAPI sharedAPI] topicsWithDelegate:self];
     [[VMAPI sharedAPI] topicsWithDelegate:self];
     
     self.title = @"设置";
 }
 
-- (void)didFinishedLoadingWithData:(id)data
+- (void)didFinishedLoadingWithData:(id)data forURL:(NSString *)url
 {
-    CGFloat topicsTableContentHeight = 0;
-    for (NSDictionary *topic in data) {
-        NSString *text = [topic objectForKey:@"title"];
-        CGSize maximumLabelSize = CGSizeMake(226, 200);
-        CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
-        CGFloat titleLabelHeight = size.height;
-        CGFloat cellPadding = [VMTopicsVC cellPadding];
-        CGFloat cellHeight = cellPadding + titleLabelHeight + 7 + 8 + cellPadding;
-        topicsTableContentHeight += cellHeight;
+//    if ([url rangeOfString:@"replied"].location == NSNotFound) { // topics
+//    应该用上面注释掉的判断方法，由于目前API还没出，先用这个方法做测试数据之用
+    if (topics == nil) {
+        topics = data;
+    } else { // replied topics
+        repliedTopics = data;
     }
     
-    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:NO refreshTableHeaderView:nil parentVC:self];
-    topicsTableVC.view.frame = CGRectMake(8, 220, 304, topicsTableContentHeight);
-    topicsTableVC.tableView.scrollEnabled = NO;
-    
-    rootView.contentSize = CGSizeMake(320, topicsTableContentHeight + 215 + 20);
-    [rootView addSubview:topicsTableVC.view];
-    
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
-    headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [rootView addSubview:headView];
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
-    footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [rootView addSubview:footView];
-    
-    UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
-    cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
-    [headView addSubview:cornerLeftTop];
-    
-    UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
-    cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
-    [headView addSubview:cornerRightTop];
-    
-    UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
-    cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
-    [footView addSubview:cornerLeftBottom];
-    
-    UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
-    cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
-    [footView addSubview:cornerRightBottom];
+    if (topics && repliedTopics) {
+        CGFloat topicsTableContentHeight = 0;
+        for (NSDictionary *topic in topics) {
+            NSString *text = [topic objectForKey:@"title"];
+            CGSize maximumLabelSize = CGSizeMake(226, 200);
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
+            CGFloat titleLabelHeight = size.height;
+            CGFloat cellPadding = [VMTopicsVC cellPadding];
+            CGFloat cellHeight = cellPadding + titleLabelHeight + 7 + 8 + cellPadding;
+            topicsTableContentHeight += cellHeight;
+        }
+        
+        UILabel *topicsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 215, 200, 20)];
+        topicsLabel.text = @"发表的主题";
+        topicsLabel.font = [UIFont boldSystemFontOfSize:16];
+        topicsLabel.backgroundColor = [UIColor clearColor];
+        [rootView addSubview:topicsLabel];
+        
+        topicsTableVC = [[VMTopicsVC alloc] initWithTopics:topics withAvatar:NO refreshTableHeaderView:nil parentVC:self];
+        topicsTableVC.view.frame = CGRectMake(8, 240, 304, topicsTableContentHeight);
+        topicsTableVC.tableView.scrollEnabled = NO;
+        
+        [rootView addSubview:topicsTableVC.view];
+        
+        //TopicsTable 表头圆角
+        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
+        headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [rootView addSubview:headView];
+        UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+        cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
+        [headView addSubview:cornerLeftTop];
+        UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+        cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
+        [headView addSubview:cornerRightTop];
+
+        //TopicsTable 表尾圆角
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
+        footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [rootView addSubview:footView];
+        UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
+        cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
+        [footView addSubview:cornerLeftBottom];
+        UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
+        cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
+        [footView addSubview:cornerRightBottom];
+        
+        //RepliedTopics 部分
+        
+        CGFloat repliedTopicsTableContentHeight = 0;
+        for (NSDictionary *topic in repliedTopics) {
+            NSString *text = [topic objectForKey:@"title"];
+            CGSize maximumLabelSize = CGSizeMake(226, 200);
+            CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:maximumLabelSize lineBreakMode:UILineBreakModeWordWrap];
+            CGFloat titleLabelHeight = size.height;
+            CGFloat cellPadding = [VMTopicsVC cellPadding];
+            CGFloat cellHeight = cellPadding + titleLabelHeight + 7 + 8 + cellPadding;
+            repliedTopicsTableContentHeight += cellHeight;
+        }
+        
+        UILabel *repliedTopicsLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 250+topicsTableContentHeight, 200, 20)];
+        repliedTopicsLabel.text = @"参与的主题";
+        repliedTopicsLabel.font = [UIFont boldSystemFontOfSize:16];
+        repliedTopicsLabel.backgroundColor = [UIColor clearColor];
+        [rootView addSubview:repliedTopicsLabel];
+        
+        repliedTopicsTableVC = [[VMTopicsVC alloc] initWithTopics:topics withAvatar:NO refreshTableHeaderView:nil parentVC:self];
+        repliedTopicsTableVC.view.frame = CGRectMake(8, 275+topicsTableContentHeight, CONTENT_WIDTH, topicsTableContentHeight);
+        repliedTopicsTableVC.tableView.scrollEnabled = NO;
+        
+        [rootView addSubview:repliedTopicsTableVC.view];
+        
+        //TopicsTable 表头圆角
+        UIView *headView2 = [[UIView alloc] initWithFrame:CGRectMake(8, repliedTopicsTableVC.view.frame.origin.y-5, 304, 5)];
+        headView2.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [rootView addSubview:headView2];
+        UIImageView *cornerLeftTop2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+        cornerLeftTop2.frame = CGRectMake(0, 0, 5, 5);
+        [headView2 addSubview:cornerLeftTop2];
+        UIImageView *cornerRightTop2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+        cornerRightTop2.frame = CGRectMake(299, 0, 5, 5);
+        [headView2 addSubview:cornerRightTop2];
+        
+        //TopicsTable 表尾圆角
+        UIView *footView2 = [[UIView alloc] initWithFrame:CGRectMake(8, repliedTopicsTableVC.view.frame.origin.y+repliedTopicsTableVC.view.frame.size.height, CONTENT_WIDTH, 5)];
+        footView2.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [rootView addSubview:footView2];
+        UIImageView *cornerLeftBottom2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
+        cornerLeftBottom2.frame = CGRectMake(0, 0, 5, 5);
+        [footView2 addSubview:cornerLeftBottom2];
+        UIImageView *cornerRightBottom2 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
+        cornerRightBottom2.frame = CGRectMake(299, 0, 5, 5);
+        [footView2 addSubview:cornerRightBottom2];
+        
+        rootView.contentSize = CGSizeMake(320, repliedTopicsTableVC.view.frame.origin.y+repliedTopicsTableVC.view.frame.size.height+20);
+    }
 }
 
 - (void)cancel

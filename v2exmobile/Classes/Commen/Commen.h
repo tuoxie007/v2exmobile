@@ -23,4 +23,5 @@
 + (UIColor *)defaultTextColor;
 + (UIColor *)defaultLightTextColor;
 + (UIColor *)backgroundColor;
++ (void)printRect:(CGRect)frame;
 @end

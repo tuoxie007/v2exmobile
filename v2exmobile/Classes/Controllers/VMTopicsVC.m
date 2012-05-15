@@ -17,7 +17,6 @@
 
 @interface VMTopicsVC ()
 {
-    NSArray *topics;
     BOOL withAvatar;
     NSMutableDictionary *avatars;
     EGORefreshTableHeaderView *refreshTableHeaderView;
@@ -27,6 +26,8 @@
 @end
 
 @implementation VMTopicsVC
+
+@synthesize topics;
 
 - (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)_withAvatar refreshTableHeaderView:(EGORefreshTableHeaderView *)_refreshTableHeaderView parentVC:(id)_parentVC
 {

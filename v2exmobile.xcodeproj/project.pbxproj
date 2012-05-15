@@ -162,6 +162,14 @@
 		BFC1BAFF1562A93300F286DE /* topic-action-weibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BAF71562A93300F286DE /* topic-action-weibo@2x.png */; };
 		BFC1BB191562B01000F286DE /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC1BB121562AFFB00F286DE /* libDTCoreText.a */; };
 		BFC1BB1B1562B01E00F286DE /* DTCoreText.h in Headers */ = {isa = PBXBuildFile; fileRef = BFC1BB1A1562B01E00F286DE /* DTCoreText.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		BFC1BB1E1562B14800F286DE /* VMRedmineVC.h in Headers */ = {isa = PBXBuildFile; fileRef = BFC1BB1C1562B14800F286DE /* VMRedmineVC.h */; };
+		BFC1BB1F1562B14800F286DE /* VMRedmineVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFC1BB1D1562B14800F286DE /* VMRedmineVC.m */; };
+		BFC1BB261562B2DB00F286DE /* reply-action-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB201562B2DB00F286DE /* reply-action-bg.png */; };
+		BFC1BB271562B2DB00F286DE /* reply-action-bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB211562B2DB00F286DE /* reply-action-bg@2x.png */; };
+		BFC1BB281562B2DB00F286DE /* reply-action-reply.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB221562B2DB00F286DE /* reply-action-reply.png */; };
+		BFC1BB291562B2DB00F286DE /* reply-action-reply@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB231562B2DB00F286DE /* reply-action-reply@2x.png */; };
+		BFC1BB2A1562B2DB00F286DE /* reply-action-thanks.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB241562B2DB00F286DE /* reply-action-thanks.png */; };
+		BFC1BB2B1562B2DB00F286DE /* reply-action-thanks@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BB251562B2DB00F286DE /* reply-action-thanks@2x.png */; };
 		BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD04997151B3168008B3107 /* VMMemberVC.m */; };
 		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
 		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
@@ -437,6 +445,14 @@
 		BFC1BAF71562A93300F286DE /* topic-action-weibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "topic-action-weibo@2x.png"; path = "Resources/topic-action-weibo@2x.png"; sourceTree = "<group>"; };
 		BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = dependence/DTCoreText/DTCoreText.xcodeproj; sourceTree = SOURCE_ROOT; };
 		BFC1BB1A1562B01E00F286DE /* DTCoreText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DTCoreText.h; path = dependence/DTCoreText/Core/Source/DTCoreText.h; sourceTree = "<group>"; };
+		BFC1BB1C1562B14800F286DE /* VMRedmineVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMRedmineVC.h; path = Classes/Controllers/VMRedmineVC.h; sourceTree = "<group>"; };
+		BFC1BB1D1562B14800F286DE /* VMRedmineVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMRedmineVC.m; path = Classes/Controllers/VMRedmineVC.m; sourceTree = "<group>"; };
+		BFC1BB201562B2DB00F286DE /* reply-action-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-bg.png"; path = "Resources/reply-action-bg.png"; sourceTree = "<group>"; };
+		BFC1BB211562B2DB00F286DE /* reply-action-bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-bg@2x.png"; path = "Resources/reply-action-bg@2x.png"; sourceTree = "<group>"; };
+		BFC1BB221562B2DB00F286DE /* reply-action-reply.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-reply.png"; path = "Resources/reply-action-reply.png"; sourceTree = "<group>"; };
+		BFC1BB231562B2DB00F286DE /* reply-action-reply@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-reply@2x.png"; path = "Resources/reply-action-reply@2x.png"; sourceTree = "<group>"; };
+		BFC1BB241562B2DB00F286DE /* reply-action-thanks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-thanks.png"; path = "Resources/reply-action-thanks.png"; sourceTree = "<group>"; };
+		BFC1BB251562B2DB00F286DE /* reply-action-thanks@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "reply-action-thanks@2x.png"; path = "Resources/reply-action-thanks@2x.png"; sourceTree = "<group>"; };
 		BFD04996151B3168008B3107 /* VMMemberVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberVC.h; path = Classes/Controllers/VMMemberVC.h; sourceTree = "<group>"; };
 		BFD04997151B3168008B3107 /* VMMemberVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberVC.m; path = Classes/Controllers/VMMemberVC.m; sourceTree = "<group>"; };
 		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -706,6 +722,8 @@
 				BF7CAC1D155972A300A4D226 /* VMHomeVC.m */,
 				BF0BF92A155D6C8C00C1DAE5 /* VMRepliesVC.h */,
 				BF0BF92B155D6C8C00C1DAE5 /* VMRepliesVC.m */,
+				BFC1BB1C1562B14800F286DE /* VMRedmineVC.h */,
+				BFC1BB1D1562B14800F286DE /* VMRedmineVC.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -821,6 +839,12 @@
 				BF667CF6155C29E80031DE3C /* box-shadow-bg2@2x.png */,
 				BF0BF92D155D8D3F00C1DAE5 /* reply-action-button.png */,
 				BF0BF92E155D8D3F00C1DAE5 /* reply-action-button@2x.png */,
+				BFC1BB201562B2DB00F286DE /* reply-action-bg.png */,
+				BFC1BB211562B2DB00F286DE /* reply-action-bg@2x.png */,
+				BFC1BB221562B2DB00F286DE /* reply-action-reply.png */,
+				BFC1BB231562B2DB00F286DE /* reply-action-reply@2x.png */,
+				BFC1BB241562B2DB00F286DE /* reply-action-thanks.png */,
+				BFC1BB251562B2DB00F286DE /* reply-action-thanks@2x.png */,
 				BF0BF931155ECD2C00C1DAE5 /* replies-table-top-tra.png */,
 				BF0BF932155ECD2C00C1DAE5 /* replies-table-top-tra@2x.png */,
 				BFC1BAF01562A93200F286DE /* topic-action-favorite.png */,
@@ -878,6 +902,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFC1BB1B1562B01E00F286DE /* DTCoreText.h in Headers */,
+				BFC1BB1E1562B14800F286DE /* VMRedmineVC.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1093,6 +1118,12 @@
 				BFC1BAFD1562A93300F286DE /* topic-action-twitter@2x.png in Resources */,
 				BFC1BAFE1562A93300F286DE /* topic-action-weibo.png in Resources */,
 				BFC1BAFF1562A93300F286DE /* topic-action-weibo@2x.png in Resources */,
+				BFC1BB261562B2DB00F286DE /* reply-action-bg.png in Resources */,
+				BFC1BB271562B2DB00F286DE /* reply-action-bg@2x.png in Resources */,
+				BFC1BB281562B2DB00F286DE /* reply-action-reply.png in Resources */,
+				BFC1BB291562B2DB00F286DE /* reply-action-reply@2x.png in Resources */,
+				BFC1BB2A1562B2DB00F286DE /* reply-action-thanks.png in Resources */,
+				BFC1BB2B1562B2DB00F286DE /* reply-action-thanks@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,6 +1190,7 @@
 				BF6676B9155ACB190031DE3C /* VMTopicCell.m in Sources */,
 				BF6676C5155C10DA0031DE3C /* VMTopicVC.m in Sources */,
 				BF0BF92C155D6C8C00C1DAE5 /* VMRepliesVC.m in Sources */,
+				BFC1BB1F1562B14800F286DE /* VMRedmineVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -112,7 +112,7 @@ NSArray *filterNodes(NSArray *nodes, NSString *query)
     NSLog(@"load nodes failed");
 }
 
-- (void)didFinishedLoadingWithData:(NSArray *)data
+- (void)didFinishedLoadingWithData:(NSArray *)data forURL:(NSString *)url
 {
     nodesCount = data.count;
     nodes = [[NSMutableDictionary alloc] initWithCapacity:26];

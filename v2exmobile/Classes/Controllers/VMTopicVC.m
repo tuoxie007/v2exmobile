@@ -112,13 +112,9 @@
     [topicView addSubview:contentView];
     
     [self.view addSubview:topicView];
-    
-    if ([[topic objectForKey:@"replies"] intValue]) {
-        [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
-    }
 }
 
-- (void)didFinishedLoadingWithData:(id)data
+- (void)didFinishedLoadingWithData:(id)data forURL:(NSString *)url
 {
     [topic setValue:data forKey:@"reply_objects"];
     topicView.frame = CGRectMake(0, topicView.frame.origin.y, topicView.frame.size.width, topicView.frame.size.height);
@@ -127,6 +123,9 @@
     UIView *repliesViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, topicView.frame.size.height+10)];
     repliesViewHeader.backgroundColor = self.view.backgroundColor;
     [repliesViewHeader addSubview:topicView];
+    UIView *topBG = [[UIView alloc] initWithFrame:CGRectMake(0, -200, CONTENT_WIDTH, 200)];
+    topBG.backgroundColor = [Commen backgroundColor];
+    [repliesViewHeader addSubview:topBG];
     repliesVC.tableView.tableHeaderView = repliesViewHeader;
     
     UIImageView *repliesViewFooter = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-bottom-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
@@ -203,33 +202,36 @@
     topicViewFoot.frame = CGRectMake(0, infoView.frame.origin.y+infoView.frame.size.height, CONTENT_WIDTH, 4);
     [topicView addSubview:topicViewFoot];
     
-    CGFloat infoBottomY = infoView.frame.origin.y+infoView.frame.size.height;
+    CGFloat topicViewFootBottomY = topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height;
+    
+    // 为回复列表准备的头部视图
+    // 列表头部的三角形和圆角位置的背景，加这个View的原因是表格的背景色和外层View的背景不同，高度为 6+5
+    UIView *repliesViewHeadWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 6+5)];
+    repliesViewHeadWrapper.backgroundColor = [Commen backgroundColor];
+    
+    // 列表头部的三角形，高度为 6
+    UIImageView *topicViewFootTra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"replies-table-top-tra.png"]];
+    topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, 0, 10, 6);
+    topicViewFootTra.backgroundColor = [UIColor clearColor];
+    topicViewFootTra.tag = TOPIC_VIEW_FOOT_TRA_TAG;
+    topicViewFootTra.hidden = YES;
+    [repliesViewHeadWrapper addSubview:topicViewFootTra];
+    
+    // 列表头部的圆角，高度为 5
+    UIImageView *repliesViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+    repliesViewHead.frame = CGRectMake(0, 6, CONTENT_WIDTH, 5);
+    repliesViewHead.tag = REPLIES_VIEW_HEAD_TAG;
+    repliesViewHead.hidden = YES;
+    [repliesViewHeadWrapper addSubview:repliesViewHead];
+    
+    [topicView addSubview:repliesViewHeadWrapper];
+    
+    topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, topicViewFootBottomY+6+5);
+    
     if ([[topic objectForKey:@"replies"] intValue]) {
-//        为回复列表准备的头部视图
-//        列表头部的三角形和圆角位置的背景，加这个View的原因是表格的背景色和外层View的背景不同，高度为 6+5
-        UIView *repliesViewHeadWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 6+5)];
-        repliesViewHeadWrapper.backgroundColor = [Commen backgroundColor];
-        
-//        列表头部的三角形，高度为 6
-        UIImageView *topicViewFootTra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"replies-table-top-tra.png"]];
-        topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, 0, 10, 6);
-        topicViewFootTra.backgroundColor = [UIColor clearColor];
-        topicViewFootTra.tag = TOPIC_VIEW_FOOT_TRA_TAG;
-        topicViewFootTra.hidden = YES;
-        [repliesViewHeadWrapper addSubview:topicViewFootTra];
-        
-//        列表头部的圆角，高度为 5
-        UIImageView *repliesViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
-        repliesViewHead.frame = CGRectMake(0, 6, CONTENT_WIDTH, 5);
-        repliesViewHead.tag = REPLIES_VIEW_HEAD_TAG;
-        repliesViewHead.hidden = YES;
-        [repliesViewHeadWrapper addSubview:repliesViewHead];
-        
-        [topicView addSubview:repliesViewHeadWrapper];
-        
-        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoBottomY+6+5);
+        [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
     } else {
-        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoBottomY);
+        [self didFinishedLoadingWithData:nil forURL:nil];
     }
 }
 

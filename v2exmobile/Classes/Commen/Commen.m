@@ -68,4 +68,9 @@
     return [UIColor colorWithWhite:0.79 alpha:1];
 }
 
++ (void)printRect:(CGRect)frame
+{
+    NSLog(@"%f, %f, %f, %f", frame.origin.x, frame.origin.y, frame.size.width, frame.size.height);
+}
+
 @end

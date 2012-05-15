@@ -16,6 +16,7 @@
     id _delegate;
     NSMutableArray *requestQueue;
     BOOL loading;
+    NSString *currentURL;
 }
 
 @property (strong) id delegate;
@@ -31,7 +32,8 @@
 
 @protocol APIDalegate <NSObject>
 
-- (void)didFinishedLoadingWithData:(id)data;
+//- (void)didFinishedLoadingWithData:(id)data;
+- (void)didFinishedLoadingWithData:(id)data forURL:(NSString *)url;
 - (void)cancel;
 
 @end

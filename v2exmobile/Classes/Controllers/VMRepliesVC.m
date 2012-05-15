@@ -41,6 +41,7 @@
         
         UIButton *action = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-23, CONTENT_PADDING_TOP, 23, 23)];
         [action setImage:[UIImage imageNamed:@"reply-action-button.png"] forState:UIControlStateNormal];
+        [action addTarget:self action:@selector(actionButtonTouched) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:action];
         
         CGRect frame = CGRectMake(author.frame.origin.x, author.frame.origin.y+author.frame.size.height+5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*4-AVATAR_WIDTH_MINI-action.frame.size.width, 18);
@@ -54,8 +55,80 @@
             UIImageView *titleSep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
             [self addSubview:titleSep];
         }
+        
+        self.frame = CGRectMake(0, 0, CONTENT_WIDTH, contentView.frame.origin.y+contentView.contentSize.height+CONTENT_PADDING_TOP);
     }
     return self;
+}
+
+- (void)actionButtonTouched
+{
+    UIButton *actionCancelButton = (UIButton *)[self viewWithTag:300];
+    if (actionCancelButton == nil) {
+        actionCancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, self.frame.size.height)];
+        actionCancelButton.tag = 300;
+        [actionCancelButton addTarget:self action:@selector(cancelButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:actionCancelButton];
+    }
+    actionCancelButton.hidden = NO;
+    
+    UIImageView *actionBG = (UIImageView *)[self viewWithTag:301];
+    if (actionBG == nil) {
+        actionBG = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"reply-action-bg.png"]];
+        actionBG.tag = 301;
+        [actionBG sizeToFit];
+        actionBG.center = CGPointMake(232, 20);
+        [self addSubview:actionBG];
+    }
+    actionBG.hidden = NO;
+    
+    UIButton *actionReply = (UIButton *)[self viewWithTag:302];
+    if (actionReply == nil) {
+        actionReply = [[UIButton alloc] init];
+        actionReply.tag = 302;
+        [actionReply setImage:[UIImage imageNamed:@"reply-action-reply.png"] forState:UIControlStateNormal];
+        [actionReply sizeToFit];
+        actionReply.center = CGPointMake(213, 17);
+        [actionReply addTarget:self action:@selector(replyButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:actionReply];
+    }
+    actionReply.hidden = NO;
+    
+    UIButton *actionThanks = (UIButton *)[self viewWithTag:303];
+    if (actionThanks == nil) {
+        actionThanks = [[UIButton alloc] init];
+        actionThanks.tag = 303;
+        [actionThanks setImage:[UIImage imageNamed:@"reply-action-thanks.png"] forState:UIControlStateNormal];
+        [actionThanks sizeToFit];
+        actionThanks.center = CGPointMake(247, 17);
+        [actionThanks addTarget:self action:@selector(thanksButtonTouched) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:actionThanks];
+    }
+    actionThanks.hidden = NO;
+}
+
+- (void)cancelButtonTouched
+{
+    [self viewWithTag:300].hidden = YES;
+    [self viewWithTag:301].hidden = YES;
+    [self viewWithTag:302].hidden = YES;
+    [self viewWithTag:303].hidden = YES;
+}
+
+- (void)replyButtonTouched
+{
+    [self viewWithTag:300].hidden = YES;
+    [self viewWithTag:301].hidden = YES;
+    [self viewWithTag:302].hidden = YES;
+    [self viewWithTag:303].hidden = YES;
+}
+
+- (void)thanksButtonTouched
+{
+    [self viewWithTag:300].hidden = YES;
+    [self viewWithTag:301].hidden = YES;
+    [self viewWithTag:302].hidden = YES;
+    [self viewWithTag:303].hidden = YES;
 }
 
 @end

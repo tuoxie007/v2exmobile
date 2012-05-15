@@ -15,6 +15,10 @@
 }
 
 - (id)initWithReply:(NSDictionary *)_reply indexPath:(NSIndexPath *)indexPath;
+- (void)actionButtonTouched;
+- (void)replyButtonTouched;
+- (void)thanksButtonTouched;
+- (void)cancelButtonTouched;
 @end
 
 @interface VMRepliesVC : UITableViewController

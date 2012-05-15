@@ -146,44 +146,50 @@
 #pragma mark -
 #pragma mark API delegate
 
-- (void)didFinishedLoadingWithData:(id)data
+- (void)didFinishedLoadingWithData:(id)data forURL:(NSString *)url
 {
     topics = data;
-    refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, 304, 0)];
-    refreshTableHeaderView.delegate = self;
-    
-    topicsTableVC = [[VMTopicsVC alloc] initWithTopics:data withAvatar:YES refreshTableHeaderView:refreshTableHeaderView parentVC:self];
-    topicsTableVC.view.frame = CGRectMake(8, 45, 304, 310);
-    
-    [topicsTableVC.view addSubview:refreshTableHeaderView];
-    
-    [self.view addSubview:topicsTableVC.view];
-    
-    UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
-    headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [self.view addSubview:headView];
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
-    footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
-    [self.view addSubview:footView];
-    
-    UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
-    cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
-    [headView addSubview:cornerLeftTop];
-    
-    UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
-    cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
-    [headView addSubview:cornerRightTop];
-    
-    UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
-    cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
-    [footView addSubview:cornerLeftBottom];
-    
-    UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
-    cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
-    [footView addSubview:cornerRightBottom];
-    
     loading = NO;
     lastRefresh = [NSDate date];
+    
+    if (topicsTableVC) {
+        topicsTableVC.topics = topics;
+        [topicsTableVC.tableView reloadData];
+        [refreshTableHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:topicsTableVC.tableView];
+    } else {
+        refreshTableHeaderView = [[EGORefreshTableHeaderView alloc] initWithFrame: CGRectMake(0, 0, 304, 0)];
+        refreshTableHeaderView.delegate = self;
+        
+        topicsTableVC = [[VMTopicsVC alloc] initWithTopics:topics withAvatar:YES refreshTableHeaderView:refreshTableHeaderView parentVC:self];
+        topicsTableVC.view.frame = CGRectMake(8, 45, 304, 310);
+        
+        [topicsTableVC.view addSubview:refreshTableHeaderView];
+        
+        [self.view addSubview:topicsTableVC.view];
+        
+        UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y-5, 304, 5)];
+        headView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [self.view addSubview:headView];
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(8, topicsTableVC.view.frame.origin.y+topicsTableVC.view.frame.size.height, 304, 5)];
+        footView.backgroundColor = [UIColor colorWithWhite:0.96 alpha:1];
+        [self.view addSubview:footView];
+        
+        UIImageView *cornerLeftTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-top.png"]];
+        cornerLeftTop.frame = CGRectMake(0, 0, 5, 5);
+        [headView addSubview:cornerLeftTop];
+        
+        UIImageView *cornerRightTop = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-top.png"]];
+        cornerRightTop.frame = CGRectMake(299, 0, 5, 5);
+        [headView addSubview:cornerRightTop];
+        
+        UIImageView *cornerLeftBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-left-bottom.png"]];
+        cornerLeftBottom.frame = CGRectMake(0, 0, 5, 5);
+        [footView addSubview:cornerLeftBottom];
+        
+        UIImageView *cornerRightBottom = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-corner-right-bottom.png"]];
+        cornerRightBottom.frame = CGRectMake(299, 0, 5, 5);
+        [footView addSubview:cornerRightBottom];
+    }
 }
 
 - (void)cancel

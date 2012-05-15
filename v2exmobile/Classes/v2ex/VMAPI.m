@@ -34,6 +34,7 @@
         return;
     }
     _delegate = delegate;
+    currentURL = URL_TOPICS_ALL;
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URL_TOPICS_ALL]];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     jsonData = [[NSMutableData alloc] init];
@@ -47,6 +48,7 @@
         return;
     }
     NSString *url = [NSString stringWithFormat:URL_REPLIES, topicId];
+    currentURL = url;
     _delegate = delegate;
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:url]];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
@@ -61,6 +63,7 @@
         return;
     }
     _delegate = delegate;
+    currentURL = URL_NODES_ALL;
     NSURLRequest *req = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:URL_NODES_ALL]];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     jsonData = [[NSMutableData alloc] init];
@@ -103,7 +106,7 @@
 {
     SBJsonParser *parser = [[SBJsonParser alloc] init];
     id data = [parser objectWithData:jsonData];
-    [_delegate didFinishedLoadingWithData:data];
+    [_delegate didFinishedLoadingWithData:data forURL:currentURL];
     loading = NO;
     [self processNextRequest];
 }

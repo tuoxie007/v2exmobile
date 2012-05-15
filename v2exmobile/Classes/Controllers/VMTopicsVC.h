@@ -11,6 +11,11 @@
 
 @class EGORefreshTableHeaderView;
 @interface VMTopicsVC : UITableViewController
+{
+    NSArray *topics;
+}
+
+@property (strong) NSArray *topics;
 
 - (id)initWithTopics:(NSArray *)_topics withAvatar:(BOOL)_withAvatar refreshTableHeaderView:(EGORefreshTableHeaderView *)_refreshTableHeaderView parentVC:(id)parentVC;
 

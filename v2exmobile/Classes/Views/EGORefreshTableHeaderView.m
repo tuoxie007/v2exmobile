@@ -182,9 +182,9 @@
         [_delegate egoRefreshTableHeaderDidTriggerRefresh:self];
         
         [self setState:EGOOPullRefreshLoading];
-        [UIView beginAnimations:nil context:NULL];
+        [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:0.2];
-//            scrollView.contentInset = UIEdgeInsetsMake(0, 0, 65, 0);
+        scrollView.contentInset = UIEdgeInsetsMake(65, 0, 0, 0);
         [UIView commitAnimations];
 	}
 }
@@ -192,13 +192,12 @@
 //当开发者页面页面刷新完毕调用此方法，[delegate egoRefreshScrollViewDataSourceDidFinishedLoading: scrollView];
 - (void)egoRefreshScrollViewDataSourceDidFinishedLoading:(UIScrollView *)scrollView {	
 	
-	[UIView beginAnimations:nil context:NULL];
-	[UIView setAnimationDuration:.3];
-	[scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.3];
+    scrollView.contentInset = UIEdgeInsetsZero;
 	[UIView commitAnimations];
 	
 	[self setState:EGOOPullRefreshNormal];
-
 }
 
 @end
