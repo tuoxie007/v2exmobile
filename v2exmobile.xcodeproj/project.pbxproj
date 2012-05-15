@@ -17,8 +17,6 @@
 		BF0BF96415616A2400C1DAE5 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0BF96315616A2400C1DAE5 /* CoreText.framework */; };
 		BF0BF96615616A3400C1DAE5 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0BF96515616A3400C1DAE5 /* MediaPlayer.framework */; };
 		BF0BF96815616A3A00C1DAE5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0BF96715616A3A00C1DAE5 /* AVFoundation.framework */; };
-		BF0BF98715616F7600C1DAE5 /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BF0BF98015616F4900C1DAE5 /* libDTCoreText.a */; };
-		BF0BFA141561743300C1DAE5 /* DTCoreText.h in Headers */ = {isa = PBXBuildFile; fileRef = BF0BFA131561743300C1DAE5 /* DTCoreText.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BF1351A1151768BD003275FB /* VMFavoriteNodesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */; };
 		BF1351A41517697C003275FB /* VMNotificationsLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A31517697C003275FB /* VMNotificationsLoader.m */; };
 		BF1351A715177F88003275FB /* VMLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = BF1351A615177F88003275FB /* VMLoader.m */; };
@@ -162,6 +160,8 @@
 		BFC1BAFD1562A93300F286DE /* topic-action-twitter@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BAF51562A93300F286DE /* topic-action-twitter@2x.png */; };
 		BFC1BAFE1562A93300F286DE /* topic-action-weibo.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BAF61562A93300F286DE /* topic-action-weibo.png */; };
 		BFC1BAFF1562A93300F286DE /* topic-action-weibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BFC1BAF71562A93300F286DE /* topic-action-weibo@2x.png */; };
+		BFC1BB191562B01000F286DE /* libDTCoreText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BFC1BB121562AFFB00F286DE /* libDTCoreText.a */; };
+		BFC1BB1B1562B01E00F286DE /* DTCoreText.h in Headers */ = {isa = PBXBuildFile; fileRef = BFC1BB1A1562B01E00F286DE /* DTCoreText.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		BFD04998151B3168008B3107 /* VMMemberVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BFD04997151B3168008B3107 /* VMMemberVC.m */; };
 		BFEE4DED150BBA1B005D68CA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEC150BBA1B005D68CA /* UIKit.framework */; };
 		BFEE4DEF150BBA1B005D68CA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BFEE4DEE150BBA1B005D68CA /* Foundation.framework */; };
@@ -193,44 +193,44 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		BF0BF97B15616F4900C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB0D1562AFFB00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1D6058910D05DD3D006BFB54;
 			remoteInfo = DemoApp;
 		};
-		BF0BF97D15616F4900C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB0F1562AFFB00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A70F119B14863198009202BF;
 			remoteInfo = "Static Framework";
 		};
-		BF0BF97F15616F4900C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB111562AFFB00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A70F11DE148632CD009202BF;
 			remoteInfo = "Static Library";
 		};
-		BF0BF98115616F4900C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB131562AFFB00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A788CA681486456100E1AFD9;
 			remoteInfo = UnitTest;
 		};
-		BF0BF98315616F4900C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB151562AFFB00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A7949A5814CC456000A8CCDE;
 			remoteInfo = MacUnitTest;
 		};
-		BF0BF98515616F6D00C1DAE5 /* PBXContainerItemProxy */ = {
+		BFC1BB171562B00A00F286DE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+			containerPortal = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = A70F11DD148632CD009202BF;
 			remoteInfo = "Static Library";
@@ -249,8 +249,6 @@
 		BF0BF96315616A2400C1DAE5 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		BF0BF96515616A3400C1DAE5 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		BF0BF96715616A3A00C1DAE5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = ../../../v2exmobile/refereces/DTCoreText/DTCoreText.xcodeproj; sourceTree = "<group>"; };
-		BF0BFA131561743300C1DAE5 /* DTCoreText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DTCoreText.h; path = ../../v2exmobile/refereces/DTCoreText/Core/Source/DTCoreText.h; sourceTree = "<group>"; };
 		BF13519F151768BD003275FB /* VMFavoriteNodesLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMFavoriteNodesLoader.h; path = Classes/v2ex/VMFavoriteNodesLoader.h; sourceTree = "<group>"; };
 		BF1351A0151768BD003275FB /* VMFavoriteNodesLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMFavoriteNodesLoader.m; path = Classes/v2ex/VMFavoriteNodesLoader.m; sourceTree = "<group>"; };
 		BF1351A21517697C003275FB /* VMNotificationsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMNotificationsLoader.h; path = Classes/v2ex/VMNotificationsLoader.h; sourceTree = "<group>"; };
@@ -437,6 +435,8 @@
 		BFC1BAF51562A93300F286DE /* topic-action-twitter@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "topic-action-twitter@2x.png"; path = "Resources/topic-action-twitter@2x.png"; sourceTree = "<group>"; };
 		BFC1BAF61562A93300F286DE /* topic-action-weibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "topic-action-weibo.png"; path = "Resources/topic-action-weibo.png"; sourceTree = "<group>"; };
 		BFC1BAF71562A93300F286DE /* topic-action-weibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "topic-action-weibo@2x.png"; path = "Resources/topic-action-weibo@2x.png"; sourceTree = "<group>"; };
+		BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTCoreText.xcodeproj; path = dependence/DTCoreText/DTCoreText.xcodeproj; sourceTree = SOURCE_ROOT; };
+		BFC1BB1A1562B01E00F286DE /* DTCoreText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = DTCoreText.h; path = dependence/DTCoreText/Core/Source/DTCoreText.h; sourceTree = "<group>"; };
 		BFD04996151B3168008B3107 /* VMMemberVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VMMemberVC.h; path = Classes/Controllers/VMMemberVC.h; sourceTree = "<group>"; };
 		BFD04997151B3168008B3107 /* VMMemberVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VMMemberVC.m; path = Classes/Controllers/VMMemberVC.m; sourceTree = "<group>"; };
 		BFEE4DE8150BBA1B005D68CA /* v2exmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = v2exmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -488,7 +488,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF0BF98715616F7600C1DAE5 /* libDTCoreText.a in Frameworks */,
+				BFC1BB191562B01000F286DE /* libDTCoreText.a in Frameworks */,
 				BF0BF96815616A3A00C1DAE5 /* AVFoundation.framework in Frameworks */,
 				BF0BF96615616A3400C1DAE5 /* MediaPlayer.framework in Frameworks */,
 				BF0BF96415616A2400C1DAE5 /* CoreText.framework in Frameworks */,
@@ -505,18 +505,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		BF0BF96F15616F4800C1DAE5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				BF0BF97C15616F4900C1DAE5 /* DemoApp.app */,
-				BF0BF97E15616F4900C1DAE5 /* DTCoreText.framework */,
-				BF0BF98015616F4900C1DAE5 /* libDTCoreText.a */,
-				BF0BF98215616F4900C1DAE5 /* UnitTest.octest */,
-				BF0BF98415616F4900C1DAE5 /* MacUnitTest.octest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		BF3FA22215543E44004E9AA1 /* tabbar */ = {
 			isa = PBXGroup;
 			children = (
@@ -581,7 +569,7 @@
 		BF57470F153EE62D00549EF0 /* 3rd-party */ = {
 			isa = PBXGroup;
 			children = (
-				BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */,
+				BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */,
 				BF3FA23F155453F4004E9AA1 /* SBJson */,
 				BF574710153EE64600549EF0 /* HMTL-Parser */,
 			);
@@ -600,10 +588,21 @@
 			name = "HMTL-Parser";
 			sourceTree = "<group>";
 		};
+		BFC1BB011562AFFA00F286DE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BFC1BB0E1562AFFB00F286DE /* DemoApp.app */,
+				BFC1BB101562AFFB00F286DE /* DTCoreText.framework */,
+				BFC1BB121562AFFB00F286DE /* libDTCoreText.a */,
+				BFC1BB141562AFFB00F286DE /* UnitTest.octest */,
+				BFC1BB161562AFFB00F286DE /* MacUnitTest.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		BFEE4DDD150BBA1B005D68CA = {
 			isa = PBXGroup;
 			children = (
-				BF0BFA131561743300C1DAE5 /* DTCoreText.h */,
 				BFEE4DF2150BBA1B005D68CA /* v2exmobile */,
 				BFEE4DEB150BBA1B005D68CA /* Frameworks */,
 				BFEE4DE9150BBA1B005D68CA /* Products */,
@@ -621,6 +620,7 @@
 		BFEE4DEB150BBA1B005D68CA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				BFC1BB1A1562B01E00F286DE /* DTCoreText.h */,
 				BF0BF96715616A3A00C1DAE5 /* AVFoundation.framework */,
 				BF0BF96515616A3400C1DAE5 /* MediaPlayer.framework */,
 				BF0BF96315616A2400C1DAE5 /* CoreText.framework */,
@@ -877,7 +877,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF0BFA141561743300C1DAE5 /* DTCoreText.h in Headers */,
+				BFC1BB1B1562B01E00F286DE /* DTCoreText.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -896,7 +896,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				BF0BF98615616F6D00C1DAE5 /* PBXTargetDependency */,
+				BFC1BB181562B00A00F286DE /* PBXTargetDependency */,
 			);
 			name = v2exmobile;
 			productName = v2exmobile;
@@ -924,8 +924,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = BF0BF96F15616F4800C1DAE5 /* Products */;
-					ProjectRef = BF0BF96E15616F4800C1DAE5 /* DTCoreText.xcodeproj */;
+					ProductGroup = BFC1BB011562AFFA00F286DE /* Products */;
+					ProjectRef = BFC1BB001562AFFA00F286DE /* DTCoreText.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -936,39 +936,39 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		BF0BF97C15616F4900C1DAE5 /* DemoApp.app */ = {
+		BFC1BB0E1562AFFB00F286DE /* DemoApp.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = DemoApp.app;
-			remoteRef = BF0BF97B15616F4900C1DAE5 /* PBXContainerItemProxy */;
+			remoteRef = BFC1BB0D1562AFFB00F286DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF0BF97E15616F4900C1DAE5 /* DTCoreText.framework */ = {
+		BFC1BB101562AFFB00F286DE /* DTCoreText.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = DTCoreText.framework;
-			remoteRef = BF0BF97D15616F4900C1DAE5 /* PBXContainerItemProxy */;
+			remoteRef = BFC1BB0F1562AFFB00F286DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF0BF98015616F4900C1DAE5 /* libDTCoreText.a */ = {
+		BFC1BB121562AFFB00F286DE /* libDTCoreText.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libDTCoreText.a;
-			remoteRef = BF0BF97F15616F4900C1DAE5 /* PBXContainerItemProxy */;
+			remoteRef = BFC1BB111562AFFB00F286DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF0BF98215616F4900C1DAE5 /* UnitTest.octest */ = {
+		BFC1BB141562AFFB00F286DE /* UnitTest.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = UnitTest.octest;
-			remoteRef = BF0BF98115616F4900C1DAE5 /* PBXContainerItemProxy */;
+			remoteRef = BFC1BB131562AFFB00F286DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		BF0BF98415616F4900C1DAE5 /* MacUnitTest.octest */ = {
+		BFC1BB161562AFFB00F286DE /* MacUnitTest.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = MacUnitTest.octest;
-			remoteRef = BF0BF98315616F4900C1DAE5 /* PBXContainerItemProxy */;
+			remoteRef = BFC1BB151562AFFB00F286DE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1165,10 +1165,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		BF0BF98615616F6D00C1DAE5 /* PBXTargetDependency */ = {
+		BFC1BB181562B00A00F286DE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Static Library";
-			targetProxy = BF0BF98515616F6D00C1DAE5 /* PBXContainerItemProxy */;
+			targetProxy = BFC1BB171562B00A00F286DE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
