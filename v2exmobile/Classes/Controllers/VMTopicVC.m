@@ -7,8 +7,14 @@
 //  Released under the MIT Licenses.
 //
 
+#define REPLIES_VIEW_HEAD_TAG 201
+#define TOPIC_VIEW_FOOT_TRA_TAG 202
+
 #import "VMTopicVC.h"
 #import "VMRepliesVC.h"
+#import "Commen.h"
+#import "VMImageLoader.h"
+#import "VMAPI.h"
 
 @interface VMTopicVC ()
 {
@@ -60,7 +66,7 @@
     [[[VMImageLoader alloc] init] loadImageWithURL:[NSURL URLWithString:[[topic objectForKey:@"member"] objectForKey:@"avatar_large"]] forImageButton:avatar];
     [topicView addSubview:avatar];
     
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT+AVATAR_WIDTH+CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP-5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*3-AVATAR_WIDTH, 0)];
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT+AVATAR_WIDTH+CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP, CONTENT_WIDTH-CONTENT_PADDING_LEFT*3-AVATAR_WIDTH, 0)];
     titleView.font = [UIFont boldSystemFontOfSize:14];
     titleView.textColor = [Commen defaultTextColor];
     titleView.text = [topic objectForKey:@"title"];
@@ -107,19 +113,29 @@
     
     [self.view addSubview:topicView];
     
-    [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
+    if ([[topic objectForKey:@"replies"] intValue]) {
+        [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
+    }
 }
 
 - (void)didFinishedLoadingWithData:(id)data
 {
-    [topic setValue:data forKey:@"replies"];
+    [topic setValue:data forKey:@"reply_objects"];
+    topicView.frame = CGRectMake(0, topicView.frame.origin.y, topicView.frame.size.width, topicView.frame.size.height);
     repliesVC = [[VMRepliesVC alloc] initWithTopic:topic];
-    repliesVC.view.frame = CGRectMake(PADDING_LEFT, 0, CONTENT_WIDTH, 367);
-    UIView *repliesViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, topicView.frame.size.height)];
+    repliesVC.view.frame = CGRectMake(PADDING_LEFT, 0, CONTENT_WIDTH, 362-PADDING_TOP);
+    UIView *repliesViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, topicView.frame.size.height+10)];
     repliesViewHeader.backgroundColor = self.view.backgroundColor;
     [repliesViewHeader addSubview:topicView];
-    topicView.frame = CGRectMake(0, topicView.frame.origin.y, topicView.frame.size.width, topicView.frame.size.height);
     repliesVC.tableView.tableHeaderView = repliesViewHeader;
+    
+    UIImageView *repliesViewFooter = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-bottom-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+    repliesViewFooter.frame = CGRectMake(PADDING_LEFT, 362-PADDING_TOP, CONTENT_WIDTH, 5);
+    [self.view addSubview:repliesViewFooter];
+    
+    [topicView viewWithTag:REPLIES_VIEW_HEAD_TAG].hidden = NO;
+    [topicView viewWithTag:TOPIC_VIEW_FOOT_TRA_TAG].hidden = NO;
+    
     [self.view addSubview:repliesVC.view];
 }
 
@@ -141,7 +157,6 @@
     frame.size = fittingSize;
     webView.frame = frame;
     
-    
     UIImageView *contentSep = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-shadow-bg1.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
     contentSep.frame = CGRectMake(0, webView.frame.origin.y+webView.frame.size.height+CONTENT_PADDING_TOP, CONTENT_WIDTH, 4);
     [topicView addSubview:contentSep];
@@ -159,28 +174,62 @@
     favView.frame = CGRectMake(CONTENT_PADDING_LEFT, 5, favView.frame.size.width, favView.frame.size.height);
     [infoView addSubview:favView];
     
+    
+    UIButton *actionFavorite = [[UIButton alloc] init];
+    [actionFavorite setImage:[UIImage imageNamed:@"topic-action-favorite.png"] forState:UIControlStateNormal];
+    [actionFavorite sizeToFit];
+    actionFavorite.center = CGPointMake(149, 13);
+    [infoView addSubview:actionFavorite];
+    
+    UIButton *actionWeibo = [[UIButton alloc] init];
+    [actionWeibo setImage:[UIImage imageNamed:@"topic-action-weibo.png"] forState:UIControlStateNormal];
+    [actionWeibo sizeToFit];
+    actionWeibo.center = CGPointMake(194, 13);
+    [infoView addSubview:actionWeibo];
+    
+    UIButton *actionTwitter = [[UIButton alloc] init];
+    [actionTwitter setImage:[UIImage imageNamed:@"topic-action-twitter.png"] forState:UIControlStateNormal];
+    [actionTwitter sizeToFit];
+    actionTwitter.center = CGPointMake(239, 13);
+    [infoView addSubview:actionTwitter];
+    
+    UIButton *actionReply = [[UIButton alloc] init];
+    [actionReply setImage:[UIImage imageNamed:@"topic-action-reply.png"] forState:UIControlStateNormal];
+    [actionReply sizeToFit];
+    actionReply.center = CGPointMake(284, 13);
+    [infoView addSubview:actionReply];
+    
     UIImageView *topicViewFoot = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-shadow-bg2.png"] stretchableImageWithLeftCapWidth:3 topCapHeight:0]];
     topicViewFoot.frame = CGRectMake(0, infoView.frame.origin.y+infoView.frame.size.height, CONTENT_WIDTH, 4);
     [topicView addSubview:topicViewFoot];
     
+    CGFloat infoBottomY = infoView.frame.origin.y+infoView.frame.size.height;
     if ([[topic objectForKey:@"replies"] intValue]) {
-        UIView *topicViewFootTraBg = [[UIView alloc] init];
-        topicViewFootTraBg.frame = CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 12);;
-        topicViewFootTraBg.backgroundColor = [Commen backgroundColor];
-        [topicView addSubview:topicViewFootTraBg];
+//        为回复列表准备的头部视图
+//        列表头部的三角形和圆角位置的背景，加这个View的原因是表格的背景色和外层View的背景不同，高度为 6+5
+        UIView *repliesViewHeadWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 6+5)];
+        repliesViewHeadWrapper.backgroundColor = [Commen backgroundColor];
         
+//        列表头部的三角形，高度为 6
         UIImageView *topicViewFootTra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"replies-table-top-tra.png"]];
-        topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height+6, 10, 6);
-        topicViewFootTra.backgroundColor = [Commen backgroundColor];
-        [topicView addSubview:topicViewFootTra];
+        topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, 0, 10, 6);
+        topicViewFootTra.backgroundColor = [UIColor clearColor];
+        topicViewFootTra.tag = TOPIC_VIEW_FOOT_TRA_TAG;
+        topicViewFootTra.hidden = YES;
+        [repliesViewHeadWrapper addSubview:topicViewFootTra];
         
+//        列表头部的圆角，高度为 5
         UIImageView *repliesViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
-        repliesViewHead.frame = CGRectMake(0, topicViewFootTra.frame.origin.y+topicViewFootTra.frame.size.height, CONTENT_WIDTH, 5);
-        [topicView addSubview:repliesViewHead];
+        repliesViewHead.frame = CGRectMake(0, 6, CONTENT_WIDTH, 5);
+        repliesViewHead.tag = REPLIES_VIEW_HEAD_TAG;
+        repliesViewHead.hidden = YES;
+        [repliesViewHeadWrapper addSubview:repliesViewHead];
         
-        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, repliesViewHead.frame.origin.y+repliesViewHead.frame.size.height+CONTENT_PADDING_TOP);
+        [topicView addSubview:repliesViewHeadWrapper];
+        
+        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoBottomY+6+5);
     } else {
-        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoView.frame.origin.y+infoView.frame.size.height+CONTENT_PADDING_TOP);
+        topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, infoBottomY);
     }
 }
 

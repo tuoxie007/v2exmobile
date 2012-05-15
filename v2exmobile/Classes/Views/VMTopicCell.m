@@ -144,7 +144,14 @@
     [replyCountBG sizeToFit];
     replyCountBG.center = CGPointMake(285, titleLabel.center.y);
     
-    replyCountLabel.text = [NSString stringWithFormat:@"%d", ((NSNumber *)[topic objectForKey:@"replies"]).intValue];
+    id replies = [topic objectForKey:@"replies"];
+    NSInteger replyCount = 0;
+    if ([replies isKindOfClass:[NSArray class]]) {
+        replyCount = [replies count];
+    } else if ([replies isKindOfClass:[NSNumber class]]) {
+        replyCount = [replies intValue];
+    }
+    replyCountLabel.text = [NSString stringWithFormat:@"%d", replyCount];
     [replyCountLabel sizeToFit];
     replyCountLabel.center = CGPointMake(285, titleLabel.center.y);
     

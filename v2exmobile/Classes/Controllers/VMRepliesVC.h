@@ -9,23 +9,15 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ReplyContentCellDelegate;
-
 @interface ReplyContentCell : UITableViewCell <UIWebViewDelegate>
 {
     NSDictionary *reply;
-    id <ReplyContentCellDelegate> delegate;
 }
 
-- (id)initWithReply:(NSDictionary *)_topic delegate:(id<ReplyContentCellDelegate>)_delegate;
+- (id)initWithReply:(NSDictionary *)_reply indexPath:(NSIndexPath *)indexPath;
 @end
 
-@protocol ReplyContentCellDelegate <NSObject>
-@required
-- (void)ressignHeightForCell:(ReplyContentCell *)cell;
-@end
-
-@interface VMRepliesVC : UITableViewController <ReplyContentCellDelegate>
+@interface VMRepliesVC : UITableViewController
 
 - (id)initWithTopic:(NSDictionary *)topic;
 

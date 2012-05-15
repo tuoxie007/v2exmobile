@@ -66,7 +66,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Image Load Failed");
+//    NSLog(@"Image Load Failed");
 }
 
 @end

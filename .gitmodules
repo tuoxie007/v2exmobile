@@ -4,3 +4,6 @@
 [submodule "v2exmobile/Classes/3rd-party/JBJson"]
 	path = v2exmobile/Classes/3rd-party/JBJson
 	url = https://github.com/stig/json-framework.git
+[submodule "dependence/DTCoreText"]
+	path = dependence/DTCoreText
+	url = https://github.com/Cocoanetics/DTCoreText.git

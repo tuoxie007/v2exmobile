@@ -8,21 +8,17 @@
 //
 
 #import "VMRepliesVC.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation ReplyContentCell
 
-- (id)initWithReply:(NSDictionary *)_reply delegate:(id<ReplyContentCellDelegate>)_delegate
+- (id)initWithReply:(NSDictionary *)_reply indexPath:(NSIndexPath *)indexPath
 {
     self = [super init];
     if (self) {
         reply = _reply;
-        delegate = _delegate;
         
-        UIView *bgView = [[UIView alloc] init];
-        bgView.tag = 102;
-        bgView.backgroundColor = [UIColor whiteColor];
-        bgView.frame = CGRectMake(0, 0, CONTENT_WIDTH, 1000);
-        [self addSubview:bgView];
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         
         UIButton *avatar = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP, AVATAR_WIDTH_MINI, AVATAR_WIDTH_MINI)];
         [[[VMImageLoader alloc] init] loadImageWithURL:[NSURL URLWithString:[[reply objectForKey:@"member"] objectForKey:@"avatar_normal"]] forImageButton:avatar];
@@ -43,43 +39,23 @@
         time.frame = CGRectMake(time.frame.origin.x, author.frame.origin.y+author.frame.size.height-time.frame.size.height, time.frame.size.width, time.frame.size.height);
         [self addSubview:time];
         
-        UIButton *action = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-23, PADDING_TOP, 23, 23)];
+        UIButton *action = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-23, CONTENT_PADDING_TOP, 23, 23)];
         [action setImage:[UIImage imageNamed:@"reply-action-button.png"] forState:UIControlStateNormal];
         [self addSubview:action];
         
-        NSNumber *contentHeight = [reply objectForKey:@"content-height"];
-        UIWebView *content = [[UIWebView alloc] initWithFrame:CGRectMake(author.frame.origin.x, author.frame.origin.y+author.frame.size.height+5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*4-AVATAR_WIDTH_MINI-action.frame.size.width, contentHeight ? [contentHeight intValue] : 1)];
-        content.scrollView.scrollEnabled = NO;
-        content.delegate = contentHeight ? nil : self;
-        [content loadHTMLString:[NSString stringWithFormat:@"<body style=\"font-size:12px;padding:0;margin:0;\">%@</body>", [reply objectForKey:@"content_rendered"]] baseURL:nil];
-        [self addSubview:content];
+        CGRect frame = CGRectMake(author.frame.origin.x, author.frame.origin.y+author.frame.size.height+5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*4-AVATAR_WIDTH_MINI-action.frame.size.width, 18);
+        [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+        DTAttributedTextView *contentView = [[DTAttributedTextView alloc] initWithFrame:frame];
+        contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+        contentView.attributedString = [reply objectForKey:@"attributed-string"];
+        [self addSubview:contentView];
         
-        UIImageView *titleSep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
-        titleSep.tag = 101;
-        [self addSubview:titleSep];
+        if (indexPath.row) {
+            UIImageView *titleSep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
+            [self addSubview:titleSep];
+        }
     }
     return self;
-}
-
-#pragma mark - WebView delegate
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    CGRect frame = webView.frame;
-    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
-    frame.size = fittingSize;
-    webView.frame = frame;
-    
-    UIImageView *titleSep = (UIImageView *)[self viewWithTag:101];
-    titleSep.frame = CGRectMake(0, webView.frame.origin.y+webView.frame.size.height+CONTENT_PADDING_TOP, CONTENT_WIDTH, 1);
-    
-//    self.frame = CGRectMake(0, 0, CONTENT_WIDTH, titleSep.frame.origin.y+titleSep.frame.size.height+1);
-    UIView *bgView = [self viewWithTag:102];
-    bgView.frame = CGRectMake(0, 0, CONTENT_WIDTH, titleSep.frame.origin.y+titleSep.frame.size.height+1);
-    
-    [reply setValue:[NSNumber numberWithFloat:titleSep.frame.origin.y+titleSep.frame.size.height+1] forKey:@"height"];
-    [reply setValue:[NSNumber numberWithFloat:webView.frame.size.height] forKey:@"content-height"];
-    
-    [delegate ressignHeightForCell:self];
 }
 
 @end
@@ -88,6 +64,7 @@
 {
     NSDictionary *topic;
     NSArray *replies;
+    DTAttributedTextView *testHeightContentView;
 }
 @end
 
@@ -98,7 +75,10 @@
     self = [super init];
     if (self) {
         topic = _topic;
-        replies = [topic objectForKey:@"replies"];
+        replies = [topic objectForKey:@"reply_objects"];
+        [DTAttributedTextContentView setLayerClass:[CATiledLayer class]];
+        testHeightContentView = [[DTAttributedTextView alloc] initWithFrame:CGRectMake(0, 0, 241, 1)];
+        testHeightContentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     }
     return self;
 }
@@ -107,7 +87,7 @@
 {
     [super viewDidLoad];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor colorWithWhite:0.79 alpha:1];
+    self.tableView.backgroundColor = [UIColor whiteColor];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -129,11 +109,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSNumber *height = [[replies objectAtIndex:indexPath.row] objectForKey:@"height"];
-    if (height) {
-        return [height floatValue];
+    NSAttributedString *string = [[replies objectAtIndex:indexPath.row] objectForKey:@"attributed-string"];
+    if (string == nil) {
+        NSString *html = [[replies objectAtIndex:indexPath.row] objectForKey:@"content_rendered"];
+        NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+        string = [[NSAttributedString alloc] initWithHTML:data options:nil documentAttributes:nil];
     }
-    return 1000;
+    testHeightContentView.attributedString = string;
+    [[replies objectAtIndex:indexPath.row] setValue:string forKey:@"attributed-string"];
+    return testHeightContentView.contentSize.height + 28;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -143,7 +127,7 @@
     CellIdentifier = [NSString stringWithFormat:@"ReplyCell-%d", indexPath.row];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[ReplyContentCell alloc] initWithReply:reply delegate:self];
+        cell = [[ReplyContentCell alloc] initWithReply:reply indexPath:indexPath];
     }
     return cell;
 }
@@ -152,14 +136,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-}
-
-- (void)ressignHeightForCell:(ReplyContentCell *)cell
-{
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    [self.tableView beginUpdates];
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    [self.tableView endUpdates];
 }
 
 @end
