@@ -7,3 +7,6 @@
 [submodule "dependence/DTCoreText"]
 	path = dependence/DTCoreText
 	url = https://github.com/Cocoanetics/DTCoreText.git
+[submodule "dependence/InAppSettingsKit"]
+	path = dependence/InAppSettingsKit
+	url = https://github.com/futuretap/InAppSettingsKit.git

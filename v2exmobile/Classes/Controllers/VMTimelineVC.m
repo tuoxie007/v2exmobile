@@ -341,6 +341,11 @@
     return currentPage;
 }
 
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
+{
+    return [NSDate date];
+}
+
 #pragma mark -
 #pragma mark UIScrollViewDelegate Methods
 

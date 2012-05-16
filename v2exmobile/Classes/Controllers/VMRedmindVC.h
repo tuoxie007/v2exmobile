@@ -1,5 +1,5 @@
 //
-//  VMRedmineVC.h
+//  VMRedmindVC.h
 //  v2exmobile
 //
 //  Created by Xu Ke <tuoxie007@gmail.com> on 5/15/12.
@@ -9,6 +9,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VMRedmineVC : UIViewController
+@interface VMRedmindVC : UIViewController
 
 @end

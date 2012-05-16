@@ -8,14 +8,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "IASKAppSettingsViewController.h"
 
-@interface VMSettingVC : UIViewController <UITextFieldDelegate>
+@interface VMSettingVC : UIViewController <UITextFieldDelegate, IASKSettingsDelegate>
 {
     UITextField *usernameInput;
     UITextField *passwordInput;
+    IASKAppSettingsViewController *inAppSettingVC;
 }
 
-- (IBAction) toRegister;
+- (void)toRegister;
+- (void)showLogin;
 - (void)showSettings;
+- (void)login;
+- (void)logout;
+- (void)didLogin;
 
 @end

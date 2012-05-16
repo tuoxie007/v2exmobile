@@ -9,12 +9,12 @@
 
 #import "VMMainVC.h"
 #import "VMHomeVC.h"
-#import "VMNotificationVC.h"
 #import "VMNodeVC.h"
 #import "VMFavoriteVC.h"
 #import "VMSettingVC.h"
 #import "HTMLParser.h"
 #import "VMProfileVC.h"
+#import "VMRedmindVC.h"
 
 @implementation VMMainVC
 
@@ -36,10 +36,10 @@
     UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"icon-timeline.png"] tag:0];
     [homeNavController setTabBarItem:homeTabBarItem];
     
-    VMNotificationVC *notificationVC = [[VMNotificationVC alloc] init];
-    UINavigationController *notificationNavController = [[UINavigationController alloc] initWithRootViewController:notificationVC];
-    UITabBarItem *notificationTabBarItem = [[UITabBarItem alloc] initWithTitle:@"提醒" image:[UIImage imageNamed:@"icon-notification.png"] tag:1];
-    [notificationNavController setTabBarItem:notificationTabBarItem];
+    VMRedmindVC *redmindVC = [[VMRedmindVC alloc] init];
+    UINavigationController *redmindNavController = [[UINavigationController alloc] initWithRootViewController:redmindVC];
+    UITabBarItem *redmindTabBarItem = [[UITabBarItem alloc] initWithTitle:@"提醒" image:[UIImage imageNamed:@"icon-notification.png"] tag:1];
+    [redmindNavController setTabBarItem:redmindTabBarItem];
     
     VMNodeVC *nodeVC = [[VMNodeVC alloc] init];
     UINavigationController *nodeNavController = [[UINavigationController alloc] initWithRootViewController:nodeVC];
@@ -51,12 +51,12 @@
     UITabBarItem *favoriteTabBarItem = [[UITabBarItem alloc] initWithTitle:@"关注" image:[UIImage imageNamed:@"icon-favorite.png"] tag:3];
     [favoriteNavController setTabBarItem:favoriteTabBarItem];
     
-    VMProfileVC *settingVC = [[VMProfileVC alloc] init];
+    VMSettingVC *settingVC = [[VMSettingVC alloc] init];
     UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"账户" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];
     
-    [self setViewControllers:[[NSArray alloc] initWithObjects:homeNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
+    [self setViewControllers:[[NSArray alloc] initWithObjects:homeNavController, redmindNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
     
     self.selectedIndex = 0;
     
