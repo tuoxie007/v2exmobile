@@ -31,30 +31,31 @@
 
 - (void)loadImageWithURL:(NSURL *)url forImageButton:(UIButton *)imgButton
 {
-    NSString *encodedUrl = [[url description] md5];
-    cacheFilePath = [Commen getFilePathWithFilename:[NSString stringWithFormat:@"%@.png", encodedUrl]];
-    
-    NSData *imgData = [[NSData alloc] initWithContentsOfFile:cacheFilePath];
-    if ([imgData length]) {
-        UIImage *img = [[UIImage alloc] initWithData:imgData];
-        CGSize imgSize = [img size];
-        CGSize buttonSize = imageButton.frame.size;
-        [imgButton setImage:img forState:UIControlStateNormal];
-        [imageButton sizeToFit];
-        imageButton.frame = CGRectMake(imageButton.frame.origin.x, imageButton.frame.origin.y, MAX(buttonSize.width, buttonSize.height)*MIN(1, imgSize.width/imgSize.height), MAX(buttonSize.width, buttonSize.height)*MIN(1, imgSize.height/imgSize.width));
-        
-        return;
-    }
+//    NSString *encodedUrl = [[url description] md5];
+//    cacheFilePath = [Commen getFilePathWithFilename:[NSString stringWithFormat:@"%@.png", encodedUrl]];
+//    
+//    NSData *imgData = [[NSData alloc] initWithContentsOfFile:cacheFilePath];
+//    if (imgData) {
+//        [self setImageForButton:imageButton withData:imgData];
+//        return;
+//    }
     
     imageButton = imgButton;
-    NSURLRequest *req = [[NSURLRequest alloc] initWithURL:url];
+    NSURLRequest *req = [NSURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:5.0];//[[NSURLRequest alloc] initWithURL:url];
     connection = [[NSURLConnection alloc] initWithRequest:req delegate:self];
     webdata = [[NSMutableData alloc] init];
+}
+
+- (void)setImageForButton:(UIButton *)imgButton withData:(NSData *)imageData
+{
+    UIImage *img = [[UIImage alloc] initWithData:imageData];
+    [imgButton setImage:img forState:UIControlStateNormal];
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
     imageView.image = [[UIImage alloc] initWithData:webdata];
+    [self setImageForButton:imageButton withData:webdata];
     [webdata writeToFile:cacheFilePath atomically:NO];
 }
 
@@ -65,7 +66,7 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
 {
-    NSLog(@"Image Load Failed");
+//    NSLog(@"Image Load Failed");
 }
 
 @end

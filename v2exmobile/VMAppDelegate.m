@@ -22,6 +22,7 @@
     VMMainVC *mainVC = [[VMMainVC alloc] init];
     self.window.rootViewController = mainVC;
     [self.window makeKeyAndVisible];
+    [application setStatusBarStyle:UIStatusBarStyleBlackOpaque];
     return YES;
 }
 

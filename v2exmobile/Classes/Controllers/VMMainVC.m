@@ -8,45 +8,38 @@
 //
 
 #import "VMMainVC.h"
-#import "VMTimelineVC.h"
-#import "VMNotificationVC.h"
+#import "VMHomeVC.h"
 #import "VMNodeVC.h"
 #import "VMFavoriteVC.h"
-#import "VMMemberVC.h"
+#import "VMSettingVC.h"
 #import "HTMLParser.h"
+#import "VMProfileVC.h"
+#import "VMRedmindVC.h"
 
 @implementation VMMainVC
 
 - (void)didReceiveMemoryWarning
 {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 #pragma mark - View lifecycle
-
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
 
 - (void)viewDidLoad
 {
 //    VMAccount *account = [VMAccount getInstance];
     
-    VMTimelineVC *timelineVC = [[VMTimelineVC alloc] init];
-    UINavigationController *timelineNavController = [[UINavigationController alloc] initWithRootViewController:timelineVC];
-    UITabBarItem *timelineTabBarItem = [[UITabBarItem alloc] initWithTitle:@"时间线" image:[UIImage imageNamed:@"icon-timeline.png"] tag:0];
-    [timelineNavController setTabBarItem:timelineTabBarItem];
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-title-bg.png"] forBarMetrics:UIBarMetricsDefault];
     
-    VMNotificationVC *notificationVC = [[VMNotificationVC alloc] init];
-    UINavigationController *notificationNavController = [[UINavigationController alloc] initWithRootViewController:notificationVC];
-    UITabBarItem *notificationTabBarItem = [[UITabBarItem alloc] initWithTitle:@"提醒" image:[UIImage imageNamed:@"icon-notification.png"] tag:1];
-    [notificationNavController setTabBarItem:notificationTabBarItem];
+    VMHomeVC *homeVC = [[VMHomeVC alloc] init];
+    UINavigationController *homeNavController = [[UINavigationController alloc] initWithRootViewController:homeVC];
+    UITabBarItem *homeTabBarItem = [[UITabBarItem alloc] initWithTitle:@"首页" image:[UIImage imageNamed:@"icon-timeline.png"] tag:0];
+    [homeNavController setTabBarItem:homeTabBarItem];
+    
+    VMRedmindVC *redmindVC = [[VMRedmindVC alloc] init];
+    UINavigationController *redmindNavController = [[UINavigationController alloc] initWithRootViewController:redmindVC];
+    UITabBarItem *redmindTabBarItem = [[UITabBarItem alloc] initWithTitle:@"提醒" image:[UIImage imageNamed:@"icon-notification.png"] tag:1];
+    [redmindNavController setTabBarItem:redmindTabBarItem];
     
     VMNodeVC *nodeVC = [[VMNodeVC alloc] init];
     UINavigationController *nodeNavController = [[UINavigationController alloc] initWithRootViewController:nodeVC];
@@ -58,12 +51,14 @@
     UITabBarItem *favoriteTabBarItem = [[UITabBarItem alloc] initWithTitle:@"关注" image:[UIImage imageNamed:@"icon-favorite.png"] tag:3];
     [favoriteNavController setTabBarItem:favoriteTabBarItem];
     
-    VMMemberVC *accountVC = [[VMMemberVC alloc] init];
-    UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:accountVC];
+    VMSettingVC *settingVC = [[VMSettingVC alloc] init];
+    UINavigationController *accountNavController = [[UINavigationController alloc] initWithRootViewController:settingVC];
     UITabBarItem *accountTabBarItem = [[UITabBarItem alloc] initWithTitle:@"账户" image:[UIImage imageNamed:@"icon-account.png"] tag:4];
     [accountNavController setTabBarItem:accountTabBarItem];
     
-    [self setViewControllers:[[NSArray alloc] initWithObjects:timelineNavController, notificationNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
+    [self setViewControllers:[[NSArray alloc] initWithObjects:homeNavController, redmindNavController, nodeNavController, favoriteNavController, accountNavController, nil]];
+    
+    self.selectedIndex = 0;
     
     [super viewDidLoad];
 }
@@ -71,13 +66,10 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 

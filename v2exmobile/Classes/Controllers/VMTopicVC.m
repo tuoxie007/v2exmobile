@@ -1,557 +1,238 @@
 //
-//  VMDetailViewController.m
+//  VMTopicVC.m
 //  v2exmobile
 //
-//  Created by Xu Ke <tuoxie007@gmail.com> on 3/11/12.
+//  Created by Xu Ke <tuoxie007@gmail.com> on 5/10/12.
 //  Copyright (c) 2012 Xu Ke.
 //  Released under the MIT Licenses.
 //
 
+#define REPLIES_VIEW_HEAD_TAG 201
+#define TOPIC_VIEW_FOOT_TRA_TAG 202
+
 #import "VMTopicVC.h"
-#import "VMRepliesLoader.h"
+#import "VMRepliesVC.h"
+#import "Commen.h"
 #import "VMImageLoader.h"
-#import "VMAccount.h"
-#import "VMReplyVC.h"
-#import "VMInfoView.h"
-#import "VMWaitingView.h"
-#import "VMLoginHandler.h"
-#import "Config.h"
-#import "VMMemberVC.h"
-#import "VMWebContentVC.h"
+#import "VMAPI.h"
 
-//#define WAITING_VIEW_TAG 1
-
-#define NAME_TAG 11
-#define TIME_TAG 12
-#define IMAGE_TAG 13
-#define CONTENT_TAG 14
-#define STATIC_TAG_IN 15
-#define LOADING_REPLY_VIEW_TAG 16
-#define NODE_TAG 16
-#define REPLY_TAG 17
-#define POPUP_WINDOW_TAG 18
-#define ASK_LOGIN_TAG 19
-#define LOGIN_PROMPT_TAG 20
-#define INFO_VIEW_TAG 21
-
-
-#define ROW_HEIGHT 70
-#define IMAGE_SIDE 48
-#define REPLY_IMAGE_SIDE 24
-#define BORDER_WIDTH 5
-#define LABEL_HEIGHT 12
-#define WINDOW_WIDTH 320
-#define WINDOW_HEIGHT 367
-
-#define PADDING 5
-#define IMAGE_SIZE 48
-
-#define LABEL_WIDTH 130
-#define TEXT_OFFSET_X (BORDER_WIDTH * 2 + IMAGE_SIDE)
-#define TEXT_OFFSET_Y (BORDER_WIDTH * 2 + LABEL_HEIGHT)
-#define TEXT_WIDTH (320 - TEXT_OFFSET_X - BORDER_WIDTH)
-#define TEXT_HEIGHT (ROW_HEIGHT - TEXT_OFFSET_Y - BORDER_WIDTH)
+@interface VMTopicVC ()
+{
+    NSDictionary *topic;
+    UIView *topicView;
+    VMRepliesVC *repliesVC;
+    CGRect repliesFrame;
+}
+@end
 
 @implementation VMTopicVC
 
-@synthesize topic = _topic;
-
-- (id)initWithTopic:(NSDictionary *)topic
+- (id)initWithTopic:(NSDictionary *)_topic
 {
     self = [super init];
     if (self) {
-        imgBnt2name = [[NSMutableDictionary alloc] init];
-        self.topic = topic;
-        topicURL = [NSURL URLWithString:[[[_topic objectForKey:@"url"] componentsSeparatedByString:@"#"] objectAtIndex:0]];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(replySuccess) name:@"reply_success" object:nil];
+        topic = _topic;
     }
     return self;
 }
 
-#pragma mark - Managing the detail item
-- (void)updateView
+- (void)viewDidLoad
 {
-    if (!self.title) {
-        self.title = [self.topic objectForKey:@"node"];
-    }
-    VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
-    [repliesLoader loadRepliesWithURL:topicURL];
-}
-
-#pragma mark - Actions
-- (void)favoriteTopic
-{
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    favoriting = YES;
-    if ([VMAccount getInstance].cookie == nil) {
-        loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
-        [loginHandler login];
-        return;
-    }
+    [super viewDidLoad];
     
-    NSString *msg = @"正在收藏";
-    if (favorited) {
-        msg = @"正在取消收藏";
-    }
-    waittingView = [[VMwaitingView alloc] initWithMessage:msg];
-    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
-    [self.view addSubview:waittingView];
+    UIButton *backButtonView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    [backButtonView setBackgroundImage:[UIImage imageNamed:@"nav-back-bg.png"] forState:UIControlStateNormal];
+    [backButtonView addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+    UILabel *backButtonTitleView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 27)];
+    backButtonTitleView.text = @"返回";
+    backButtonTitleView.textColor = [UIColor whiteColor];
+    backButtonTitleView.textAlignment = UITextAlignmentCenter;
+    backButtonTitleView.font = [UIFont systemFontOfSize:12];
+    backButtonTitleView.backgroundColor = [UIColor clearColor];
+    [backButtonView addSubview:backButtonTitleView];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithCustomView:backButtonView];
+    self.navigationItem.leftBarButtonItem = backButton;
     
-    VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
-    repliesLoader.referer = [topicURL description];
-    [repliesLoader loadRepliesWithURL:[NSURL URLWithString:favURL]];
-}
-
-- (void)reply
-{
-    if ([VMAccount getInstance].cookie) {
-        VMReplyVC *replyVC = [[VMReplyVC alloc] initWithURL:topicURL];
-        [self.navigationController pushViewController:replyVC animated:YES];
-        return;
-    }
-    loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
-    [loginHandler login];
-}
-
-- (void)replySuccess
-{
-    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"发送成功"];
-    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
-    infoView.tag = INFO_VIEW_TAG;
-    [self.view addSubview:infoView];
-    [self performSelector:@selector(removeInfoView) withObject:nil afterDelay:1];
+    self.view.backgroundColor = [UIColor colorWithWhite:0.79 alpha:1];
     
-    [self updateView];
+    topicView = [[UIView alloc] init];
+    topicView.backgroundColor = [UIColor whiteColor];
     
-    waittingView = [[VMwaitingView alloc] initWithMessage:@"正在刷新"];
-    [waittingView setLoadingCenter:CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2)];
-    [self.view addSubview:waittingView];
-}
-
-- (void)removeInfoView
-{
-    [[self.view viewWithTag:INFO_VIEW_TAG] removeFromSuperview];
-}
-
-#pragma mark - account delegate
-- (void)loginSuccess
-{
-    if (favoriting) {
-        [self favoriteTopic];
-    } else {
-        [self reply];
-    }
-}
-
-#pragma mark - tableView delegate
-- (UITableViewCell *)repliesTipCellWithReuseIdentifier:(NSString *)identifier
-{
-    UITableViewCell *tipCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    tipCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    tipCell.frame = CGRectMake(0, 0, WINDOW_WIDTH, 17);
+    UIImageView *topicViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+    topicViewHead.frame = CGRectMake(0, 0, CONTENT_WIDTH, 5);
+    [topicView addSubview:topicViewHead];
     
-    tipCell.textLabel.textAlignment = UITextAlignmentLeft;
-    tipCell.textLabel.textColor = [UIColor grayColor];
-    tipCell.textLabel.font = [UIFont systemFontOfSize:10];
-    NSString *replyNum = [_topic objectForKey:@"replies"];
-    if (!replyNum || [replyNum isEqualToString:@""]) {
-        replyNum = [NSString stringWithFormat:@"%d", [replies count]];
-        if (!replyNum || [replyNum isEqualToString:@""]) {
-            replyNum = @"0";
-        }
-    }
-    tipCell.textLabel.text = [NSString stringWithFormat:@"共收到 %@ 个回复", replyNum];
+    UIButton *avatar = [[UIButton alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP, AVATAR_WIDTH, AVATAR_WIDTH)];
+    [[[VMImageLoader alloc] init] loadImageWithURL:[NSURL URLWithString:[[topic objectForKey:@"member"] objectForKey:@"avatar_large"]] forImageButton:avatar];
+    [topicView addSubview:avatar];
     
-    return tipCell;
-}
-
-- (UITableViewCell *)topicCellWithReuseIdentifier:(NSString *)identifier
-{
-    UITableViewCell *topicCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    topicCell.selectionStyle = UITableViewCellSelectionStyleNone;
-    topicCell.frame = CGRectMake(0, 0, WINDOW_WIDTH, 0);
-    
-    // User Image
-    UIButton *userImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [userImgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
-    userImgButton.frame = CGRectMake(PADDING, PADDING, IMAGE_SIZE, IMAGE_SIZE);
-    VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
-    [imgLoader loadImageWithURL:[NSURL URLWithString:[_topic objectForKey:@"img_url"]] forImageButton:userImgButton];
-    [topicCell addSubview:userImgButton];
-    
-    // Title
-    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(userImgButton.frame.origin.x + userImgButton.frame.size.width + PADDING, PADDING, WINDOW_WIDTH-(userImgButton.frame.origin.x + userImgButton.frame.size.width + PADDING)-PADDING, 0)];
+    UILabel *titleView = [[UILabel alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT+AVATAR_WIDTH+CONTENT_PADDING_LEFT, CONTENT_PADDING_TOP, CONTENT_WIDTH-CONTENT_PADDING_LEFT*3-AVATAR_WIDTH, 0)];
     titleView.font = [UIFont boldSystemFontOfSize:14];
-    titleView.highlightedTextColor = [UIColor whiteColor];
-    titleView.opaque = NO;
-    titleView.text = [_topic objectForKey:@"title"];
+    titleView.textColor = [Commen defaultTextColor];
+    titleView.text = [topic objectForKey:@"title"];
     titleView.lineBreakMode = UILineBreakModeCharacterWrap;
     titleView.numberOfLines = 0;
     [titleView sizeToFit];
-    [topicCell addSubview:titleView];
+    [topicView addSubview:titleView];
     
-    //    NSLog(@"%f", PADDING+contentView.frame.origin.y+contentView.frame.size.height);
-    // by
-    UILabel *staticLabel_by = [[UILabel alloc] initWithFrame:CGRectMake(PADDING*2+userImgButton.frame.size.width, PADDING+titleView.frame.origin.y+titleView.frame.size.height, 0, 0)];
-    staticLabel_by.font = [UIFont systemFontOfSize:9];
-    staticLabel_by.highlightedTextColor = [UIColor whiteColor];
-    staticLabel_by.opaque = NO;
-    staticLabel_by.textColor = [UIColor grayColor];
-    staticLabel_by.text = @"by";
-    [staticLabel_by sizeToFit];
-    [topicCell addSubview:staticLabel_by];
+    UILabel *timeAndClicksView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    timeAndClicksView.font = [UIFont boldSystemFontOfSize:9];
+    timeAndClicksView.textColor = [Commen defaultLightTextColor];
+    NSDate *time = [NSDate dateWithTimeIntervalSince1970:[[topic objectForKey:@"created"] intValue]];
+    timeAndClicksView.text = [NSString stringWithFormat:@"%@, %d 次点击", [Commen timeAsDisplay:time], 168];
+    [timeAndClicksView sizeToFit];
+    CGFloat infoY = MAX(CONTENT_PADDING_TOP+titleView.frame.origin.y+titleView.frame.size.height, avatar.frame.origin.y+avatar.frame.size.height-timeAndClicksView.frame.size.height);
+    timeAndClicksView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width, infoY, timeAndClicksView.frame.size.width, timeAndClicksView.frame.size.height);
+    [topicView addSubview:timeAndClicksView];
     
-    //    NSLog(@"%f", staticLabel_by.frame.origin.y + staticLabel_by.frame.size.height + PADDING);
-    // author
-    UILabel *authorLabel = [[UILabel alloc] initWithFrame:CGRectMake(staticLabel_by.frame.origin.x + staticLabel_by.frame.size.width + PADDING, staticLabel_by.frame.origin.y, 0, 0)];
-    authorLabel.font = [UIFont systemFontOfSize:9];
-    authorLabel.highlightedTextColor = [UIColor whiteColor];
-    authorLabel.opaque = NO;
-    authorLabel.text = [_topic objectForKey:@"author"];
-    [authorLabel sizeToFit];
-    [topicCell addSubview:authorLabel];
+    UILabel *authorView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    authorView.font = [UIFont boldSystemFontOfSize:9];
+    authorView.textColor = [Commen defaultTextColor];
+    authorView.text = [[topic objectForKey:@"member"] objectForKey:@"username"];
+    [authorView sizeToFit];
+    authorView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5, infoY, authorView.frame.size.width, authorView.frame.size.height);
+    [topicView addSubview:authorView];
     
-    // at
-    UILabel *staticLabel_at = [[UILabel alloc] initWithFrame:CGRectMake(authorLabel.frame.origin.x + authorLabel.frame.size.width + PADDING, authorLabel.frame.origin.y, 0, 0)];
-    staticLabel_at.font = [UIFont systemFontOfSize:9];
-    staticLabel_at.highlightedTextColor = [UIColor whiteColor];
-    staticLabel_at.opaque = NO;
-    staticLabel_at.textColor = [UIColor grayColor];
-    staticLabel_at.text = @"at";
-    [staticLabel_at sizeToFit];
-    [topicCell addSubview:staticLabel_at];
+    UILabel *byView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    byView.font = [UIFont boldSystemFontOfSize:9];
+    byView.textColor = [Commen defaultLightTextColor];
+    byView.text = @"By";
+    [byView sizeToFit];
+    byView.frame = CGRectMake(CONTENT_WIDTH-CONTENT_PADDING_LEFT-timeAndClicksView.frame.size.width-authorView.frame.size.width-5-byView.frame.size.width-5, infoY, byView.frame.size.width, byView.frame.size.height);
+    [topicView addSubview:byView];
     
-    // time
-    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(staticLabel_at.frame.origin.x + staticLabel_at.frame.size.width + PADDING, staticLabel_by.frame.origin.y, 0, 0)];
-    timeLabel.font = [UIFont systemFontOfSize:9];
-    timeLabel.highlightedTextColor = [UIColor whiteColor];
-    timeLabel.opaque = NO;
-    timeLabel.textColor = [UIColor grayColor];
-    timeLabel.text = [_topic objectForKey:@"time"];
+    UIImageView *titleSep = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"table-cell-separator.png"]];
+    titleSep.frame = CGRectMake(0, infoY+timeAndClicksView.frame.size.height+CONTENT_PADDING_TOP, CONTENT_WIDTH, 1);
+    [topicView addSubview:titleSep];
     
-    [timeLabel sizeToFit];
-    [topicCell addSubview:timeLabel];
+    UIWebView *contentView = [[UIWebView alloc] initWithFrame:CGRectMake(CONTENT_PADDING_LEFT, titleSep.frame.origin.y+titleSep.frame.size.height+5, CONTENT_WIDTH-CONTENT_PADDING_LEFT*2, 1)];
+    contentView.scrollView.scrollEnabled = NO;
+    contentView.delegate = self;
+    [contentView loadHTMLString:[NSString stringWithFormat:@"<body style=\"font-size:12px;padding:0;margin:0;\">%@</body>", [topic objectForKey:@"content_rendered"]] baseURL:nil];
+    [topicView addSubview:contentView];
     
-    // Fav button
-    if (favURL) {
-        if (!self.navigationItem.rightBarButtonItem) {
-            NSString *title;
-            if (favorited) {
-                title = @"取消收藏";
-            } else {
-                title = @"收藏";
-            }
-            UIBarButtonItem *favButton = [[UIBarButtonItem alloc] initWithTitle:title style:UIBarButtonItemStyleDone target:self action:@selector(favoriteTopic)];
-            self.navigationItem.rightBarButtonItem = favButton;
-        }
-    }
-    
-//    NSLog(@"%f", titleView.frame.origin.y+titleView.frame.size.height+PADDING);
-    // Content
-    UILabel *contentView = [[UILabel alloc] initWithFrame:CGRectMake(userImgButton.frame.origin.x, userImgButton.frame.origin.y+userImgButton.frame.size.height+PADDING, WINDOW_WIDTH-PADDING, 0)];
-    contentView.font = [UIFont systemFontOfSize:12];
-    contentView.highlightedTextColor = [UIColor whiteColor];
-    contentView.opaque = NO;
-    contentView.text = content;
-//    NSLog(@"%@", content);
-    contentView.lineBreakMode = UILineBreakModeWordWrap;
-    contentView.numberOfLines = 0;
-    [contentView sizeToFit];
-    [topicCell addSubview:contentView];
-    
-    // replies
-    if (!replies) {
-        // replies loading
-        UIView *loadingReplyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, 50)];
-        loadingReplyView.center = CGPointMake(WINDOW_WIDTH/2, timeLabel.frame.origin.y + timeLabel.frame.size.height+PADDING);
-        loadingReplyIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-        loadingReplyIndicatorView.color = [UIColor grayColor];
-        loadingReplyIndicatorView.center = CGPointMake(loadingReplyView.frame.size.width/2, loadingReplyView.frame.size.height/2+25);
-        [loadingReplyView addSubview:loadingReplyIndicatorView];
-        loadingReplyView.tag = LOADING_REPLY_VIEW_TAG;
-        [topicCell addSubview:loadingReplyView];
-        [loadingReplyIndicatorView startAnimating];
-    }
-    
-    // Update cell height
-    CGRect topicCellFrame = topicCell.frame;
-    topicCellFrame.size.height = MAX(contentView.frame.origin.y + contentView.frame.size.height + PADDING, timeLabel.frame.origin.y + timeLabel.frame.size.height + PADDING);
-//    NSLog(@"%f", topicCellFrame.size.height);
-    topicCell.frame = topicCellFrame;
-    
-    return topicCell;
+    [self.view addSubview:topicView];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)didFinishedLoadingWithData:(id)data forURL:(NSString *)url
 {
-    if (indexPath.row == 0) {
-        static NSString *topicCellIdentifier = @"TopicCell";
-        
-        if (content) {
-            return [self topicCellWithReuseIdentifier:topicCellIdentifier];
-        }
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:topicCellIdentifier];
-        if (cell == nil) {
-            cell = [self topicCellWithReuseIdentifier:topicCellIdentifier];
-        }
-        return cell;
-    }
-    if (indexPath.row == 1) {
-        static NSString *repliesTipCellIdentifier = @"RepliesTipCell";
-        
-        if (content) {
-            return [self repliesTipCellWithReuseIdentifier:repliesTipCellIdentifier];
-        }
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:repliesTipCellIdentifier];
-        if (cell == nil) {
-            cell = [self repliesTipCellWithReuseIdentifier:repliesTipCellIdentifier];
-        }
-        return cell;
-    }
-    if (indexPath.row < [replies count]+2) {
-        static NSString *topicCellIdentifier = @"ReplyCell";
-        
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:topicCellIdentifier];
-        if (cell == nil) {
-            cell = [self replyCellWithReuseIdentifier:topicCellIdentifier];
-        }
-        [self configureReplyCell:cell forIndexPath:indexPath];
-        return cell;
-    }
-    return nil;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	UITableViewCell *cell = [self tableView:tableView cellForRowAtIndexPath:indexPath];
-	return cell.frame.size.height;
-}
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (replies) {
-        return [replies count] + 2;
-    }
-    return 2;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if ([VMAccount getInstance].cookie) {
-        if (indexPath.row == 0) {
-            NSString *author = [_topic objectForKey:@"author"];
-            VMWebContentVC *webContentVC = [[VMWebContentVC alloc] initWithHTML:html author:author forURL:topicURL];
-            [self.navigationController pushViewController:webContentVC animated:YES];
-        } else if (indexPath.row > 1) {
-            NSString *author = [[replies objectAtIndex:indexPath.row-2] objectForKey:@"author"];
-            NSString *htmlContent = [[replies objectAtIndex:indexPath.row-2] objectForKey:@"html"];
-            VMWebContentVC *webContentVC = [[VMWebContentVC alloc] initWithHTML:htmlContent author:author forURL:topicURL];
-            [self.navigationController pushViewController:webContentVC animated:YES];
-        }
-    } else {
-        loginHandler = [[VMLoginHandler alloc] initWithDelegate:self];
-        [loginHandler login];
-    }
-}
-
-
-- (UITableViewCell *)replyCellWithReuseIdentifier:(NSString *)identifier
-{
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.frame = CGRectMake(0, 0, WINDOW_WIDTH, 0);
+    [topic setValue:data forKey:@"reply_objects"];
+    topicView.frame = CGRectMake(0, topicView.frame.origin.y, topicView.frame.size.width, topicView.frame.size.height);
+    repliesVC = [[VMRepliesVC alloc] initWithTopic:topic];
+    repliesVC.view.frame = CGRectMake(PADDING_LEFT, 0, CONTENT_WIDTH, 362-PADDING_TOP);
+    UIView *repliesViewHeader = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CONTENT_WIDTH, topicView.frame.size.height+10)];
+    repliesViewHeader.backgroundColor = self.view.backgroundColor;
+    [repliesViewHeader addSubview:topicView];
+    UIView *topBG = [[UIView alloc] initWithFrame:CGRectMake(0, -200, CONTENT_WIDTH, 200)];
+    topBG.backgroundColor = [Commen backgroundColor];
+    [repliesViewHeader addSubview:topBG];
+    repliesVC.tableView.tableHeaderView = repliesViewHeader;
     
-    //Userpic view
-    CGRect rect = CGRectMake(BORDER_WIDTH, BORDER_WIDTH, REPLY_IMAGE_SIDE, REPLY_IMAGE_SIDE);
-    UIButton *userImgButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [userImgButton addTarget:self action:@selector(showMember:) forControlEvents:UIControlEventTouchUpInside];
-    userImgButton.frame = rect;
-    userImgButton.tag = IMAGE_TAG;
-    [cell addSubview:userImgButton];
+    UIImageView *repliesViewFooter = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-bottom-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+    repliesViewFooter.frame = CGRectMake(PADDING_LEFT, 362-PADDING_TOP, CONTENT_WIDTH, 5);
+    [self.view addSubview:repliesViewFooter];
     
-    UILabel *label;
+    [topicView viewWithTag:REPLIES_VIEW_HEAD_TAG].hidden = NO;
+    [topicView viewWithTag:TOPIC_VIEW_FOOT_TRA_TAG].hidden = NO;
     
-    //Username
-    rect = CGRectMake(BORDER_WIDTH+REPLY_IMAGE_SIDE+BORDER_WIDTH, BORDER_WIDTH, 0, LABEL_HEIGHT); // not sure: W
-    label = [[UILabel alloc] initWithFrame:rect];
-    label.tag = NAME_TAG;
-    label.font = [UIFont boldSystemFontOfSize:9];
-    label.highlightedTextColor = [UIColor whiteColor];
-    [cell addSubview:label];
-    label.opaque = NO;
-    label.backgroundColor = [UIColor clearColor];
-    
-    //Message body
-    
-    //Reply time
-    rect = CGRectMake(0, BORDER_WIDTH, LABEL_WIDTH, LABEL_HEIGHT); // not sure: X
-    label = [[UILabel alloc] initWithFrame:rect];
-    label.tag = TIME_TAG;
-    label.font = [UIFont systemFontOfSize:9];
-    label.textColor = [UIColor grayColor];
-    [cell addSubview:label];
-    label.opaque = NO;
-    label.backgroundColor = [UIColor clearColor];
-    
-    return cell;
-}
-
-- (void)configureReplyCell:(UITableViewCell *)cell forIndexPath:(NSIndexPath *)indexPath
-{
-    NSDictionary *reply = [replies objectAtIndex:indexPath.row-2];
-    
-    // Configure the cell.
-    CGRect cellFrame = [cell frame];
-    //Set reply content
-    CGRect rect = CGRectMake(BORDER_WIDTH+REPLY_IMAGE_SIDE+BORDER_WIDTH, TEXT_OFFSET_Y, TEXT_WIDTH, 0); // not sure: H
-    UILabel *contentView = [[UILabel alloc] initWithFrame:rect];
-    contentView.font = [UIFont systemFontOfSize:12];
-    contentView.highlightedTextColor = [UIColor whiteColor];
-    contentView.opaque = NO;
-    contentView.text = [reply objectForKey:@"content"];
-    contentView.lineBreakMode = UILineBreakModeWordWrap;
-    contentView.numberOfLines = 0;
-    [contentView sizeToFit];
-    rect = contentView.frame;
-    rect.size.width = TEXT_WIDTH;
-    rect.size.height += PADDING;
-    contentView.frame = rect;
-    [cell.contentView addSubview:contentView];
-    
-    cellFrame.size.height = contentView.frame.origin.y + contentView.frame.size.height;
-    
-    [cell setFrame:cellFrame];
-    cell.clipsToBounds = YES;
-    
-    //Set date and time
-    UILabel *timeLabel = (UILabel *)[cell viewWithTag:TIME_TAG];
-    timeLabel.highlightedTextColor = [UIColor whiteColor];
-    timeLabel.opaque = NO;
-    timeLabel.text = [NSString stringWithFormat:@"#%d - %@", indexPath.row - 1, [reply objectForKey:@"time"]];
-    [timeLabel sizeToFit];
-    CGRect timeFrame = [timeLabel frame];
-    timeFrame.origin.x = 320-BORDER_WIDTH-timeFrame.size.width;
-    [timeLabel setFrame:timeFrame];
-    
-    //Set userpic
-    UIButton *imageView = (UIButton *)[cell viewWithTag:IMAGE_TAG];
-    [imageView setImage:[UIImage imageNamed:@"loading.png"] forState:UIControlStateNormal];
-    [imgBnt2name setValue:[reply objectForKey:@"author"] forKey:[NSString stringWithFormat:@"%d", imageView]];
-    VMImageLoader *imgLoader = [[VMImageLoader alloc] init];
-    NSString *imgURL = [reply objectForKey:@"img_url"];
-    [imgLoader loadImageWithURL:[NSURL URLWithString:imgURL] forImageButton:imageView];
-    
-    //Set user name
-    UILabel *userLabel = (UILabel *)[cell viewWithTag:NAME_TAG];
-    userLabel.highlightedTextColor = [UIColor whiteColor];
-    userLabel.opaque = NO;
-    userLabel.text = [reply objectForKey:@"author"];
-    [userLabel sizeToFit];
-}
-
-#pragma mark - RepliesLoader delegate
-- (void)didFinishedLoadingWithData:(NSDictionary *)topic
-{
-    NSMutableDictionary *newTopic = [NSMutableDictionary dictionaryWithDictionary:_topic];
-    [newTopic setValue:[topic objectForKey:@"title"] forKey:@"title"];
-    [newTopic setValue:[topic objectForKey:@"img_url"] forKey:@"img_url"];
-    [newTopic setValue:[topic objectForKey:@"author"] forKey:@"author"];
-    [newTopic setValue:[topic objectForKey:@"time"] forKey:@"time"];
-    _topic = newTopic;
-    content = [topic objectForKey:@"content"];
-    html = [topic objectForKey:@"html"];
-    if (replies && needAppendRepilies) {
-        [[topic objectForKey:@"replies"] addObjectsFromArray:replies];
-        needAppendRepilies = NO;
-    }
-    replies = [topic objectForKey:@"replies"];
-    favURL = [topic objectForKey:@"fav_url"];
-    favorited = [favURL hasPrefix:[NSString stringWithFormat:@"%@%@", V2EX_URL, @"/unfavorite"]];
-    if (favoriting) {
-        if (favorited) {
-            self.navigationItem.rightBarButtonItem.title = @"取消收藏";
-        } else {
-            self.navigationItem.rightBarButtonItem.title = @"收藏";
-        }
-        self.navigationItem.rightBarButtonItem.enabled = YES;
-    }
-    favoriting = NO;
-    
-    if ([topic objectForKey:@"next_page"] > @"0") {
-        needAppendRepilies = YES;
-        VMRepliesLoader *repliesLoader = [[VMRepliesLoader alloc] initWithDelegate:self];
-        [repliesLoader loadRepliesWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?p=%@", [topicURL description], [topic objectForKey:@"next_page"]]]];
-    } else {
-        [self.tableView reloadData];
-        [loadingReplyIndicatorView stopAnimating];
-        [loadingReplyIndicatorView removeFromSuperview];
-        [waittingView removeFromSuperview];
-    }
+    [self.view addSubview:repliesVC.view];
 }
 
 - (void)cancel
 {
-    VMInfoView *infoView = [[VMInfoView alloc] initWithMessage:@"加载失败"];
-    infoView.center = CGPointMake(WINDOW_WIDTH/2, self.tableView.contentOffset.y+WINDOW_HEIGHT/2);
-    [self.view addSubview:infoView];
-    [self performSelector:@selector(removeInfoView:) withObject:infoView afterDelay:2];
+//    TODO
+    NSLog(@"Load replies failed");
 }
-
-- (void)removeInfoView:(id)infoView
-{
-    [(UIView *)infoView removeFromSuperview];
-}
-
-#pragma mark - View lifecycle
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-#pragma mark - webview delegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    if (webView.tag == POPUP_WINDOW_TAG) {
-        return YES;
-    }
-    if ([[request.URL description] isEqual:[topicURL description]]) {
-        return YES;
-    }
-    popupURL = [request URL];
-    UIWebView *newWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
-    newWebView.tag = POPUP_WINDOW_TAG;
-    newWebView.delegate = self;
-    UIView *newWindow = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT)];
-    [newWindow addSubview:newWebView];
-    popupLoadingView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    popupLoadingView.color = [UIColor grayColor];
-    popupLoadingView.center = newWebView.center;
-    [newWebView addSubview:popupLoadingView];
-    [popupLoadingView startAnimating];
-    popupWindowVC = [[UIViewController alloc] init];
-    popupWindowVC.view = newWindow;
-    [self.navigationController pushViewController:popupWindowVC animated:YES];
-    [newWebView loadRequest:request];
-    return NO;
+    return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    popupWindowVC.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title;"];
-    [popupLoadingView stopAnimating];
-    [popupLoadingView removeFromSuperview];
-}
-
-- (void)showMember:(UIButton *)imgBnt
-{
-    VMMemberVC *memberVC = [[VMMemberVC alloc] initWithName:[imgBnt2name objectForKey:[NSString stringWithFormat:@"%d", imgBnt]]];
-    [self.navigationController pushViewController:memberVC animated:YES];
+    CGRect frame = webView.frame;
+    CGSize fittingSize = [webView sizeThatFits:CGSizeZero];
+    frame.size = fittingSize;
+    webView.frame = frame;
+    
+    UIImageView *contentSep = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-shadow-bg1.png"] stretchableImageWithLeftCapWidth:1 topCapHeight:0]];
+    contentSep.frame = CGRectMake(0, webView.frame.origin.y+webView.frame.size.height+CONTENT_PADDING_TOP, CONTENT_WIDTH, 4);
+    [topicView addSubview:contentSep];
+    
+    UIView *infoView = [[UIView alloc] initWithFrame:CGRectMake(0, contentSep.frame.origin.y+contentSep.frame.size.height, CONTENT_WIDTH, 26)];
+    infoView.backgroundColor = [UIColor colorWithWhite:0.92 alpha:1];
+    [topicView addSubview:infoView];
+    
+    UILabel *favView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
+    favView.font = [UIFont boldSystemFontOfSize:9];
+    favView.textColor = [Commen defaultLightTextColor];
+    favView.backgroundColor = [UIColor clearColor];
+    favView.text = [NSString stringWithFormat:@"已有 %d 人收藏此主题", 12];
+    [favView sizeToFit];
+    favView.frame = CGRectMake(CONTENT_PADDING_LEFT, 5, favView.frame.size.width, favView.frame.size.height);
+    [infoView addSubview:favView];
+    
+    
+    UIButton *actionFavorite = [[UIButton alloc] init];
+    [actionFavorite setImage:[UIImage imageNamed:@"topic-action-favorite.png"] forState:UIControlStateNormal];
+    [actionFavorite sizeToFit];
+    actionFavorite.center = CGPointMake(149, 13);
+    [infoView addSubview:actionFavorite];
+    
+    UIButton *actionWeibo = [[UIButton alloc] init];
+    [actionWeibo setImage:[UIImage imageNamed:@"topic-action-weibo.png"] forState:UIControlStateNormal];
+    [actionWeibo sizeToFit];
+    actionWeibo.center = CGPointMake(194, 13);
+    [infoView addSubview:actionWeibo];
+    
+    UIButton *actionTwitter = [[UIButton alloc] init];
+    [actionTwitter setImage:[UIImage imageNamed:@"topic-action-twitter.png"] forState:UIControlStateNormal];
+    [actionTwitter sizeToFit];
+    actionTwitter.center = CGPointMake(239, 13);
+    [infoView addSubview:actionTwitter];
+    
+    UIButton *actionReply = [[UIButton alloc] init];
+    [actionReply setImage:[UIImage imageNamed:@"topic-action-reply.png"] forState:UIControlStateNormal];
+    [actionReply sizeToFit];
+    actionReply.center = CGPointMake(284, 13);
+    [infoView addSubview:actionReply];
+    
+    UIImageView *topicViewFoot = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-shadow-bg2.png"] stretchableImageWithLeftCapWidth:3 topCapHeight:0]];
+    topicViewFoot.frame = CGRectMake(0, infoView.frame.origin.y+infoView.frame.size.height, CONTENT_WIDTH, 4);
+    [topicView addSubview:topicViewFoot];
+    
+    CGFloat topicViewFootBottomY = topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height;
+    
+    // 为回复列表准备的头部视图
+    // 列表头部的三角形和圆角位置的背景，加这个View的原因是表格的背景色和外层View的背景不同，高度为 6+5
+    UIView *repliesViewHeadWrapper = [[UIView alloc] initWithFrame:CGRectMake(0, topicViewFoot.frame.origin.y+topicViewFoot.frame.size.height, CONTENT_WIDTH, 6+5)];
+    repliesViewHeadWrapper.backgroundColor = [Commen backgroundColor];
+    
+    // 列表头部的三角形，高度为 6
+    UIImageView *topicViewFootTra = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"replies-table-top-tra.png"]];
+    topicViewFootTra.frame = CGRectMake(CONTENT_PADDING_LEFT, 0, 10, 6);
+    topicViewFootTra.backgroundColor = [UIColor clearColor];
+    topicViewFootTra.tag = TOPIC_VIEW_FOOT_TRA_TAG;
+    topicViewFootTra.hidden = YES;
+    [repliesViewHeadWrapper addSubview:topicViewFootTra];
+    
+    // 列表头部的圆角，高度为 5
+    UIImageView *repliesViewHead = [[UIImageView alloc] initWithImage:[[UIImage imageNamed:@"box-border-top-bg.png"] stretchableImageWithLeftCapWidth:5 topCapHeight:0]];
+    repliesViewHead.frame = CGRectMake(0, 6, CONTENT_WIDTH, 5);
+    repliesViewHead.tag = REPLIES_VIEW_HEAD_TAG;
+    repliesViewHead.hidden = YES;
+    [repliesViewHeadWrapper addSubview:repliesViewHead];
+    
+    [topicView addSubview:repliesViewHeadWrapper];
+    
+    topicView.frame = CGRectMake(8, PADDING_TOP, CONTENT_WIDTH, topicViewFootBottomY+6+5);
+    
+    if ([[topic objectForKey:@"replies"] intValue]) {
+        [[VMAPI sharedAPI] repliesWithDelegate:self forTopicId:[[topic objectForKey:@"id"] intValue]];
+    } else {
+        [self didFinishedLoadingWithData:nil forURL:nil];
+    }
 }
 
 @end

@@ -8,7 +8,7 @@
 //
 
 #import "VMTimelineVC.h"
-#import "VMTopicVC.h"
+#import "VMOldTopicVC.h"
 #import "VMTopicsLoader.h"
 #import "VMImageLoader.h"
 #import "Config.h"
@@ -98,7 +98,7 @@
         return [self loadTopics:currentPage+1];
     }
     NSDictionary *topic = [topics objectAtIndex:indexPath.row];
-    VMTopicVC *topicVC = [[VMTopicVC alloc] initWithTopic:topic];
+    VMOldTopicVC *topicVC = [[VMOldTopicVC alloc] initWithTopic:topic];
     [topicVC updateView];
     [self.navigationController pushViewController:topicVC animated:YES];
 }
@@ -339,6 +339,11 @@
 - (NSInteger)egoRefreshTableHeaderDataSourceCurrentPage:(EGORefreshTableHeaderView *)view
 {
     return currentPage;
+}
+
+- (NSDate *)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView *)view
+{
+    return [NSDate date];
 }
 
 #pragma mark -
