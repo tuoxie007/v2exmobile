@@ -94,7 +94,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary *notification = [notifications objectAtIndex:indexPath.row];
-    topicVC = [[VMTopicVC alloc] initWithTopic:notification];
+    topicVC = [[VMOldTopicVC alloc] initWithTopic:notification];
     [topicVC updateView];
     [self.navigationController pushViewController:topicVC animated:YES];
 }

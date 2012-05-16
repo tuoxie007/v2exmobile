@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import "EGORefreshTableHeaderView.h"
 #import "VMNotificationsLoader.h"
-#import "VMTopicVC.h"
+#import "VMOldTopicVC.h"
 #import "VMLoginHandler.h"
 
 @interface VMNotificationVC : UITableViewController <EGORefreshTableHeaderDelegate, LoaderDalegate, LoginHandlerDelegate>
@@ -19,7 +19,7 @@
     EGORefreshTableHeaderView *refreshTableHeaderView;
     VMNotificationsLoader *loader;
     BOOL loading;
-    VMTopicVC *topicVC;
+    VMOldTopicVC *topicVC;
     VMLoginHandler *loginHandler;
     NSDictionary *imgBnt2name;
     VMwaitingView *waitingView;

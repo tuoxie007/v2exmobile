@@ -8,7 +8,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VMTabBarController.h"
 
-@interface VMMainVC : UITabBarController
+@interface VMMainVC : VMTabBarController
 
 @end

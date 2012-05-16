@@ -42,7 +42,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VMNodeTimelineVC *nodeTimelineVC = [[VMNodeTimelineVC alloc] initWithNode:[[_nodes objectAtIndex:indexPath.row] objectAtIndex:0]];
+    VMNodeTimelineVC *nodeTimelineVC = [[VMNodeTimelineVC alloc] initWithNode:[[_nodes objectAtIndex:indexPath.row] objectAtIndex:0] title:nil];
     [self.navigationController pushViewController:nodeTimelineVC animated:YES];
 }
 
