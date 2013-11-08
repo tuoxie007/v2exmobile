@@ -1,10 +1,8 @@
-# v2exmobile
+### This project is no longer being maintained since PB3 released.
 
-This project is no longer being maintained since PB3 released.
+##Usage:
 
-#Usage:
-
-##Prepare for the build
+###Prepare for the build
 
 	1. If you clone the project by git insead of Xcode, please DO this before you build it.
 
